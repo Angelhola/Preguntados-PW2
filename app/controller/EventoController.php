@@ -26,15 +26,18 @@ class EventoController
         $this->render->renderiza("evento", $data);
     }
 
-    public function miami()
+    public function login()
     {
-        $data["nombre"] = Request::get('nombre');
-        $this->render->renderiza("miami", $data);
+        $data["error"] = Request::get('login_error') !== null ? "Usuario o contraseña incorrectos." : "";
+        $data["logueado"] = isset($_SESSION['usuario']);
+        $data["usuario"] = $_SESSION['usuario'] ?? null;
+
+        $this->render->renderiza("evento", $data);
     }
 
     public function home()
     {
-        $data["usuario"] = Request::get('usuario');
+        $data["usuario"] = $_SESSION['usuario'] ?? null;
         $this->render->renderiza("home", $data);
     }
 }

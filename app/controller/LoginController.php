@@ -19,7 +19,7 @@ class LoginController
         $usuario = $this->model->autenticar(Request::post('usuario'), Request::post('password'));
 
         if ($usuario === null) {
-            Redirect::to('index.php?login_error=1');
+            Redirect::to('?controller=evento&method=login&login_error=1');
         }
 
         $_SESSION['usuario_id'] = $usuario['id'];
@@ -29,7 +29,8 @@ class LoginController
 
     public function logout()
     {
+        $_SESSION = [];
         session_destroy();
-        Redirect::toIndex();
+        Redirect::to('?controller=evento&method=login');
     }
 }

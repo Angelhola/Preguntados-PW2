@@ -58,7 +58,7 @@
 <div class="w3-bar" style="background-color:#2E7D32">
     <a href="/" class="w3-bar-item w3-button">🏠 Inicio</a>
     <?php if (isset($_SESSION['usuario'])): ?>
-        <a href="/login/logout" class="w3-bar-item w3-button w3-right">🚪 Salir</a>
+        <a href="?controller=login&method=login" class="w3-bar-item w3-button w3-right">🚪 Salir</a>
     <?php endif; ?>
 </div>
 
