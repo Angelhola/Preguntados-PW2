@@ -19,12 +19,12 @@ class LoginController
         $usuario = $this->model->autenticar(Request::post('usuario'), Request::post('password'));
 
         if ($usuario === null) {
-            Redirect::to('/?login_error=1');
+            Redirect::to('index.php?login_error=1');
         }
 
         $_SESSION['usuario_id'] = $usuario['id'];
         $_SESSION['usuario'] = $usuario['usuario'];
-        Redirect::toIndex();
+        Redirect::to('?controller=evento&method=home');
     }
 
     public function logout()

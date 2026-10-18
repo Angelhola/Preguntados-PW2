@@ -31,4 +31,10 @@ class EventoController
         $data["nombre"] = Request::get('nombre');
         $this->render->renderiza("miami", $data);
     }
+
+    public function home()
+    {
+        $data["usuario"] = Request::get('usuario');
+        $this->render->renderiza("home", $data);
+    }
 }
