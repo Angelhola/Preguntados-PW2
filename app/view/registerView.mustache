@@ -1,13 +1,17 @@
- <form method="post" action="index.php?controller=login&method=registrar">
-
-     <label for="usuario"> Usuario </label>
-     <input type="text" name="usuario" id="usuario">
-
-     <label for="email">Email</label>
-     <input type="email" name="email" id="email">
-
-     <label for="password">Contraseña</label>
-     <input type="password" name="password" id="password">
-
-     <button type="submit">Registrarme</button>
- </form>
+<div style="max-width: 400px" class="w3-margin-top w3-content">
+    <div class="w3-card w3-padding w3-white w3-center">
+        <h1>Registro</h1>
+        <form method="post" action="index.php?controller=login&method=registrar">
+            <label for="usuario" class="w3-left"> Usuario </label>
+            <input type="text" name="usuario" id="usuario" class="w3-input w3-select">
+            <br>
+            <label for="email" class="w3-left">Email</label>
+            <input type="email" name="email" id="email" class="w3-input w3-select">
+            <br>
+            <label for="password" class="w3-left">Contraseña</label>
+            <input type="password" name="password" id="password" class="w3-input w3-select">
+            <br>
+            <button type="submit" class="w3-button" style="background: #6effaf">Registrarme</button>
+        </form>
+    </div>
+</div>
