@@ -1,16 +1,38 @@
 <div style="max-width: 400px" class="w3-margin-top w3-content">
     <div class="w3-card w3-padding w3-white w3-center">
         <h1>Registro</h1>
-        <form method="post" action="index.php?controller=login&method=registrar">
+        <form method="post" action="index.php?controller=login&method=registrar" enctype="multipart/form-data">
+            <label for="nombreCompleto" class="w3-left">Nombre Completo</label>
+            <input type="text" id="nombreCompleto" name="nombreCompleto" class="w3-input w3-select">
+            <br>
+            <label for="genero" class="w3-left">Género</label>
+            <select name="genero" id="genero" class="w3-input w3-select">
+             <option value="femenino">Femenino</option>
+             <option value="masculino">Masculino</option>
+             <option value="otro">Otro</option>
+             <option value="SinOpcion">Prefiero no decirlo</option>
+            </select>
+            <br>
             <label for="usuario" class="w3-left"> Usuario </label>
             <input type="text" name="usuario" id="usuario" class="w3-input w3-select">
             <br>
             <label for="email" class="w3-left">Email</label>
             <input type="email" name="email" id="email" class="w3-input w3-select">
             <br>
+            <label for="buscador" class="w3-left">Ciudad</label>
+            <div style="position:relative">
+                <input type="text" id="buscador" class="w3-input w3-select" placeholder="Empezá a escribir tu ciudad..." autocomplete="off">
+                <div id="sugerencias" class="w3-white w3-border" style="display:none; position:absolute; width:100%; z-index:10; text-align:left"></div>
+            </div>
+            <input type="hidden" name="ciudad" id="ciudad">
+            <input type="hidden" name="provincia" id="provincia">
+            <input type="hidden" name="pais" id="pais">
+            <br>
             <label for="password" class="w3-left">Contraseña</label>
             <input type="password" name="password" id="password" class="w3-input w3-select">
             <br>
+        <label for="fotoPerfil">Foto de perfil </label>
+        <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" class="w3-input">
             <button type="submit" class="w3-button" style="background: #6effaf">Registrarme</button>
         </form>
     </div>

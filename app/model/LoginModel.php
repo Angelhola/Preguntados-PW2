@@ -20,12 +20,16 @@ class LoginModel
         return $this->database->queryOne($sql);
     }
 
-    public function registrar($usuario, $email, $password)
-    {
+//    public function registrar($usuario, $email, $password)
+//    {
+//        $passwordHash = md5($password);
+//
+//        $sql = "INSERT INTO usuario (usuario, email, password) VALUES ('$usuario', '$email', '$passwordHash')";
+//
+//        return $this->database->execute($sql);
+        public function registrar($usuario, $email, $password, $nombreCompleto, $genero, $foto){
         $passwordHash = md5($password);
-
-        $sql = "INSERT INTO usuario (usuario, email, password) VALUES ('$usuario', '$email', '$passwordHash')";
-
+        $sql = "INSERT INTO usuario (usuario, email, password, nombre_completo, genero, foto_perfil) VALUES ('$usuario', '$email', '$passwordHash', '$nombreCompleto', '$genero', '$foto')";
         return $this->database->execute($sql);
     }
 }

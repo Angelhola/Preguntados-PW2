@@ -1,0 +1,2 @@
+[22:21:16] [INFO] INSERT INTO usuario (usuario, email, password, nombre_completo, genero, foto_perfil) VALUES ('123', 'valen@gmail.com', '202cb962ac59075b964b07152d234b70', 'Valentina Romano', 'masculino', 'perfil_6ad67bbc41d33.png')
+[22:21:22] [INFO] SELECT id, usuario FROM usuario WHERE usuario = '123' AND password = '202cb962ac59075b964b07152d234b70'
