@@ -12,3 +12,4 @@ CREATE TABLE usuario (
 
 INSERT INTO usuario (usuario, password) VALUES
 ('test', MD5('1234'));
+ALTER TABLE preguntados.usuario ADD COLUMN email VARCHAR(100);
