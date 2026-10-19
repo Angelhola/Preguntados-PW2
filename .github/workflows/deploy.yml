@@ -2,7 +2,7 @@ name: Deploy a Infinity
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   deploy:
