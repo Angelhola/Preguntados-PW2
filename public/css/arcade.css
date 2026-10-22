@@ -42,6 +42,7 @@ body.arcade {
 .tarjeta-arcade input[type=email],
 .tarjeta-arcade input[type=password],
 .tarjeta-arcade input[type=file],
+.tarjeta-arcade input[type=number],
 .tarjeta-arcade select {
     width: 100%;
     box-sizing: border-box;
@@ -197,3 +198,4 @@ body.arcade::before {
     from { width: 0; }
     to   { width: 100%; }
 }
+

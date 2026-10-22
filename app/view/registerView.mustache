@@ -4,7 +4,8 @@
     <form method="post" enctype="multipart/form-data" action="index.php?controller=login&method=registrar">
         <label for="nombreCompleto">NOMBRE COMPLETO</label>
         <input type="text" id="nombreCompleto" name="nombreCompleto">
-
+        <label for="anioNacimiento">AÑO DE NACIMIENTO</label>
+        <input type="number" id="anioNacimiento" name="anioNacimiento" min="1900" max="2026" required>
         <label for="genero">GÉNERO</label>
         <select id="genero" name="genero">
             <option value="femenino">Femenino</option>
@@ -30,6 +31,8 @@
 
         <label for="password">CONTRASEÑA</label>
         <input type="password" name="password" id="password">
+        <label for="passwordRepetida">REPETIR CONTRASEÑA</label>
+        <input type="password" id="passwordRepetida" name="passwordRepetida" required>
 
         <label for="fotoPerfil">FOTO DE PERFIL</label>
         <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">

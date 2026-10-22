@@ -11,10 +11,11 @@ CREATE TABLE usuario (
                          usuario VARCHAR(50) NOT NULL UNIQUE,
                          password VARCHAR(32) NOT NULL,
                          email VARCHAR(100),
-                         nombre_completo VARCHAR(100),
+                         nombre_completo VARCHAR(100),anio_nacimiento INT,
                          genero VARCHAR(20),
                          foto_perfil VARCHAR(255), ciudadVARCHAR(100),
-                     ,paisVARCHAR(100),regionVARCHAR(100));
+                     ,paisVARCHAR(100),regionVARCHAR(100))
+;
 
 INSERT INTO usuario (usuario, password) VALUES
     ('test', MD5('1234'));

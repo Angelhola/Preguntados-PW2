@@ -52,6 +52,8 @@ class LoginController
         $usuario = Request::post('usuario');
         $email = Request::post('email');
         $password = Request::post('password');
+        $passwordRepetida = Request::post('passwordRepetida', '');
+        $anio = Request::post('anioNacimiento', '');
         $nombreCompleto = Request::post('nombreCompleto');
         $genero = Request::post('genero');
         $pais = Request::post('pais');
@@ -68,7 +70,7 @@ class LoginController
             }
         }
 
-        $this->model->registrar($usuario, $email, $password, $nombreCompleto, $genero,  $foto, $ciudad,$pais, $region);
+        $this->model->registrar($usuario, $email, $password, $nombreCompleto,$anio, $genero,  $foto, $ciudad,$pais, $region);
         Redirect::to('?controller=login&method=show');
     }
 
