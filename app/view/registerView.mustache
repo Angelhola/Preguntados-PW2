@@ -1,43 +1,44 @@
-<div style="max-width: 400px" class="w3-margin-top w3-content">
-    <div class="w3-card w3-padding w3-white w3-center">
-        <h1>Registro</h1>
-        <form method="post" action="index.php?controller=login&method=registrar" enctype="multipart/form-data">
-            <label for="nombreCompleto" class="w3-left">Nombre Completo</label>
-            <input type="text" id="nombreCompleto" name="nombreCompleto" class="w3-input w3-select">
-            <br>
-            <label for="genero" class="w3-left">Género</label>
-            <select name="genero" id="genero" class="w3-input w3-select">
-             <option value="femenino">Femenino</option>
-             <option value="masculino">Masculino</option>
-             <option value="otro">Otro</option>
-             <option value="SinOpcion">Prefiero no decirlo</option>
-            </select>
-            <br>
-            <label for="usuario" class="w3-left"> Usuario </label>
-            <input type="text" name="usuario" id="usuario" class="w3-input w3-select">
-            <br>
-            <label for="email" class="w3-left">Email</label>
-            <input type="email" name="email" id="email" class="w3-input w3-select">
-            <br>
-            <label for="buscador" class="w3-left">Ciudad</label>
-            <div style="position:relative">
-                <input type="text" id="buscador" class="w3-input w3-select" placeholder="Empezá a escribir tu ciudad..." autocomplete="off">
-                <div id="sugerencias" class="w3-white w3-border" style="display:none; position:absolute; width:100%; z-index:10; text-align:left"></div>
-            </div>
-            <input type="hidden" name="ciudad" id="ciudad">
-            <input type="hidden" name="region" id="region">
-            <input type="hidden" name="pais" id="pais">
-            <br>
-            <br>
-            <label for="password" class="w3-left">Contraseña</label>
-            <input type="password" name="password" id="password" class="w3-input w3-select">
-            <br>
-        <label for="fotoPerfil">Foto de perfil </label>
-        <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" class="w3-input">
-            <button type="submit" class="w3-button" style="background: #6effaf">Registrarme</button>
-        </form>
-    </div>
+
+<h1 class="titulo-arcade">REGISTRO</h1>
+<div class="tarjeta-arcade">
+    <form method="post" enctype="multipart/form-data" action="index.php?controller=login&method=registrar">
+        <label for="nombreCompleto">NOMBRE COMPLETO</label>
+        <input type="text" id="nombreCompleto" name="nombreCompleto">
+
+        <label for="genero">GÉNERO</label>
+        <select id="genero" name="genero">
+            <option value="femenino">Femenino</option>
+            <option value="masculino">Masculino</option>
+            <option value="otro">Otro</option>
+            <option value="sin_opcion">Prefiero no decirlo</option>
+        </select>
+
+        <label for="usuario">USUARIO</label>
+        <input type="text" name="usuario" id="usuario">
+
+        <label for="email">EMAIL</label>
+        <input type="email" name="email" id="email">
+
+        <label for="buscador">CIUDAD</label>
+        <div style="position:relative">
+            <input type="text" id="buscador" placeholder="Empezá a escribir..." autocomplete="off">
+            <div id="sugerencias" class="sugerencias-arcade"></div>
+        </div>
+        <input type="hidden" name="ciudad" id="ciudad">
+        <input type="hidden" name="region" id="region">
+        <input type="hidden" name="pais" id="pais">
+
+        <label for="password">CONTRASEÑA</label>
+        <input type="password" name="password" id="password">
+
+        <label for="fotoPerfil">FOTO DE PERFIL</label>
+        <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">
+
+        <button type="submit" class="boton-arcade">REGISTRARME</button>
+    </form>
+    <a href="index.php?controller=login&method=show" class="link-arcade">¿YA TENÉS CUENTA? INGRESÁ</a>
 </div>
+
 <script>
     const buscador = document.getElementById('buscador');
     const lista = document.getElementById('sugerencias');
@@ -58,8 +59,7 @@
                 const p = f.properties;
                 const ciudad = p.city || p.name;
                 const item = document.createElement('div');
-                item.className = 'w3-padding w3-hover-light-grey';
-                item.style.cursor = 'pointer';
+                item.className = 'sugerencia';
                 item.textContent = [ciudad, p.state, p.country].filter(Boolean).join(', ');
                 item.onclick = () => {
                     buscador.value = item.textContent;

@@ -22,4 +22,10 @@ class MustacheRender
         echo $this->mustache->render($view . "View", $data);
         require_once($this->viewPath . "/footer.php");
     }
+    public function renderizaArcade($view, $data = [])
+    {
+        require_once($this->viewPath . "/headerArcade.php");
+        echo $this->mustache->render($view . "View", $data);
+        echo "</body></html>";
+    }
 }

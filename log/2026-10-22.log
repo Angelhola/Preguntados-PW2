@@ -1,0 +1,6 @@
+[02:43:46] [INFO] INSERT INTO usuario (usuario, email, password, nombre_completo, genero, foto_perfil,ciudad,pais,region) VALUES ('', '', 'd41d8cd98f00b204e9800998ecf8427e', '', 'femenino', '','','','')
+[02:44:03] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'valen4' AND password = '202cb962ac59075b964b07152d234b70'
+[02:59:02] [INFO] SELECT id, usuario FROM usuario WHERE usuario = '' AND password = 'd41d8cd98f00b204e9800998ecf8427e'
+[03:00:48] [INFO] SELECT id, usuario FROM usuario WHERE usuario = '' AND password = 'd41d8cd98f00b204e9800998ecf8427e'
+[03:02:28] [INFO] SELECT id, usuario FROM usuario WHERE usuario = '' AND password = 'd41d8cd98f00b204e9800998ecf8427e'
+[03:06:45] [INFO] SELECT id, usuario FROM usuario WHERE usuario = '' AND password = 'd41d8cd98f00b204e9800998ecf8427e'

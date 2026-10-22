@@ -29,17 +29,22 @@ class LoginController
         $_SESSION['usuario'] = $usuario['usuario'];
         Redirect::to('?controller=evento&method=home');
     }
+    public function inicio()
+    {
+        $this->render->renderizaArcade("inicio", []);
+    }
 
     public function show()
     {
-        $data = [];
-        $this->render->renderiza("login", $data);
+        $data = [
+            'error' => Request::get('login_error') !== null ? 'Usuario o contraseña incorrectos' : ''
+        ];
+        $this->render->renderizaArcade("login", $data);
     }
 
     public function register()
     {
-        $data = [];
-        $this->render->renderiza("register", $data);
+        $this->render->renderizaArcade("register", []);
     }
 
     public function registrar()

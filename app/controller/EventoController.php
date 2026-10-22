@@ -37,7 +37,11 @@ class EventoController
 
     public function home()
     {
-        $data["usuario"] = $_SESSION['usuario'] ?? null;
-        $this->render->renderiza("home", $data);
+        if (!isset($_SESSION['usuario'])) {
+            Redirect::to('?controller=login&method=show');
+        }
+
+        $data["usuario"] = $_SESSION['usuario'];
+        $this->render->renderizaArcade("home", $data);
     }
 }

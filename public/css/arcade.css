@@ -1,0 +1,199 @@
+body.arcade {
+    background-color: #0d0d0d;
+    color: #fff;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 16px;
+    box-sizing: border-box;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.titulo-arcade {
+    font-size: 1.8rem;
+    color: #00e5ff;
+    text-shadow: 4px 4px 0 #ff0055;
+    text-align: center;
+    line-height: 1.6;
+    margin: 0 0 24px;
+}
+
+.tarjeta-arcade {
+    width: 100%;
+    max-width: 440px;
+    background: #1a1a2e;
+    border: 4px solid #00e5ff;
+    box-shadow: 8px 8px 0 #ff0055;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.tarjeta-arcade label {
+    display: block;
+    font-size: 0.65rem;
+    color: #ffe600;
+    margin: 16px 0 8px;
+}
+
+.tarjeta-arcade input[type=text],
+.tarjeta-arcade input[type=email],
+.tarjeta-arcade input[type=password],
+.tarjeta-arcade input[type=file],
+.tarjeta-arcade select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #0d0d0d;
+    color: #fff;
+    border: 3px solid #fff;
+    font-family: monospace;
+    font-size: 1rem;
+}
+
+.tarjeta-arcade input:focus,
+.tarjeta-arcade select:focus {
+    outline: none;
+    border-color: #ffe600;
+}
+
+.boton-arcade {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 14px 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.85rem;
+    color: #0d0d0d;
+    background: #ffe600;
+    border: 4px solid #fff;
+    box-shadow: 6px 6px 0 #ff0055;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.boton-arcade:hover { background: #fff; }
+.boton-arcade:active { box-shadow: 2px 2px 0 #ff0055; transform: translate(4px, 4px); }
+
+.link-arcade {
+    display: block;
+    margin-top: 20px;
+    font-size: 0.6rem;
+    color: #00e5ff;
+    text-decoration: none;
+    text-align: center;
+}
+
+.link-arcade:hover { color: #ffe600; }
+
+.error-arcade {
+    margin-top: 16px;
+    font-size: 0.6rem;
+    color: #ff0055;
+    line-height: 1.6;
+}
+
+.sugerencias-arcade {
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    background: #0d0d0d;
+    border: 3px solid #ffe600;
+    box-sizing: border-box;
+}
+
+.sugerencia {
+    padding: 10px;
+    font-family: monospace;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.sugerencia:hover { background: #ff0055; }
+/* líneas de pantalla CRT sobre todo el fondo */
+body.arcade::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.03) 0px,
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px,
+            transparent 4px
+    );
+}
+
+@keyframes parpadeo {
+    0%, 49%   { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+.parpadeo { animation: parpadeo 1s steps(1) infinite; }
+
+.subtitulo-arcade {
+    font-size: 0.65rem;
+    color: #ffe600;
+    text-align: center;
+    margin: -8px 0 24px;
+}
+
+.vidas {
+    text-align: center;
+    color: #ff0055;
+    font-size: 1.2rem;
+    letter-spacing: 6px;
+    margin-bottom: 8px;
+}
+
+.tarjeta-arcade label::before {
+    content: "▶ ";
+    color: #ff0055;
+}
+
+.game-over {
+    margin-top: 16px;
+    padding: 10px;
+    border: 3px solid #ff0055;
+    color: #ff0055;
+    font-size: 0.6rem;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.tarjeta-arcade .boton-arcade {
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+.barra-carga {
+    width: 100%;
+    max-width: 440px;
+    height: 32px;
+    border: 4px solid #fff;
+    padding: 4px;
+    box-sizing: border-box;
+    box-shadow: 6px 6px 0 #ff0055;
+}
+
+.barra-progreso {
+    height: 100%;
+    width: 0;
+    background: repeating-linear-gradient(
+            to right,
+            #00e5ff 0px,
+            #00e5ff 14px,
+            transparent 14px,
+            transparent 18px
+    );
+    animation: cargar 3s steps(20) infinite;
+}
+
+@keyframes cargar {
+    from { width: 0; }
+    to   { width: 100%; }
+}
