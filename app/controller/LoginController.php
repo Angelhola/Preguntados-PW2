@@ -42,8 +42,30 @@ class LoginController
         $this->render->renderiza("register", $data);
     }
 
+    public function registrar()
+    {
+        $usuario = Request::post('usuario');
+        $email = Request::post('email');
+        $password = Request::post('password');
+        $nombreCompleto = Request::post('nombreCompleto');
+        $genero = Request::post('genero');
+        $pais = Request::post('pais');
+        $ciudad = Request::post('ciudad');
+        $region = Request::post('region');
 
 
+        $foto = null;
+        if (isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] === UPLOAD_ERR_OK) {
+            $ext = strtolower(pathinfo($_FILES['fotoPerfil']['name'], PATHINFO_EXTENSION));
+            if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp'])) {
+                $foto = uniqid('perfil_') . '.' . $ext;
+                move_uploaded_file($_FILES['fotoPerfil']['tmp_name'], 'public/img/perfiles/' . $foto);
+            }
+        }
+
+        $this->model->registrar($usuario, $email, $password, $nombreCompleto, $genero,  $foto, $ciudad,$pais, $region);
+        Redirect::to('?controller=login&method=show');
+    }
 
     public function home()
     {
