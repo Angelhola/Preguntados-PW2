@@ -10,9 +10,9 @@ Options -Indexes
 # Bloquea el acceso HTTP directo a archivos sensibles.
 # config.ini tiene usuario y contraseña de la BD — no debe
 # poder descargarse desde el browser bajo ningún concepto.
-<FilesMatch ".*\.(log|ini|htaccess)$">
-    deny from all
-</FilesMatch>
+   <FilesMatch ".*\.(log|ini|htaccess)$">
+       Require all denied
+   </FilesMatch>
 
 # ══════════════════════════════════════════════════════
 # URL REWRITING
