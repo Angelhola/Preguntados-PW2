@@ -9,5 +9,5 @@ $router = $configuration->getRouter();
 
 $router->dispatch(
     Request::get("controller", "login"),
-    Request::get("method", "home")
+    Request::get("method", "inicio")
 );
