@@ -13,8 +13,8 @@ CREATE TABLE usuario (
                          email VARCHAR(100),
                          nombre_completo VARCHAR(100),anio_nacimiento INT,
                          genero VARCHAR(20),
-                         foto_perfil VARCHAR(255), ciudadVARCHAR(100),
-                     ,paisVARCHAR(100),regionVARCHAR(100))
+                         foto_perfil VARCHAR(255), ciudad VARCHAR(100),
+                     ,pais VARCHAR(100),region VARCHAR(100))
 ;
 
 INSERT INTO usuario (usuario, password) VALUES

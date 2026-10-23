@@ -29,7 +29,7 @@ class LoginModel
 //        return $this->database->execute($sql);
         public function registrar($usuario, $email, $password, $nombreCompleto, $anio_nacimiento ,$genero, $foto,$ciudad,$pais,$region){
         $passwordHash = md5($password);
-        $sql = "INSERT INTO usuario (usuario, email, password, nombre_completo, genero, foto_perfil,ciudad,pais,region) VALUES ('$usuario', '$email', '$passwordHash', '$nombreCompleto','$anio_nacimiento', '$genero', '$foto','$ciudad','$pais','$region')";
+        $sql = "INSERT INTO usuario (usuario, email, password, nombre_completo,anio_nacimiento, genero, foto_perfil,ciudad,pais,region) VALUES ('$usuario', '$email', '$passwordHash', '$nombreCompleto','$anio_nacimiento', '$genero', '$foto','$ciudad','$pais','$region')";
         return $this->database->execute($sql);
     }
 }
