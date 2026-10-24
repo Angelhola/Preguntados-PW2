@@ -104,6 +104,6 @@ class Configuration
 
     public function getRouter()
     {
-        return new Router($this, "evento", "show");
+        return new Router($this, "login", "inicio");
     }
 }
