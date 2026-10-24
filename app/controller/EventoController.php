@@ -1,7 +1,7 @@
 <?php
 
 namespace app\controller;
-
+use Redirect;
 use Request;
 
 class EventoController
@@ -43,5 +43,15 @@ class EventoController
 
         $data["usuario"] = $_SESSION['usuario'];
         $this->render->renderizaArcade("home", $data);
+    }
+
+    public function lobby()
+    {
+        if (!isset($_SESSION['usuario'])) {
+            Redirect::to('?controller=login&method=show');
+        }
+
+        $data["usuario"] = $_SESSION['usuario'];
+        $this->render->renderizaArcade("lobby", $data);
     }
 }

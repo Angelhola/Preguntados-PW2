@@ -5,3 +5,7 @@
 [01:17:15] [INFO] SELECT * FROM evento LIMIT 1
 [01:18:28] [INFO] SELECT * FROM evento LIMIT 1
 [01:23:45] [INFO] SELECT * FROM evento LIMIT 1
+[01:33:37] [INFO] INSERT INTO usuario (usuario, email, password, nombre_completo,anio_nacimiento, genero, foto_perfil,ciudad,pais,region) VALUES ('G77', 'gonzaiannicelli@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'gonzalo iannicelli','2006', 'masculino', '','Buenos Aires','Argentina','Autonomous City of Buenos Aires')
+[01:33:46] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'G77' AND password = '827ccb0eea8a706c4c34a16891f84e7b'
+[01:33:54] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'g77' AND password = '81dc9bdb52d04dc20036dbd8313ed055'
+[01:44:03] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'g77' AND password = '81dc9bdb52d04dc20036dbd8313ed055'
