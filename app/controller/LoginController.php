@@ -86,4 +86,22 @@ class LoginController
         session_destroy();
         Redirect::to('?controller=login&method=show');
     }
+
+    public function perfil()
+    {
+        $data = [];
+        $this->render->renderiza("perfil", $data);
+    }
+
+    public function game()
+    {
+        $data = [];
+        $this->render->renderiza("game", $data);
+    }
+
+    public function ranking()
+    {
+        $data = [];
+        $this->render->renderiza("ranking", $data);
+    }
 }
