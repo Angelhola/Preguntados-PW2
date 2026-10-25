@@ -9,3 +9,4 @@
 [01:33:46] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'G77' AND password = '827ccb0eea8a706c4c34a16891f84e7b'
 [01:33:54] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'g77' AND password = '81dc9bdb52d04dc20036dbd8313ed055'
 [01:44:03] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'g77' AND password = '81dc9bdb52d04dc20036dbd8313ed055'
+[02:50:26] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'g77' AND password = '81dc9bdb52d04dc20036dbd8313ed055'
