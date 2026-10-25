@@ -1,0 +1,24 @@
+<a class="lobby-mini" href="?controller=login&method=lobby">VOLVER</a>
+
+<div class="tarjeta-arcade perfil">
+    <div class="perfil-cabecera">
+        <div class="perfil-avatar">?</div>
+        <div>
+            <h2>{{usuario}}</h2>
+            <span>{{email}}</span>
+            <button class="lobby-mini" type="button">VERIFICAR</button>
+        </div>
+    </div>
+
+    <h3>ESTADISTICAS</h3>
+    <div>PARTIDAS: 0</div>
+    <div>ACIERTOS: 0%</div>
+
+    <h3>LOGROS</h3>
+    <details>
+        <summary>1 / 5 DESBLOQUEADOS</summary>
+        {{#logros}}
+            <div class="logro {{estado}}">{{icono}} {{nombre}}</div>
+        {{/logros}}
+    </details>
+</div>

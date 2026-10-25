@@ -87,21 +87,31 @@ class LoginController
         Redirect::to('?controller=login&method=show');
     }
 
-    public function perfil()
+
+        public function perfil()
     {
         $data = [];
-        $this->render->renderiza("perfil", $data);
+        $data["usuario"] = $_SESSION['usuario'] ?? null;
+        $data["email"] = "pendiente@mail.com";
+        $data["logros"] = [
+            ["nombre" => "Primera partida", "icono" => "★", "estado" => "desbloqueado"],
+            ["nombre" => "10 aciertos seguidos", "icono" => "🔥", "estado" => "bloqueado"],
+            ["nombre" => "Ranking top 10", "icono" => "👑", "estado" => "bloqueado"],
+        ];
+
+        $this->render->renderizaArcade("perfil", $data);
     }
+
 
     public function game()
     {
         $data = [];
-        $this->render->renderiza("game", $data);
+        $this->render->renderizaArcade("game", $data);
     }
 
     public function ranking()
     {
         $data = [];
-        $this->render->renderiza("ranking", $data);
+        $this->render->renderizaArcade("ranking", $data);
     }
 }
