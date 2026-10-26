@@ -1,6 +1,9 @@
 
 <h1 class="titulo-arcade">REGISTRO</h1>
 <div class="tarjeta-arcade">
+    {{#error}}
+        <div class="game-over" style="max-width:440px">{{error}}</div>
+    {{/error}}
     <form method="post" enctype="multipart/form-data" action="index.php?controller=login&method=registrar">
         <label for="nombreCompleto">NOMBRE COMPLETO</label>
         <input type="text" id="nombreCompleto" name="nombreCompleto">

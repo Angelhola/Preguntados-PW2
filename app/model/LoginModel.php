@@ -13,23 +13,27 @@ class LoginModel
     public function autenticar($usuario, $password)
     {
         $passwordHash = md5($password);
-
-        // A propósito sin prepared statements: lo arreglamos en la clase de refactor
-        $sql = "SELECT id, usuario FROM usuario WHERE usuario = '$usuario' AND password = '$passwordHash'";
-
+        $sql = "SELECT id, usuario FROM usuario WHERE usuario = '$usuario' AND password = '$passwordHash' AND verificado = 1";
         return $this->database->queryOne($sql);
     }
 
-//    public function registrar($usuario, $email, $password)
-//    {
-//        $passwordHash = md5($password);
-//
-//        $sql = "INSERT INTO usuario (usuario, email, password) VALUES ('$usuario', '$email', '$passwordHash')";
-//
-//        return $this->database->execute($sql);
-        public function registrar($usuario, $email, $password, $nombreCompleto, $anio_nacimiento ,$genero, $foto,$ciudad,$pais,$region){
+    public function existeUsuario($usuario, $email)
+    {
+        $sql = "SELECT id FROM usuario WHERE usuario = '$usuario' OR email = '$email'";
+        return $this->database->queryOne($sql) !== null;
+    }
+
+    public function registrar($usuario, $email, $password, $nombreCompleto, $anio, $genero, $foto, $ciudad, $pais, $region, $token)
+    {
         $passwordHash = md5($password);
-        $sql = "INSERT INTO usuario (usuario, email, password, nombre_completo,anio_nacimiento, genero, foto_perfil,ciudad,pais,region) VALUES ('$usuario', '$email', '$passwordHash', '$nombreCompleto','$anio_nacimiento', '$genero', '$foto','$ciudad','$pais','$region')";
+        $sql = "INSERT INTO usuario (usuario, email, password, nombre_completo, anio_nacimiento, genero, foto_perfil, ciudad, pais, region, token_verificacion)
+            VALUES ('$usuario', '$email', '$passwordHash', '$nombreCompleto', $anio, '$genero', '$foto', '$ciudad', '$pais', '$region', '$token')";
+        return $this->database->execute($sql);
+    }
+
+    public function verificar($token)
+    {
+        $sql = "UPDATE usuario SET verificado = 1, token_verificacion = NULL WHERE token_verificacion = '$token'";
         return $this->database->execute($sql);
     }
 }

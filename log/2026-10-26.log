@@ -1,0 +1,11 @@
+[17:52:25] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'val' AND password = '202cb962ac59075b964b07152d234b70'
+[17:52:36] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'val' AND password = '202cb962ac59075b964b07152d234b70'
+[17:52:45] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'val' AND password = '81dc9bdb52d04dc20036dbd8313ed055'
+[18:38:36] [INFO] SELECT id FROM usuario WHERE usuario = 'Valen' OR email = 'valentinaromanop@gmail.com'
+[18:38:36] [INFO] INSERT INTO usuario (usuario, email, password, nombre_completo, anio_nacimiento, genero, foto_perfil, ciudad, pais, region, token_verificacion)
+            VALUES ('Valen', 'valentinaromanop@gmail.com', '202cb962ac59075b964b07152d234b70', 'Valen', 2005, 'femenino', '', 'Gregorio de Laferrere', 'Argentina', 'Buenos Aires', 'f329871e8e5a9f1362a4d8da8053a386')
+[18:43:34] [INFO] SELECT id FROM usuario WHERE usuario = 'Valen' OR email = 'valentinaromanop@gmail.com'
+[18:43:34] [INFO] INSERT INTO usuario (usuario, email, password, nombre_completo, anio_nacimiento, genero, foto_perfil, ciudad, pais, region, token_verificacion)
+            VALUES ('Valen', 'valentinaromanop@gmail.com', '202cb962ac59075b964b07152d234b70', 'Valen', 2005, 'femenino', '', 'Gregorio de Laferrere', 'Argentina', 'Buenos Aires', 'bdde3e31753e0a17bdcf1fe42b436339')
+[18:43:51] [INFO] UPDATE usuario SET verificado = 1, token_verificacion = NULL WHERE token_verificacion = 'bdde3e31753e0a17bdcf1fe42b436339'
+[18:44:05] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'Valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1

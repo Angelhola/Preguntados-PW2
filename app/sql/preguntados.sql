@@ -1,7 +1,3 @@
--- Base de datos del ejemplo "Partido Despedida de Messi"
-
--- Importar completa antes de correr los PHP
-
 CREATE DATABASE IF NOT EXISTS preguntados CHARACTER SET utf8mb4;
 
 DROP TABLE IF EXISTS usuario;
@@ -18,6 +14,8 @@ CREATE TABLE usuario (
                          ciudad VARCHAR(100),
                          pais VARCHAR(100),
                          region VARCHAR(100),
+                         verificado TINYINT NOT NULL DEFAULT 0,
+                         token_verificacion VARCHAR(64),
                          puntaje INT
 );
 
