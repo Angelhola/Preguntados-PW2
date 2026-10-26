@@ -122,9 +122,13 @@ class LoginController
 
         public function perfil()
     {
+        $nombreUsuario = $_SESSION['usuario'] ?? null;
+        $usuarioData = $this->model->getUsuarioByUsername($nombreUsuario);
+        $emailAMostrar = !empty($usuarioData['email']) ? $usuarioData['email'] : 'pendiente@mail.com';
         $data = [];
         $data["usuario"] = $_SESSION['usuario'] ?? null;
-        $data["email"] = "pendiente@mail.com";
+        $data["email"] = $emailAMostrar;
+        $data["verificado"] = $usuarioData['verificado'] ?? 0; //para que el botón de verificar sepa si mostrarse o no
         $data["logros"] = [
             ["nombre" => "Primera partida", "icono" => "★", "estado" => "desbloqueado"],
             ["nombre" => "10 aciertos seguidos", "icono" => "🔥", "estado" => "bloqueado"],

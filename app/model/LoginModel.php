@@ -36,4 +36,9 @@ class LoginModel
         $sql = "UPDATE usuario SET verificado = 1, token_verificacion = NULL WHERE token_verificacion = '$token'";
         return $this->database->execute($sql);
     }
+    public function getUsuarioByUsername($usuario)
+{
+    $sql = "SELECT * FROM usuario WHERE usuario = '$usuario'";
+    return $this->database->queryOne($sql);
+}
 }

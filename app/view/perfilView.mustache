@@ -6,7 +6,9 @@
         <div>
             <h2>{{usuario}}</h2>
             <span>{{email}}</span>
-            <button class="lobby-mini" type="button">VERIFICAR</button>
+            {{^verificado}}
+                <button class="lobby-mini" type="submit">VERIFICAR</button>
+            {{/verificado}}
         </div>
     </div>
 

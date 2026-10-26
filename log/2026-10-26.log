@@ -9,3 +9,13 @@
             VALUES ('Valen', 'valentinaromanop@gmail.com', '202cb962ac59075b964b07152d234b70', 'Valen', 2005, 'femenino', '', 'Gregorio de Laferrere', 'Argentina', 'Buenos Aires', 'bdde3e31753e0a17bdcf1fe42b436339')
 [18:43:51] [INFO] UPDATE usuario SET verificado = 1, token_verificacion = NULL WHERE token_verificacion = 'bdde3e31753e0a17bdcf1fe42b436339'
 [18:44:05] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'Valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
+[18:54:53] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
+[19:02:26] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
+[19:02:30] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
+[19:03:04] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
+[19:04:20] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
+[19:05:12] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
+[19:05:23] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
+[19:09:23] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
+[19:09:57] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
+[19:10:06] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'

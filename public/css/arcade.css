@@ -357,3 +357,63 @@ button.lobby-mini:hover { border-color: #ffe600; color: #ffe600; }
     color: #8a8aa8;
     border: 3px dashed #8a8aa8;
 }
+.tarjeta-arcade span {
+    font-size: 0.75rem;;
+}
+/* ========================================== */
+/* 1. ESTILOS BASE (MOBILE FIRST - Celular)   */
+/* ========================================== */
+body {
+    font-size: 16px;
+    padding: 15px;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+/* Los elementos ocupan todo el ancho en celular */
+.contenedor-principal {
+    display: flex;
+    flex-direction: column; /* Elementos apilados verticalmente */
+    width: 100%;
+}
+
+.tarjeta-pregunta {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+
+/* ========================================== */
+/* 2. PANTALLAS MEDIANAS (Tablets - min 768px)*/
+/* ========================================== */
+@media (min-width: 768px) {
+    body {
+        padding: 30px;
+    }
+
+    .tarjeta-pregunta {
+        width: 80%;
+        margin: 0 auto; /* Centrar en tablets */
+    }
+}
+
+
+/* ========================================== */
+/* 3. PANTALLAS GRANDES (PC - min 1024px)     */
+/* ========================================== */
+@media (min-width: 1024px) {
+    body {
+        font-size: 18px;
+    }
+
+    .contenedor-principal {
+        flex-direction: row; /* Elementos uno al lado del otro en PC */
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto; /* Centrar el contenido en pantallas grandes */
+    }
+
+    .tarjeta-pregunta {
+        width: 48%; /* Dos columnas por ejemplo */
+    }
+}
