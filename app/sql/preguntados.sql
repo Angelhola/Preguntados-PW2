@@ -21,3 +21,6 @@ CREATE TABLE usuario (
 
 INSERT INTO usuario (usuario, password) VALUES
     ('test', MD5('1234'));
+
+DESCRIBE usuario;
+

@@ -19,6 +19,16 @@
 [19:09:23] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
 [19:09:57] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
 [19:10:06] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
+[20:17:16] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:17:30] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:18:56] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:20:00] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 0
+[20:23:20] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055'
+[20:23:30] [INFO] SELECT * FROM usuario WHERE usuario = 'test'
+[20:23:34] [INFO] SELECT * FROM usuario WHERE usuario = 'test'
+[20:23:51] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055'
+[20:24:45] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:24:55] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055'
 [19:54:32] [INFO] SELECT * FROM usuario WHERE usuario = 'valen'
 [19:54:35] [INFO] SELECT * FROM usuario WHERE usuario = 'valen1'
 [19:54:36] [INFO] SELECT * FROM usuario WHERE usuario = 'valen'
@@ -97,3 +107,51 @@
 [21:21:32] [INFO] SELECT id FROM usuario WHERE usuario = 'valen12' OR email = 'valentinaromano@outlook.es'
 [21:27:29] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
 [21:27:33] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
+[22:00:35] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'angel.char' AND password = '70448ac9360c5e2bd7e8b3782908f127' AND verificado = 1
+[22:01:03] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'angel.char' AND password = '70448ac9360c5e2bd7e8b3782908f127'
+[22:01:09] [INFO] SELECT * FROM usuario WHERE usuario = 'angel.char'
+[22:05:23] [INFO] SELECT * FROM usuario WHERE usuario = 'jer'
+[22:05:24] [INFO] SELECT * FROM usuario WHERE usuario = 'jera'
+[22:05:26] [INFO] SELECT * FROM usuario WHERE usuario = 'jer'
+[22:05:27] [INFO] SELECT * FROM usuario WHERE usuario = 'jera'
+[22:05:27] [INFO] SELECT * FROM usuario WHERE usuario = 'jerar'
+[22:05:27] [INFO] SELECT * FROM usuario WHERE usuario = 'jerard'
+[22:05:28] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo'
+[22:05:28] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo.'
+[22:05:33] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo.gob'
+[22:05:36] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo.go'
+[22:05:37] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo.g'
+[22:05:37] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo.'
+[22:05:38] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo.a'
+[22:05:38] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo.'
+[22:05:39] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo.c'
+[22:05:40] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo.char'
+[22:05:41] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo.'
+[22:05:42] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo.gob'
+[22:06:32] [INFO] SELECT id FROM usuario WHERE usuario = 'jerardo.gob' OR email = 'jerardoarnez@gmail.com'
+[22:06:32] [INFO] INSERT INTO usuario (usuario, email, password, nombre_completo, anio_nacimiento, genero, foto_perfil, ciudad, pais, region, token_verificacion)
+            VALUES ('jerardo.gob', 'jerardoarnez@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Jerardo Arnez ', 2004, 'sin_opcion', '', 'Catamarca', 'Argentina', '', '613646c12a6f285f51df3a2990d0d40b')
+[22:06:50] [INFO] SELECT id FROM usuario WHERE usuario = 'jerardo.gob' OR email = 'jerardoarnez@gmail.com'
+[22:06:50] [INFO] INSERT INTO usuario (usuario, email, password, nombre_completo, anio_nacimiento, genero, foto_perfil, ciudad, pais, region, token_verificacion)
+            VALUES ('jerardo.gob', 'jerardoarnez@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Jerardo Arnez ', 2004, 'sin_opcion', '', 'Catamarca', 'Argentina', '', '35126fe727355923f53b3a9cb8add1db')
+[22:06:54] [INFO] SELECT id FROM usuario WHERE usuario = 'jerardo.gob' OR email = 'jerardoarnez@gmail.com'
+[22:06:54] [INFO] INSERT INTO usuario (usuario, email, password, nombre_completo, anio_nacimiento, genero, foto_perfil, ciudad, pais, region, token_verificacion)
+            VALUES ('jerardo.gob', 'jerardoarnez@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Jerardo Arnez ', 2004, 'sin_opcion', '', 'Catamarca', 'Argentina', '', '93abecee49c2efff1e43d04bbc7aefb7')
+[22:08:04] [INFO] SELECT * FROM usuario WHERE usuario = 'jer'
+[22:08:05] [INFO] SELECT * FROM usuario WHERE usuario = 'jera'
+[22:08:09] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo'
+[22:08:38] [INFO] SELECT id FROM usuario WHERE usuario = 'jerardo' OR email = 'jerardoarnez@gmail.com'
+[22:08:38] [INFO] INSERT INTO usuario (usuario, email, password, nombre_completo, anio_nacimiento, genero, foto_perfil, ciudad, pais, region, token_verificacion)
+            VALUES ('jerardo', 'jerardoarnez@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Jerardo Arnez ', 2004, 'sin_opcion', 'perfil_6adfc1567a02b.png', 'La Matanza', 'Venezuela', 'Apure State', 'e83fa5858874bad6d35d34352387bad8')
+[22:11:43] [INFO] SELECT id FROM usuario WHERE usuario = 'jerardo' OR email = 'jerardoarnez@gmail.com'
+[22:11:43] [INFO] INSERT INTO usuario (usuario, email, password, nombre_completo, anio_nacimiento, genero, foto_perfil, ciudad, pais, region, token_verificacion)
+            VALUES ('jerardo', 'jerardoarnez@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Jerardo Arnez ', 2004, 'sin_opcion', 'perfil_6adfc20f57304.png', 'La Matanza', 'Venezuela', 'Apure State', 'a639cae7b11df8eabaa199667a62cc84')
+[22:42:08] [INFO] UPDATE usuario SET verificado = 1, token_verificacion = NULL WHERE token_verificacion = 'a639cae7b11df8eabaa199667a62cc84'
+[22:45:44] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[22:45:52] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[22:46:04] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'angel.char' AND password = '70448ac9360c5e2bd7e8b3782908f127' AND verificado = 1
+[22:46:19] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'jerardo.char' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[22:46:57] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[22:47:43] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'jerardo' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[22:47:51] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo'
+[22:59:29] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo'
