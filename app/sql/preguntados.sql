@@ -3,7 +3,6 @@
 -- Importar completa antes de correr los PHP
 
 CREATE DATABASE IF NOT EXISTS preguntados CHARACTER SET utf8mb4;
-USE preguntados;
 
 DROP TABLE IF EXISTS usuario;
 
@@ -18,7 +17,8 @@ CREATE TABLE usuario (
                          foto_perfil VARCHAR(255),
                          ciudad VARCHAR(100),
                          pais VARCHAR(100),
-                         region VARCHAR(100)
+                         region VARCHAR(100),
+                         puntaje INT
 );
 
 INSERT INTO usuario (usuario, password) VALUES

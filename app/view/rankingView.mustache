@@ -1,0 +1,45 @@
+<h1 class="titulo-arcade">RANKING</h1>
+<p class="subtitulo-arcade">TOP JUGADORES</p>
+
+<div class="tarjeta-arcade ranking-tarjeta">
+    {{#hayJugadores}}
+        <div class="ranking-scroll">
+            <table class="ranking-tabla">
+                <thead>
+                <tr>
+                    <th class="centro">#</th>
+                    <th>Jugador</th>
+                    <th class="derecha">Puntos</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {{#jugadores}}
+                    <tr class="{{clase}}">
+                        <td class="ranking-pos">{{posicion}}</td>
+                        <td>
+                            <div class="ranking-jugador">
+                                {{#avatar}}
+                                    <img class="ranking-avatar" src="{{avatar}}" alt="">
+                                {{/avatar}}
+                                <span>{{nombre}}</span>
+                            </div>
+                        </td>
+                        <td class="ranking-puntos">{{puntos}}</td>
+                    </tr>
+                {{/jugadores}}
+                </tbody>
+            </table>
+        </div>
+    {{/hayJugadores}}
+
+    {{^hayJugadores}}
+        <div class="ranking-vacio">
+            TODAVIA NO HAY JUGADORES <br>
+                 EN EL RANKING
+        </div>
+    {{/hayJugadores}}
+
+    <a class="boton-arcade" href="index.php?controller=evento&method=lobby">VOLVER</a>
+
+</div>
