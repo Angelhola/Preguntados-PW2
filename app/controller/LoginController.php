@@ -46,7 +46,7 @@ class LoginController
 
     public function register()
     {
-        $this->render->renderizaArcade("register", [ 'error'=> Request::get('erorr','')]);
+        $this->render->renderizaArcade("register", [ 'error'=> Request::get('error','')]);
     }
 
     public function registrar()
@@ -63,6 +63,7 @@ class LoginController
         $region = Request::post('region');
 
         $error = null;
+        $dominioEmail = substr(strrchr($email, "@"), 1);
         if ($usuario === '' || $email === '' || $password === '' || $nombreCompleto === '') {
             $error = 'Completá todos los campos obligatorios';
         } elseif ($password !== $passwordRepetida) {
@@ -71,7 +72,10 @@ class LoginController
             $error = 'El año de nacimiento no es válido';
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error = 'El email no es válido';
-        } elseif ($ciudad === '' || $pais === '') {
+        }  elseif (!checkdnsrr($dominioEmail, "MX") && !checkdnsrr($dominioEmail, "A")) {
+    // Valida que el dominio del correo (ej: gmail.com) sea real y exista en internet
+$error = 'El dominio del email no existe o no puede recibir correos';
+    }elseif ($ciudad === '' || $pais === '') {
             $error = 'Elegí tu ciudad de la lista de sugerencias';
         } elseif ($this->model->existeUsuario($usuario, $email)) {
             $error = 'El usuario o el email ya están registrados';
@@ -136,6 +140,25 @@ class LoginController
         ];
 
         $this->render->renderizaArcade("perfil", $data);
+    }
+    public function verificarDisponibilidad()
+    {
+        // Indicamos que la respuesta es un JSON
+        header('Content-Type: application/json');
+
+        $campo = $_GET['campo'] ?? '';
+        $valor = $_GET['valor'] ?? '';
+
+        if ($campo !== 'usuario' || empty($valor)) {
+            echo json_encode(['existe' => false]);
+            exit;
+        }
+
+        $existe = $this->model->getUsuarioByUsername($valor) !== null;
+
+        // Devolvemos el resultado en formato JSON
+        echo json_encode(['existe' => $existe]);
+        exit;
     }
 
 

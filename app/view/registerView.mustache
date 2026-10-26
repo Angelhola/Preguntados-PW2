@@ -1,42 +1,63 @@
-
 <h1 class="titulo-arcade">REGISTRO</h1>
 <div class="tarjeta-arcade">
     {{#error}}
         <div class="game-over" style="max-width:440px">{{error}}</div>
     {{/error}}
     <form method="post" enctype="multipart/form-data" action="index.php?controller=login&method=registrar">
+
+        <!-- NOMBRE COMPLETO -->
         <label for="nombreCompleto">NOMBRE COMPLETO</label>
-        <input type="text" id="nombreCompleto" name="nombreCompleto">
+        <input type="text" id="nombreCompleto" name="nombreCompleto" autocomplete="name">
+        <div id="error-nombreCompleto" style="color: #ff4444; font-size: 12px; margin-top: 2px; display: none;"></div>
+
+        <!-- AÑO DE NACIMIENTO -->
         <label for="anioNacimiento">AÑO DE NACIMIENTO</label>
-        <input type="number" id="anioNacimiento" name="anioNacimiento" min="1900" max="2026" required>
+        <input type="number" id="anioNacimiento" name="anioNacimiento" min="1900" max="2026">
+        <div id="error-anioNacimiento" style="color: #ff4444; font-size: 12px; margin-top: 2px; display: none;"></div>
+
+        <!-- GÉNERO -->
         <label for="genero">GÉNERO</label>
         <select id="genero" name="genero">
+            <option value="seleccion">Seleccione una opcion</option>
             <option value="femenino">Femenino</option>
             <option value="masculino">Masculino</option>
             <option value="otro">Otro</option>
             <option value="sin_opcion">Prefiero no decirlo</option>
         </select>
+        <div id="error-genero" style="color: #ff4444; font-size: 12px; margin-top: 2px; display: none;"></div>
 
+        <!-- USUARIO -->
         <label for="usuario">USUARIO</label>
-        <input type="text" name="usuario" id="usuario">
+        <input type="text" name="usuario" id="usuario" autocomplete="off">
+        <div id="error-usuario" style="color: #ff4444; font-size: 12px; margin-top: 2px; display: none;"></div>
 
+        <!-- EMAIL -->
         <label for="email">EMAIL</label>
-        <input type="email" name="email" id="email">
+        <input type="email" name="email" id="email" autocomplete="email">
+        <div id="error-email" style="color: #ff4444; font-size: 12px; margin-top: 2px; display: none;"></div>
 
+        <!-- CIUDAD -->
         <label for="buscador">CIUDAD</label>
         <div style="position:relative">
             <input type="text" id="buscador" placeholder="Empezá a escribir..." autocomplete="off">
             <div id="sugerencias" class="sugerencias-arcade"></div>
         </div>
+        <div id="error-ciudad" style="color: #ff4444; font-size: 12px; margin-top: 2px; display: none;"></div>
         <input type="hidden" name="ciudad" id="ciudad">
         <input type="hidden" name="region" id="region">
         <input type="hidden" name="pais" id="pais">
 
+        <!-- CONTRASEÑA -->
         <label for="password">CONTRASEÑA</label>
         <input type="password" name="password" id="password">
-        <label for="passwordRepetida">REPETIR CONTRASEÑA</label>
-        <input type="password" id="passwordRepetida" name="passwordRepetida" required>
+        <div id="error-password" style="color: #ff4444; font-size: 12px; margin-top: 2px; display: none;"></div>
 
+        <!-- REPETIR CONTRASEÑA -->
+        <label for="passwordRepetida">REPETIR CONTRASEÑA</label>
+        <input type="password" id="passwordRepetida" name="passwordRepetida">
+        <div id="error-passwordRepetida" style="color: #ff4444; font-size: 12px; margin-top: 2px; display: none;"></div>
+
+        <!-- FOTO DE PERFIL -->
         <label for="fotoPerfil">FOTO DE PERFIL</label>
         <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">
 
@@ -46,12 +67,24 @@
 </div>
 
 <script>
+    // ==========================================
+    // 1. BUSCADOR DE CIUDAD (API Photon)
+    // ==========================================
     const buscador = document.getElementById('buscador');
     const lista = document.getElementById('sugerencias');
+    const inputCiudadHidden = document.getElementById('ciudad');
+    const errorCiudad = document.getElementById('error-ciudad');
     let espera;
 
     buscador.addEventListener('input', () => {
         ['ciudad', 'region', 'pais'].forEach(id => document.getElementById(id).value = '');
+
+        if (buscador.value.trim() === '') {
+            errorCiudad.textContent = '⚠️ Te faltó completar tu ciudad.';
+            errorCiudad.style.display = 'block';
+            buscador.style.borderColor = '#ff4444';
+        }
+
         clearTimeout(espera);
         const texto = buscador.value.trim();
         if (texto.length < 3) { lista.style.display = 'none'; return; }
@@ -67,16 +100,199 @@
                 const item = document.createElement('div');
                 item.className = 'sugerencia';
                 item.textContent = [ciudad, p.state, p.country].filter(Boolean).join(', ');
+
                 item.onclick = () => {
                     buscador.value = item.textContent;
                     document.getElementById('ciudad').value = ciudad || '';
                     document.getElementById('region').value = p.state || '';
                     document.getElementById('pais').value = p.country || '';
                     lista.style.display = 'none';
+
+                    errorCiudad.style.display = 'none';
+                    buscador.style.borderColor = '#2ecc71';
                 };
                 lista.appendChild(item);
             });
             lista.style.display = datos.features.length ? 'block' : 'none';
         }, 400);
     });
+
+    buscador.addEventListener('blur', () => {
+        setTimeout(() => {
+            if (inputCiudadHidden.value.trim() === '') {
+                errorCiudad.textContent = '⚠️ Por favor, seleccioná una ciudad de la lista.';
+                errorCiudad.style.display = 'block';
+                buscador.style.borderColor = '#ff4444';
+            }
+        }, 250);
+    });
+
+    // ==========================================
+    // 2. VALIDAR USUARIO EN VIVO (AJAX)
+    // ==========================================
+    const inputUsuario = document.getElementById('usuario');
+    const errorUsuario = document.getElementById('error-usuario');
+    let timerEspera;
+
+    inputUsuario.addEventListener('input', () => {
+        clearTimeout(timerEspera);
+        const valor = inputUsuario.value.trim();
+
+        if (valor.length === 0) {
+            errorUsuario.style.display = 'none';
+            inputUsuario.style.borderColor = '';
+            return;
+        }
+
+        if (valor.length < 3) {
+            errorUsuario.textContent = '⚠️ El usuario debe tener al menos 3 caracteres.';
+            errorUsuario.style.display = 'block';
+            inputUsuario.style.borderColor = '#ff4444';
+            return;
+        }
+
+        timerEspera = setTimeout(async () => {
+            try {
+                const respuesta = await fetch(`index.php?controller=login&method=verificarDisponibilidad&campo=usuario&valor=${encodeURIComponent(valor)}`);
+                const resultado = await respuesta.json();
+
+                if (resultado.existe) {
+                    errorUsuario.textContent = '⚠️ Por favor, elegí otro usuario porque ese ya está usado.';
+                    errorUsuario.style.display = 'block';
+                    inputUsuario.style.borderColor = '#ff4444';
+                } else {
+                    errorUsuario.style.display = 'none';
+                    inputUsuario.style.borderColor = '#2ecc71';
+                }
+            } catch (error) {
+                console.error("Error al verificar disponibilidad:", error);
+            }
+        }, 200);
+    });
+
+    // ==========================================
+    // 3. VALIDAR AÑO DE NACIMIENTO (Sin futuros como 2029)
+    // ==========================================
+    const inputAnio = document.getElementById('anioNacimiento');
+    const errorAnio = document.getElementById('error-anioNacimiento');
+    const anioActual = new Date().getFullYear();
+
+    inputAnio.addEventListener('input', () => {
+        const valorAnio = inputAnio.value.trim();
+
+        if (valorAnio === '') {
+            errorAnio.textContent = '⚠️ Por favor, completá este campo.';
+            errorAnio.style.display = 'block';
+            inputAnio.style.borderColor = '#ff4444';
+            return;
+        }
+
+        if (!/^\d+$/.test(valorAnio) || parseInt(valorAnio) < 1900 || parseInt(valorAnio) > anioActual) {
+            errorAnio.textContent = '⚠️ El año de nacimiento no es válido.';
+            errorAnio.style.display = 'block';
+            inputAnio.style.borderColor = '#ff4444';
+        } else {
+            errorAnio.style.display = 'none';
+            inputAnio.style.borderColor = '#2ecc71';
+        }
+    });
+
+    // ==========================================
+    // 4. VALIDAR CONTRASEÑAS COINCIDENTES
+    // ==========================================
+    const pass = document.getElementById('password');
+    const passRep = document.getElementById('passwordRepetida');
+    const errorPassRep = document.getElementById('error-passwordRepetida');
+
+    function verificarContrasenias() {
+        if (passRep.value.length === 0) {
+            errorPassRep.style.display = 'none';
+            passRep.style.borderColor = '';
+            return;
+        }
+
+        if (pass.value !== passRep.value) {
+            errorPassRep.textContent = '⚠️ Las contraseñas no coinciden.';
+            errorPassRep.style.display = 'block';
+            passRep.style.borderColor = '#ff4444';
+        } else {
+            errorPassRep.style.display = 'none';
+            passRep.style.borderColor = '#2ecc71';
+        }
+    }
+
+    pass.addEventListener('input', verificarContrasenias);
+    passRep.addEventListener('input', verificarContrasenias);
+
+    // ==========================================
+    // 5. VALIDAR EMAIL
+    // ==========================================
+    const inputEmail = document.getElementById('email');
+    const errorEmail = document.getElementById('error-email');
+
+    inputEmail.addEventListener('input', () => {
+        const valor = inputEmail.value.trim();
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (valor.length === 0) {
+            errorEmail.style.display = 'none';
+            inputEmail.style.borderColor = '';
+            return;
+        }
+
+        if (!regexEmail.test(valor)) {
+            errorEmail.textContent = '⚠️ El formato del mail no es válido.';
+            errorEmail.style.display = 'block';
+            inputEmail.style.borderColor = '#ff4444';
+        } else {
+            errorEmail.style.display = 'none';
+            inputEmail.style.borderColor = '#2ecc71';
+        }
+    });
+
+    // ==========================================
+    // 6. CAMPOS OBLIGATORIOS (Nombre)
+    // ==========================================
+    ['nombreCompleto'].forEach(id => {
+        const input = document.getElementById(id);
+        const errorDiv = document.getElementById(`error-${id}`);
+
+        if (input && errorDiv) {
+            input.addEventListener('blur', () => {
+                if (input.value.trim() === '') {
+                    errorDiv.textContent = '⚠️ Por favor, completá este campo.';
+                    errorDiv.style.display = 'block';
+                    input.style.borderColor = '#ff4444';
+                }
+            });
+
+            input.addEventListener('input', () => {
+                if (input.value.trim() !== '') {
+                    errorDiv.style.display = 'none';
+                    input.style.borderColor = '#2ecc71';
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+        }
+    });
+
+    // ==========================================
+    // 7. SELECT DE GÉNERO
+    // ==========================================
+    const selectGenero = document.getElementById('genero');
+    const errorGenero = document.getElementById('error-genero');
+
+    if (selectGenero && errorGenero) {
+        selectGenero.addEventListener('change', () => {
+            if (selectGenero.value === "" || selectGenero.value === "seleccion") {
+                errorGenero.textContent = '⚠️ Por favor, seleccioná una opción válida.';
+                errorGenero.style.display = 'block';
+                selectGenero.style.borderColor = '#ff4444';
+            } else {
+                errorGenero.style.display = 'none';
+                selectGenero.style.borderColor = '#2ecc71';
+            }
+        });
+    }
 </script>

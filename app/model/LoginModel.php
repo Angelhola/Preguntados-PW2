@@ -19,8 +19,9 @@ class LoginModel
 
     public function existeUsuario($usuario, $email)
     {
-        $sql = "SELECT id FROM usuario WHERE usuario = '$usuario' OR email = '$email'";
-        return $this->database->queryOne($sql) !== null;
+        $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE usuario = ? OR email = ?");
+        $stmt->execute([$usuario, $email]);
+        return $stmt->fetch() !== false;
     }
 
     public function registrar($usuario, $email, $password, $nombreCompleto, $anio, $genero, $foto, $ciudad, $pais, $region, $token)
