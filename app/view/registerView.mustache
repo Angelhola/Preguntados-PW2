@@ -66,33 +66,57 @@
     <a href="index.php?controller=login&method=show" class="link-arcade">¿YA TENÉS CUENTA? INGRESÁ</a>
 </div>
 
-<script>
-    // ==========================================
-    // 1. BUSCADOR DE CIUDAD (API Photon)
-    // ==========================================
-    const buscador = document.getElementById('buscador');
-    const lista = document.getElementById('sugerencias');
-    const inputCiudadHidden = document.getElementById('ciudad');
-    const errorCiudad = document.getElementById('error-ciudad');
-    let espera;
+<script>// ==========================================
+// VALIDAR BUSCADOR DE CIUDAD (Con la misma lógica)
+// ==========================================
+const buscador = document.getElementById('buscador');
+const lista = document.getElementById('sugerencias');
+const mensajeCiudad = document.getElementById('error-buscador'); // Asegurate de tener este ID en tu HTML o crealo como los otros errores
+let espera;
+let ciudadSeleccionada = false;
 
-    buscador.addEventListener('input', () => {
-        ['ciudad', 'region', 'pais'].forEach(id => document.getElementById(id).value = '');
+buscador.addEventListener('input', () => {
+    ciudadSeleccionada = false;
+    buscador.style.borderColor = '#ff4444';
 
-        if (buscador.value.trim() === '') {
-            errorCiudad.textContent = '⚠️ Te faltó completar tu ciudad.';
-            errorCiudad.style.display = 'block';
-            buscador.style.borderColor = '#ff4444';
+    ['ciudad', 'region', 'pais'].forEach(id => {
+        const campo = document.getElementById(id);
+        if (campo) campo.value = '';
+    });
+
+    clearTimeout(espera);
+    const texto = buscador.value.trim();
+
+    if (texto.length === 0) {
+        if (mensajeCiudad) mensajeCiudad.style.display = 'none';
+        buscador.style.borderColor = '';
+        lista.style.display = 'none';
+        return;
+    }
+
+    if (texto.length < 3) {
+        if (mensajeCiudad) {
+            mensajeCiudad.textContent = '⚠️ Ingresá al menos 3 caracteres.';
+            mensajeCiudad.style.display = 'block';
         }
+        buscador.style.borderColor = '#ff4444';
+        lista.style.display = 'none';
+        return;
+    }
 
-        clearTimeout(espera);
-        const texto = buscador.value.trim();
-        if (texto.length < 3) { lista.style.display = 'none'; return; }
+    if (mensajeCiudad) mensajeCiudad.style.display = 'none';
 
-        espera = setTimeout(async () => {
+    espera = setTimeout(async () => {
+        try {
             const url = 'https://photon.komoot.io/api/?limit=6&osm_tag=place&q=' + encodeURIComponent(texto);
-            const datos = await (await fetch(url)).json();
+            const respuesta = await fetch(url);
+            const datos = await respuesta.json();
             lista.innerHTML = '';
+
+            if (!datos.features || datos.features.length === 0) {
+                lista.style.display = 'none';
+                return;
+            }
 
             datos.features.forEach(f => {
                 const p = f.properties;
@@ -107,29 +131,34 @@
                     document.getElementById('region').value = p.state || '';
                     document.getElementById('pais').value = p.country || '';
                     lista.style.display = 'none';
-
-                    errorCiudad.style.display = 'none';
+                    ciudadSeleccionada = true;
                     buscador.style.borderColor = '#2ecc71';
+                    if (mensajeCiudad) mensajeCiudad.style.display = 'none';
                 };
                 lista.appendChild(item);
             });
-            lista.style.display = datos.features.length ? 'block' : 'none';
-        }, 400);
-    });
 
-    buscador.addEventListener('blur', () => {
-        setTimeout(() => {
-            if (inputCiudadHidden.value.trim() === '') {
-                errorCiudad.textContent = '⚠️ Por favor, seleccioná una ciudad de la lista.';
-                errorCiudad.style.display = 'block';
-                buscador.style.borderColor = '#ff4444';
+            lista.style.display = 'block';
+        } catch (error) {
+            console.error("Error al buscar ciudad:", error);
+        }
+    }, 400);
+});
+
+// El BLUR va AFUERA, exactamente igual que la estructura de tus otros campos
+buscador.addEventListener('blur', () => {
+    setTimeout(() => {
+        if (!ciudadSeleccionada && buscador.value.trim().length > 0) {
+            buscador.style.borderColor = '#ff4444';
+            if (mensajeCiudad) {
+                mensajeCiudad.textContent = '⚠️ Por favor, seleccioná una ciudad de la lista desplegable.';
+                mensajeCiudad.style.display = 'block';
             }
-        }, 250);
-    });
+        }
+    }, 200);
+});
 
-    // ==========================================
-    // 2. VALIDAR USUARIO EN VIVO (AJAX)
-    // ==========================================
+
     const inputUsuario = document.getElementById('usuario');
     const errorUsuario = document.getElementById('error-usuario');
     let timerEspera;
@@ -169,7 +198,6 @@
             }
         }, 200);
     });
-
     // ==========================================
     // 3. VALIDAR AÑO DE NACIMIENTO (Sin futuros como 2029)
     // ==========================================
