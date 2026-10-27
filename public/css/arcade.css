@@ -417,3 +417,5 @@ body {
         width: 48%; /* Dos columnas por ejemplo */
     }
 }
+/*  QR */
+#qr { background: #fff; padding: 12px; display: inline-block; }
