@@ -155,3 +155,10 @@
 [22:47:43] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'jerardo' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
 [22:47:51] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo'
 [22:59:29] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo'
+[23:16:00] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
+[23:16:08] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
+[23:16:29] [INFO] SELECT * FROM usuario WHERE usuario = 'valen'
+[23:17:02] [INFO] SELECT id FROM usuario WHERE usuario = 'valen' OR email = 'valentinaromanop@gmail.com'
+[23:17:02] [INFO] INSERT INTO usuario (usuario, email, password, nombre_completo, anio_nacimiento, genero, foto_perfil, ciudad, pais, region, token_verificacion)
+            VALUES ('valen', 'valentinaromanop@gmail.com', '202cb962ac59075b964b07152d234b70', 'Valentina', 2005, 'femenino', '', 'Gregorio de Laferrere', 'Argentina', 'Buenos Aires', '43c2059b6376c2d0df4457b4737963d9')
+[23:20:21] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo'

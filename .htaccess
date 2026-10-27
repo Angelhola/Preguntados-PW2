@@ -27,7 +27,7 @@ Options -Indexes
 
     # Raíz desde donde se aplican las reglas (relativo al DocumentRoot).
     # Si el proyecto no está en la raíz de htdocs, cambiar a /nombre-carpeta/
-    RewriteBase /
+    RewriteBase /Preguntados-PW2/
 
     # ── SEGURIDAD: código interno inaccesible por URL directa ──
     # app/, helper/ y vendor/ son PHP interno (controllers, models,
@@ -60,6 +60,8 @@ Options -Indexes
     RewriteRule ^([^/]+)/([^/]+)$ index.php?controller=$1&method=$2 [L,QSA]
 
     # ── REGLA 2: /controller (sin method) ────────────────
-    # Si solo viene el controller, el router usa el método default ('show').
+    # Si solo viene el controller, el router usa el método default ('inicio').
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^([^/]+)$         index.php?controller=$1           [L,QSA]
 </IfModule>

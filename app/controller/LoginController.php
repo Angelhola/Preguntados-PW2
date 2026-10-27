@@ -25,12 +25,12 @@ class LoginController
         $usuario = $this->model->autenticar(Request::post('usuario'), Request::post('password'));
 
         if ($usuario === null) {
-            Redirect::to('?controller=login&method=show&login_error=1');
+            Redirect::to('login/show&login_error=1');
         }
 
         $_SESSION['usuario_id'] = $usuario['id'];
         $_SESSION['usuario'] = $usuario['usuario'];
-        Redirect::to('?controller=evento&method=home');
+        Redirect::to('evento/home');
     }
     public function inicio()
     {
@@ -82,7 +82,7 @@ $error = 'El dominio del email no existe o no puede recibir correos';
         }
 
         if ($error !== null) {
-            Redirect::to('?controller=login&method=register&error=' . urlencode($error));
+            Redirect::to('login/register&error=' . urlencode($error));
         }
 
         $foto = null;
@@ -97,7 +97,7 @@ $error = 'El dominio del email no existe o no puede recibir correos';
 
         $this->model->registrar($usuario, $email, $password, $nombreCompleto,$anio, $genero,  $foto, $ciudad,$pais, $region,$token);
         Mailer::enviarVerificacion($email, $nombreCompleto, $token);
-        Redirect::to('?controller=login&method=show&registrado=1');
+        Redirect::to('login/show&registrado=1');
     }
     public function verificar()
     {
@@ -120,7 +120,7 @@ $error = 'El dominio del email no existe o no puede recibir correos';
     {
         $_SESSION = [];
         session_destroy();
-        Redirect::to('?controller=login&method=show');
+        Redirect::to('login/show');
     }
 
 

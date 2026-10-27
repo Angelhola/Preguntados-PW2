@@ -38,7 +38,7 @@ class EventoController
     public function home()
     {
         if (!isset($_SESSION['usuario'])) {
-            Redirect::to('?controller=login&method=show');
+            Redirect::to('login/show');
         }
 
         $data["usuario"] = $_SESSION['usuario'];
@@ -48,7 +48,7 @@ class EventoController
     public function lobby()
     {
         if (!isset($_SESSION['usuario'])) {
-            Redirect::to('?controller=login&method=show');
+            Redirect::to('login/show');
         }
 
         $data["usuario"] = $_SESSION['usuario'];

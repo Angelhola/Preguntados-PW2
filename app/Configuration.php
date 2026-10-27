@@ -4,19 +4,13 @@ namespace app;
 
 use app\controller\EventoController;
 use app\controller\LoginController;
-use app\controller\LugaresController;
-use app\controller\ReservaController;
 use app\model\EventoModel;
 use app\model\LoginModel;
-use app\model\LugaresModel;
-use app\model\ReservaModel;
 use MustacheRender;
 use MyDatabase;
 use Router;
 
 require_once("helper/Autoloader.php");
-
-
 
 class Configuration
 {

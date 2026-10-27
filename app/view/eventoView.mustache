@@ -5,7 +5,7 @@
 
         {{#logueado}}
             <p class="w3-large">Hola, <b>{{usuario}}</b> 👋</p>
-            <a href="index.php?controller=login&method=logout" class="w3-button w3-red w3-round w3-margin-left">Cerrar sesión</a>
+            <a href="login/logout" class="w3-button w3-red w3-round w3-margin-left">Cerrar sesión</a>
         {{/logueado}}
         {{^logueado}}
             <h3>Ingresá tus datos</h3>
@@ -16,7 +16,7 @@
                 </div>
             {{/error}}
 
-            <form method="post" action="?controller=login&method=login">
+            <form method="post" action="login/login">
                 <div class="w3-row-padding">
                     <div class="w3-half">
                         <label><b>Usuario</b></label>

@@ -3,7 +3,7 @@
     {{#error}}
         <div class="game-over" style="max-width:440px">{{error}}</div>
     {{/error}}
-    <form method="post" enctype="multipart/form-data" action="index.php?controller=login&method=registrar">
+    <form method="post" enctype="multipart/form-data" action="login/registrar">
 
         <!-- NOMBRE COMPLETO -->
         <label for="nombreCompleto">NOMBRE COMPLETO</label>
@@ -63,7 +63,7 @@
 
         <button type="submit" class="boton-arcade">REGISTRARME</button>
     </form>
-    <a href="index.php?controller=login&method=show" class="link-arcade">¿YA TENÉS CUENTA? INGRESÁ</a>
+    <a href="login/show" class="link-arcade">¿YA TENÉS CUENTA? INGRESÁ</a>
 </div>
 
 <script>// ==========================================
@@ -182,7 +182,7 @@ buscador.addEventListener('blur', () => {
 
         timerEspera = setTimeout(async () => {
             try {
-                const respuesta = await fetch(`index.php?controller=login&method=verificarDisponibilidad&campo=usuario&valor=${encodeURIComponent(valor)}`);
+                const respuesta = await fetch(`ilogin/verificarDisponibilidad?campo=usuario&valor=${encodeURIComponent(valor)}`);
                 const resultado = await respuesta.json();
 
                 if (resultado.existe) {

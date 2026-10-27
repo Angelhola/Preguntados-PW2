@@ -4,7 +4,7 @@
 {{#mensaje}}<p class="subtitulo-arcade">{{mensaje}}</p>{{/mensaje}}.
 
 <div class="tarjeta-arcade">
-    <form method="post" action="index.php?controller=login&method=login">
+    <form method="post" action="login/login">
         <label for="usuario">USUARIO</label>
         <input type="text" name="usuario" id="usuario" autocomplete="off">
 
@@ -21,7 +21,7 @@
         <button type="submit" class="boton-arcade">▶ START</button>
     </form>
 
-    <a href="index.php?controller=login&method=register" class="link-arcade">
+    <a href="login/register" class="link-arcade">
         <span class="parpadeo">PRESS</span> CREAR CUENTA NUEVA
     </a>
 </div>
