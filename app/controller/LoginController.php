@@ -138,6 +138,7 @@ $error = 'El dominio del email no existe o no puede recibir correos';
             ["nombre" => "10 aciertos seguidos", "icono" => "🔥", "estado" => "bloqueado"],
             ["nombre" => "Ranking top 10", "icono" => "👑", "estado" => "bloqueado"],
         ];
+        $data["urlPerfil"] = "http://localhost/proyectos/Preguntados-PW2/index.php?controller=login&method=publico&usuario=" . urlencode($nombreUsuario);
 
         $this->render->renderizaArcade("perfil", $data);
     }

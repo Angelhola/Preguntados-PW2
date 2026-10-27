@@ -23,4 +23,18 @@
             <div class="logro {{estado}}">{{icono}} {{nombre}}</div>
         {{/logros}}
     </details>
+
+    <h3>COMPARTIR PERFIL</h3>
+    <div id="qr"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        new QRCode(document.getElementById("qr"), {
+            text: "{{urlPerfil}}",
+            width: 220,
+            height: 220,
+            colorDark: "#000000",
+            colorLight: "#ffffff"
+        });
+    </script>
 </div>

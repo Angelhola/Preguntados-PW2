@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS preguntados CHARACTER SET utf8mb4;
-
+use preguntados;
 DROP TABLE IF EXISTS usuario;
 
 CREATE TABLE usuario (
