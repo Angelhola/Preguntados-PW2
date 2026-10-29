@@ -361,6 +361,90 @@ button.lobby-mini:hover { border-color: #ffe600; color: #ffe600; }
     font-size: 0.75rem;;
 }
 
+/* Mascota */
+
+@keyframes bob {
+    50% { transform: translateY(-6px); }
+}
+
+.lobby-mascota-wrap {
+    position: relative;
+    width: 140px;
+    margin: 0 auto 24px;
+}
+
+.lobby-mascota {
+    display: block;
+    width: 100%;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 6px #8a5cff);
+    animation: bob 1.2s steps(2) infinite;
+}
+
+.lobby-globo {
+    position: absolute;
+    left: 100%;
+    top: 10px;
+    margin-left: 22px;
+    padding: 12px 16px;
+    background: #1a1a2e;
+    border: 3px solid #00e5ff;
+    box-shadow: 4px 4px 0 #ff1f6b;
+    color: #ffe600;
+    font-size: 12px;
+    line-height: 1.6;
+    white-space: pre;
+    min-width: 230px;
+    min-height: 3.2em;
+}
+
+/* colita del globo, apuntando a Cartu */
+.lobby-globo::before {
+    content: "";
+    position: absolute;
+    left: -11px;
+    top: 18px;
+    width: 16px;
+    height: 16px;
+    background: #1a1a2e;
+    border-left: 3px solid #00e5ff;
+    border-bottom: 3px solid #00e5ff;
+    transform: rotate(45deg);
+}
+
+/* Fondo */
+.fondo-signos {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.signo {
+    position: absolute;
+    bottom: -40px;
+    opacity: 0;
+    animation: subir 8s linear infinite;
+}
+
+.signo svg {
+    display: block;
+    width: 100%;
+    image-rendering: pixelated;
+}
+
+@keyframes subir {
+    0%   { transform: translateY(0); opacity: 0; }
+    15%  { opacity: 0.5; }
+    85%  { opacity: 0.5; }
+    100% { transform: translateY(-115vh); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fondo-signos { display: none; }
+}
+
 /*  QR */
 #qr { background: #fff; padding: 12px; display: inline-block; }
 
@@ -442,3 +526,4 @@ body {
 .opcion-incorrecta { background: #ff0055; color: #fff; border-color: #ff0055; }
 
 @media (max-width: 600px) { .opciones { grid-template-columns: 1fr; } }
+

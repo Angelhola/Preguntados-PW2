@@ -11,5 +11,5 @@
     <link rel="stylesheet" href="public/css/arcade.css?v=2">
 </head>
 <body class="arcade">
-</body>
+<div class="fondo-signos" id="fondo-signos"></div>
 </html>

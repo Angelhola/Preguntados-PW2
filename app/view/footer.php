@@ -4,6 +4,6 @@
     <p class="w3-tiny">Foto: <a href="https://commons.wikimedia.org/wiki/File:Lionel_Messi_WC2022.jpg"
                                 style="color:white">Wikimedia Commons (CC BY 4.0)</a></p>
 </footer>
-
+<script src="public/js/fondo-signos.js"></script>
 </body>
 </html>
