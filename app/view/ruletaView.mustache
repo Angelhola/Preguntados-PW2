@@ -1,0 +1,97 @@
+<style>
+    .ruleta-contenedor { position: relative; width: 420px; height: 420px; margin: 72px auto 32px; }
+    .ruleta { position: relative; width: 420px; height: 420px; border-radius: 50%; border: 6px solid #fff; box-shadow: 8px 8px 0 #ff0055; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 1); }
+    .ruleta-etiqueta { position: absolute; top: 50%; left: 50%; width: 156px; margin-top: -6px; transform-origin: 0 0; font-size: 10px; color: #000; white-space: nowrap; }
+    .ruleta-puntero { position: absolute; top: -18px; left: 50%; margin-left: -12px; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 24px solid #fff; z-index: 2; }
+</style>
+<div class="lobby-barra">
+    <span class="subtitulo-arcade" style="margin:0">PUNTOS: {{puntos}}</span>
+    <a class="lobby-mini" href="evento/lobby">VOLVER</a>
+</div>
+
+<p class="subtitulo-arcade">PLAYER: {{usuario}}</p>
+<h1 class="titulo-arcade">RULETA</h1>
+
+<div class="ruleta-contenedor">
+    <div class="ruleta-puntero"></div>
+    <div class="ruleta" id="ruleta"></div>
+</div>
+
+<ul id="categorias" hidden>
+    {{#categorias}}
+        <li data-nombre="{{nombre}}" data-color="{{color}}"></li>
+    {{/categorias}}
+</ul>
+
+<button id="girar" class="boton-arcade">GIRAR</button>
+<p id="resultado" class="subtitulo-arcade"></p>
+
+<script>
+    const ruleta = document.getElementById("ruleta");
+    const items = document.querySelectorAll("#categorias li");
+    const boton = document.getElementById("girar");
+    const resultado = document.getElementById("resultado");
+    const seg = 360 / items.length;
+    let giroActual = 0;
+    let girando = false;
+
+    const partes = [];
+    items.forEach(function (li, i) {
+        partes.push(li.dataset.color + " " + i * seg + "deg " + (i + 1) * seg + "deg");
+
+        const centro = i * seg + seg / 2;
+        const izquierda = centro > 180;
+        const etiqueta = document.createElement("div");
+        etiqueta.className = "ruleta-etiqueta";
+        etiqueta.textContent = li.dataset.nombre;
+        etiqueta.style.transform = izquierda
+                ? "rotate(" + (centro + 90) + "deg) translateX(-198px)"
+                : "rotate(" + (centro - 90) + "deg) translateX(42px)";
+        etiqueta.style.textAlign = izquierda ? "right" : "left";
+        ruleta.appendChild(etiqueta);
+    });
+    ruleta.style.background = "conic-gradient(" + partes.join(", ") + ")";
+
+    boton.addEventListener("click", function () {
+        if (girando) {
+            return;
+        }
+        girando = true;
+        boton.disabled = true;
+
+        fetch("juego/girar")
+                .then(function (respuesta) {
+                    return respuesta.json();
+                })
+                .then(function (datos) {
+                    let indice = 0;
+                    items.forEach(function (li, i) {
+                        if (li.dataset.nombre === datos.categoria) {
+                            indice = i;
+                        }
+                    });
+
+                    ruleta.addEventListener(
+                            "transitionend",
+                            function () {
+                                resultado.textContent = "CATEGORIA: " + datos.categoria;
+                                setTimeout(function () {
+                                    window.location.href = "juego/pregunta";
+                                }, 1200);
+                            },
+                            { once: true }
+                    );
+
+                    const centro = indice * seg + seg / 2;
+                    const desvio = (Math.random() - 0.5) * seg * 0.6;
+                    const base = Math.ceil(giroActual / 360) * 360 + 360 * 5;
+                    giroActual = base + (360 - centro) + desvio;
+                    ruleta.style.transform = "rotate(" + giroActual + "deg)";
+                })
+                .catch(function () {
+                    resultado.textContent = "ERROR, INTENTA DE NUEVO";
+                    boton.disabled = false;
+                    girando = false;
+                });
+    });
+</script>

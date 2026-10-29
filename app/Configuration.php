@@ -9,6 +9,8 @@ use app\model\LoginModel;
 use MustacheRender;
 use MyDatabase;
 use Router;
+use app\controller\JuegoController;
+use app\model\JuegoModel;
 
 require_once("helper/Autoloader.php");
 
@@ -99,5 +101,14 @@ class Configuration
     public function getRouter()
     {
         return new Router($this, "login", "inicio");
+    }
+
+    public function getJuegoController()
+    {
+        return new JuegoController($this->getJuegoModel(), $this->gerRender());
+    }
+    public function getJuegoModel()
+    {
+        return new JuegoModel();
     }
 }

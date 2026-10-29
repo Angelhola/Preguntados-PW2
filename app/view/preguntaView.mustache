@@ -1,0 +1,55 @@
+<div class="lobby-barra">
+    <span class="subtitulo-arcade" style="margin:0">PUNTOS: <span id="puntos">{{puntos}}</span></span>
+    <a class="lobby-mini" href="evento/lobby">VOLVER</a>
+</div>
+
+<p class="subtitulo-arcade">CATEGORIA: {{categoria}}</p>
+<h1 class="pregunta-texto">{{texto}}</h1>
+
+<div class="opciones">
+    {{#opciones}}
+        <button class="opcion" data-indice="{{indice}}">{{texto}}</button>
+    {{/opciones}}
+</div>
+
+<a id="siguiente" class="boton-arcade" href="juego/ruleta" hidden>SIGUIENTE</a>
+
+<script>
+    const botones = document.querySelectorAll(".opcion");
+    const siguiente = document.getElementById("siguiente");
+    const puntos = document.getElementById("puntos");
+    let respondido = false;
+
+    botones.forEach(function (boton) {
+        boton.addEventListener("click", function () {
+            if (respondido) {
+                return;
+            }
+            respondido = true;
+
+            const datos = new URLSearchParams();
+            datos.append("opcion", boton.dataset.indice);
+
+            fetch("juego/responder", { method: "POST", body: datos })
+                    .then(function (respuesta) {
+                        return respuesta.json();
+                    })
+                    .then(function (resultado) {
+                        botones.forEach(function (b) {
+                            b.disabled = true;
+                        });
+                        document
+                                .querySelector('[data-indice="' + resultado.correcta + '"]')
+                                .classList.add("opcion-correcta");
+                        if (!resultado.acerto) {
+                            boton.classList.add("opcion-incorrecta");
+                        }
+                        puntos.textContent = resultado.puntos;
+                        siguiente.hidden = false;
+                    })
+                    .catch(function () {
+                        respondido = false;
+                    });
+        });
+    });
+</script>
