@@ -12,12 +12,17 @@
     {{/opciones}}
 </div>
 
+<!-- CAMBIO 1: mensaje de game over (nuevo) -->
+<p id="mensaje" class="game-over" hidden></p>
+
 <a id="siguiente" class="boton-arcade" href="juego/ruleta" hidden>SIGUIENTE</a>
 
 <script>
     const botones = document.querySelectorAll(".opcion");
     const siguiente = document.getElementById("siguiente");
     const puntos = document.getElementById("puntos");
+    // CAMBIO 2: referencia al mensaje (nuevo)
+    const mensaje = document.getElementById("mensaje");
     let respondido = false;
 
     botones.forEach(function (boton) {
@@ -41,10 +46,14 @@
                         document
                                 .querySelector('[data-indice="' + resultado.correcta + '"]')
                                 .classList.add("opcion-correcta");
+                        puntos.textContent = resultado.puntos;
+                        // CAMBIO 3: si falla, game over y el botón dice JUGAR DE NUEVO
                         if (!resultado.acerto) {
                             boton.classList.add("opcion-incorrecta");
+                            mensaje.textContent = "GAME OVER - HICISTE " + resultado.final + " PUNTOS";
+                            mensaje.hidden = false;
+                            siguiente.textContent = "JUGAR DE NUEVO";
                         }
-                        puntos.textContent = resultado.puntos;
                         siguiente.hidden = false;
                     })
                     .catch(function () {

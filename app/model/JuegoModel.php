@@ -6,15 +6,17 @@ class JuegoModel
 {
     public function getCategorias()
     {
+
         return [
             ["nombre" => "Historia", "color" => "#ffe600"],
             ["nombre" => "Ciencia", "color" => "#00e5ff"],
             ["nombre" => "Deportes", "color" => "#ff0055"],
-            ["nombre" => "Geografía", "color" => "#39ff14"],
-            ["nombre" => "Arte", "color" => "#b026ff"],
-            ["nombre" => "Entretenimiento", "color" => "#ff8800"],
+            ["nombre" => "Geografía", "color" => "#ffe600"],
+            ["nombre" => "Arte", "color" => "#00e5ff"],
+            ["nombre" => "Cine y TV", "color" => "#ff0055"],
         ];
     }
+
 
     public function sortearCategoria()
     {
@@ -44,20 +46,49 @@ class JuegoModel
                 ["texto" => "¿Quién pintó la Mona Lisa?", "opciones" => ["Picasso", "Van Gogh", "Leonardo da Vinci", "Dalí"], "correcta" => 2],
                 ["texto" => "¿Quién pintó La noche estrellada?", "opciones" => ["Van Gogh", "Monet", "Goya", "Rembrandt"], "correcta" => 0],
             ],
-            "Entretenimiento" => [
+            "Cine y TV" => [
                 ["texto" => "¿Quién lleva el Anillo Único hasta Mordor?", "opciones" => ["Frodo", "Bilbo", "Gandalf", "Aragorn"], "correcta" => 0],
                 ["texto" => "¿De qué color es Pac-Man?", "opciones" => ["Rojo", "Azul", "Amarillo", "Verde"], "correcta" => 2],
             ],
         ];
     }
 
-    public function getPreguntaAleatoria($categoria)
+    public function getPreguntaAleatoria($categoria, $excluirTexto = null)
     {
         $preguntas = $this->getPreguntas();
         $lista = $preguntas[$categoria] ?? [];
-        if (empty($lista)) {
+
+        $disponibles = [];
+        foreach ($lista as $pregunta) {
+            if ($pregunta["texto"] !== $excluirTexto) {
+                $disponibles[] = $pregunta;
+            }
+        }
+        if (empty($disponibles)) {
+            $disponibles = $lista;
+        }
+        if (empty($disponibles)) {
             return null;
         }
-        return $lista[array_rand($lista)];
+
+        return $this->mezclarOpciones($disponibles[array_rand($disponibles)]);
+    }
+
+    private function mezclarOpciones($pregunta)
+    {
+        $opciones = [];
+        foreach ($pregunta["opciones"] as $indice => $texto) {
+            $opciones[] = ["texto" => $texto, "correcta" => $indice === $pregunta["correcta"]];
+        }
+        shuffle($opciones);
+
+        $pregunta["opciones"] = [];
+        foreach ($opciones as $nuevoIndice => $opcion) {
+            $pregunta["opciones"][] = $opcion["texto"];
+            if ($opcion["correcta"]) {
+                $pregunta["correcta"] = $nuevoIndice;
+            }
+        }
+        return $pregunta;
     }
 }

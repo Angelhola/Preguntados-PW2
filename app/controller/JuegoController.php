@@ -36,8 +36,11 @@ class JuegoController
 
         $categoria = $this->model->sortearCategoria();
         $_SESSION['categoria_actual'] = $categoria["nombre"];
-        $_SESSION['pregunta_actual'] = $this->model->getPreguntaAleatoria($categoria["nombre"]);
-        $_SESSION['respondida'] = false;
+        $_SESSION['pregunta_actual'] = $this->model->getPreguntaAleatoria(
+            $categoria["nombre"],
+            $_SESSION['ultima_pregunta'] ?? null
+        );
+        $_SESSION['ultima_pregunta'] = $_SESSION['pregunta_actual']["texto"] ?? null;        $_SESSION['respondida'] = false;
 
         header("Content-Type: application/json");
         echo json_encode(["categoria" => $categoria["nombre"]]);
@@ -82,16 +85,15 @@ class JuegoController
 
         $elegida = (int) Request::post('opcion', -1);
         $_SESSION['respondida'] = true;
-
         $acerto = $elegida === $pregunta["correcta"];
-        if ($acerto) {
-            $_SESSION['puntos'] = ($_SESSION['puntos'] ?? 0) + 1;
-        }
+        $final = $_SESSION['puntos'] ?? 0;
+        $_SESSION['puntos'] = $acerto ? $final + 1 : 0;
 
         echo json_encode([
             "acerto" => $acerto,
             "correcta" => $pregunta["correcta"],
-            "puntos" => $_SESSION['puntos'] ?? 0,
+            "puntos" => $_SESSION['puntos'],
+            "final" => $final,
         ]);
         exit;
     }

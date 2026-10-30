@@ -1,9 +1,11 @@
 <style>
-    .ruleta-contenedor { position: relative; width: 420px; height: 420px; margin: 72px auto 32px; }
-    .ruleta { position: relative; width: 420px; height: 420px; border-radius: 50%; border: 6px solid #fff; box-shadow: 8px 8px 0 #ff0055; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 1); }
-    .ruleta-etiqueta { position: absolute; top: 50%; left: 50%; width: 156px; margin-top: -6px; transform-origin: 0 0; font-size: 10px; color: #000; white-space: nowrap; }
+    .ruleta-contenedor { --tam: min(320px, 42vh); position: relative; width: var(--tam); height: var(--tam); margin: 32px auto 20px; border-radius: 50%; box-shadow: 8px 8px 0 #ff0055; }
+    .ruleta-etiqueta { color: #0d0d0d; white-space: nowrap; line-height: 1; }
+    .ruleta-centro { position: absolute; top: 50%; left: 50%; width: 24%; height: 24%; transform: translate(-50%, -50%); border-radius: 50%; background: #0d0d0d; border: 4px solid #ffe600; z-index: 1; }
     .ruleta-puntero { position: absolute; top: -18px; left: 50%; margin-left: -12px; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 24px solid #fff; z-index: 2; }
+    .ruleta { position: relative; width: 100%; height: 100%; box-sizing: border-box; border-radius: 50%; border: 6px solid #fff; box-shadow: none; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 1); }
 </style>
+
 <div class="lobby-barra">
     <span class="subtitulo-arcade" style="margin:0">PUNTOS: {{puntos}}</span>
     <a class="lobby-mini" href="evento/lobby">VOLVER</a>
@@ -15,6 +17,7 @@
 <div class="ruleta-contenedor">
     <div class="ruleta-puntero"></div>
     <div class="ruleta" id="ruleta"></div>
+    <div class="ruleta-centro"></div>
 </div>
 
 <ul id="categorias" hidden>
@@ -24,7 +27,7 @@
 </ul>
 
 <button id="girar" class="boton-arcade">GIRAR</button>
-<p id="resultado" class="subtitulo-arcade"></p>
+<p id="resultado" class="subtitulo-arcade" style="margin: 28px 0 0"></p>
 
 <script>
     const ruleta = document.getElementById("ruleta");
@@ -35,19 +38,31 @@
     let giroActual = 0;
     let girando = false;
 
+    const radio = ruleta.clientWidth / 2;
+    const inicio = radio * 0.3;
+    const largo = radio * 0.7 - 12;
+
     const partes = [];
     items.forEach(function (li, i) {
-        partes.push(li.dataset.color + " " + i * seg + "deg " + (i + 1) * seg + "deg");
+        partes.push("#0d0d0d " + i * seg + "deg " + (i * seg + 1.5) + "deg");
+        partes.push(li.dataset.color + " " + (i * seg + 1.5) + "deg " + (i + 1) * seg + "deg");
 
         const centro = i * seg + seg / 2;
         const izquierda = centro > 180;
         const etiqueta = document.createElement("div");
         etiqueta.className = "ruleta-etiqueta";
         etiqueta.textContent = li.dataset.nombre;
-        etiqueta.style.transform = izquierda
-                ? "rotate(" + (centro + 90) + "deg) translateX(-198px)"
-                : "rotate(" + (centro - 90) + "deg) translateX(42px)";
-        etiqueta.style.textAlign = izquierda ? "right" : "left";
+
+        // Estilos clave en línea: no dependen de ningún CSS externo
+        const giro = izquierda
+                ? "rotate(" + (centro + 90) + "deg) translate(" + -(inicio + largo) + "px, -50%)"
+                : "rotate(" + (centro - 90) + "deg) translate(" + inicio + "px, -50%)";
+        etiqueta.style.cssText =
+                "position:absolute; top:50%; left:50%; right:auto; bottom:auto; height:auto; margin:0; padding:0; transform-origin:0 0;" +
+                "width:" + largo + "px;" +
+                "font-size:" + Math.min(11, largo / li.dataset.nombre.length) + "px;" +
+                "text-align:" + (izquierda ? "left" : "right") + ";" +
+                "transform:" + giro + ";";
         ruleta.appendChild(etiqueta);
     });
     ruleta.style.background = "conic-gradient(" + partes.join(", ") + ")";
