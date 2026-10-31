@@ -10,7 +10,7 @@ class Mailer
     public static function enviarVerificacion($destino, $nombre, $token)
     {
         $config = parse_ini_file(__DIR__ . '/../config/config.ini');
-        $link = $config['base_url'] . 'login/verificar&token=' . $token;
+        $link = $config['base_url'] . '/login/verificar&token=' . $token;
 
         $mail = new PHPMailer(true);
         try {
