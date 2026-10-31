@@ -53,6 +53,6 @@ class EventoController
 
         $data["usuario"] = $_SESSION['usuario'];
         $_SESSION['puntos'] = 0;
-        $this->render->renderizaArcade("lobby", $data);
+        $this->render->renderizaArcade("Lobby", $data);
     }
 }
