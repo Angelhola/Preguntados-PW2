@@ -23,11 +23,13 @@ Options -Indexes
 # ══════════════════════════════════════════════════════
 <IfModule mod_rewrite.c>
     # Activa el motor de reescritura.
-    RewriteEngine On
 
     # Raíz desde donde se aplican las reglas (relativo al DocumentRoot).
     # Si el proyecto no está en la raíz de htdocs, cambiar a /nombre-carpeta/
-    RewriteBase /Preguntados-PW2/
+
+     RewriteEngine On
+
+     # RewriteBase /Preguntados-PW2/
 
     # ── SEGURIDAD: código interno inaccesible por URL directa ──
     # app/, helper/ y vendor/ son PHP interno (controllers, models,
