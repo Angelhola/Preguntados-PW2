@@ -2,7 +2,7 @@
 use app\Configuration;
 
 session_start();
-define('BASE_URL', '/Preguntados-PW2/');
+define('BASE_URL', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\') . '/');
 require_once("app/Configuration.php");
 
 $configuration = new Configuration();
