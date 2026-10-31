@@ -12,4 +12,4 @@
 </head>
 <body class="arcade">
 <div class="fondo-signos" id="fondo-signos"></div>
-</html>
+
