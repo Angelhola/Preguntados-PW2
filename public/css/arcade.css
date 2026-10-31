@@ -862,3 +862,31 @@ body {
         white-space: normal !important;
     }
 }
+/* ========================================== */
+/* CENTRAR INICIAR SESIÓN Y LOADING EN MOBILE */
+/* ========================================== */
+@media (max-width: 768px) {
+    /* Fuerza a que el cuerpo de la página centre todo vertical y horizontalmente */
+    body.arcade {
+        justify-content: center !important; /* Vuelve a centrar todo en el medio como antes */
+        align-items: center !important;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+
+    /* Asegura que la tarjeta de iniciar sesión o formularios estén bien centrados y con buen ancho */
+    .tarjeta-arcade {
+        width: 100% !important;
+        max-width: 440px !important;
+        box-sizing: border-box !important;
+        margin: 0 auto !important;
+    }
+
+    /* Centra la barra de carga (loading) y evita que quede arriba */
+    .barra-carga {
+        width: 100% !important;
+        max-width: 440px !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+    }
+}

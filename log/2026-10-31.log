@@ -2,3 +2,4 @@
 [17:31:29] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
 [18:23:10] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
 [19:43:48] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
+[20:51:40] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
