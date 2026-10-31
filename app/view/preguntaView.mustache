@@ -1,9 +1,22 @@
+<style>
+    /* NUEVO: barra del contador */
+    .tiempo-barra { width: 100%; max-width: 440px; height: 20px; border: 4px solid #fff; padding: 3px; box-sizing: border-box; margin: 0 auto 16px;  }
+    #barraTiempo { height: 100%; width: 100%; background: #00e5ff; transition: width 1s linear;  }
+    #barraTiempo.tiempo-poco { background: #ff0055; }
+    #tiempo.alerta { color: #ff0055; animation: parpadeo 0.5s steps(1) infinite; }
+</style>
+
 <div class="lobby-barra">
     <span class="subtitulo-arcade" style="margin:0">PUNTOS: <span id="puntos">{{puntos}}</span></span>
     <a class="lobby-mini" href="evento/lobby">VOLVER</a>
 </div>
 
 <p class="subtitulo-arcade">CATEGORIA: {{categoria}}</p>
+
+<!-- NUEVO: contador -->
+<div class="tiempo-barra"><div id="barraTiempo"></div></div>
+<p id="tiempo" class="subtitulo-arcade">TIEMPO: 20</p>
+
 <h1 class="pregunta-texto">{{texto}}</h1>
 
 <div class="opciones">
@@ -12,53 +25,108 @@
     {{/opciones}}
 </div>
 
-<!-- CAMBIO 1: mensaje de game over (nuevo) -->
 <p id="mensaje" class="game-over" hidden></p>
 
 <a id="siguiente" class="boton-arcade" href="juego/ruleta" hidden>SIGUIENTE</a>
 
+<!-- NUEVO: sonidos compartidos -->
+<script src="public/js/sonidos.js"></script>
 <script>
+    const TIEMPO_TOTAL = 20;
+    let restante = TIEMPO_TOTAL;
+    // Habilita el audio en cuanto el jugador toque o presione algo
+    ["click", "keydown", "touchstart"].forEach(function (evento) {
+        document.addEventListener(evento, activarAudio, { once: true });
+    });
+    activarAudio();
+
     const botones = document.querySelectorAll(".opcion");
     const siguiente = document.getElementById("siguiente");
     const puntos = document.getElementById("puntos");
-    // CAMBIO 2: referencia al mensaje (nuevo)
     const mensaje = document.getElementById("mensaje");
+    const barra = document.getElementById("barraTiempo");
+    const textoTiempo = document.getElementById("tiempo");
     let respondido = false;
+
+    // NUEVO: cuenta regresiva
+    const reloj = setInterval(function () {
+        restante--;
+        textoTiempo.textContent = "TIEMPO: " + restante;
+        barra.style.width = (restante / TIEMPO_TOTAL * 100) + "%";
+
+        if (restante <= 5 && restante > 0) {
+            barra.classList.add("tiempo-poco");
+            textoTiempo.classList.add("alerta");
+            sonidoAlerta(restante);
+        }
+        if (restante <= 0) {
+            responder(-1, null); // -1 = no contestó
+        }
+    }, 1000);
 
     botones.forEach(function (boton) {
         boton.addEventListener("click", function () {
-            if (respondido) {
-                return;
-            }
-            respondido = true;
-
-            const datos = new URLSearchParams();
-            datos.append("opcion", boton.dataset.indice);
-
-            fetch("juego/responder", { method: "POST", body: datos })
-                    .then(function (respuesta) {
-                        return respuesta.json();
-                    })
-                    .then(function (resultado) {
-                        botones.forEach(function (b) {
-                            b.disabled = true;
-                        });
-                        document
-                                .querySelector('[data-indice="' + resultado.correcta + '"]')
-                                .classList.add("opcion-correcta");
-                        puntos.textContent = resultado.puntos;
-                        // CAMBIO 3: si falla, game over y el botón dice JUGAR DE NUEVO
-                        if (!resultado.acerto) {
-                            boton.classList.add("opcion-incorrecta");
-                            mensaje.textContent = "GAME OVER - HICISTE " + resultado.final + " PUNTOS";
-                            mensaje.hidden = false;
-                            siguiente.textContent = "JUGAR DE NUEVO";
-                        }
-                        siguiente.hidden = false;
-                    })
-                    .catch(function () {
-                        respondido = false;
-                    });
+            responder(boton.dataset.indice, boton);
         });
     });
+
+    // Tu misma lógica, ahora en una función para usarla con el clic y con el tiempo agotado
+    function responder(indice, boton) {
+        if (respondido) {
+            return;
+        }
+        respondido = true;
+        clearInterval(reloj);
+        activarAudio();
+        textoTiempo.classList.remove("alerta");
+
+        const datos = new URLSearchParams();
+        datos.append("opcion", indice);
+
+        fetch("juego/responder", { method: "POST", body: datos })
+                .then(function (respuesta) {
+                    return respuesta.json();
+                })
+                .then(function (resultado) {
+                    botones.forEach(function (b) {
+                        b.disabled = true;
+                    });
+                    document
+                            .querySelector('[data-indice="' + resultado.correcta + '"]')
+                            .classList.add("opcion-correcta");
+                    puntos.textContent = resultado.puntos;
+
+                    if (resultado.acerto) {
+                        sonidoCorrecto();
+                    } else {
+                        if (boton) {
+                            boton.classList.add("opcion-incorrecta");
+                            sonidoIncorrecto();
+                            mensaje.textContent = "GAME OVER - HICISTE " + resultado.final + " PUNTOS";
+                        } else {
+                            sonidoTiempoAgotado();
+                            mensaje.textContent = "SE ACABÓ EL TIEMPO - HICISTE " + resultado.final + " PUNTOS";
+                        }
+                        mensaje.hidden = false;
+                        siguiente.textContent = "JUGAR DE NUEVO";
+                    }
+                    siguiente.hidden = false;
+                })
+                .catch(function () {
+                    respondido = false;
+                });
+    }
+    // Alarma de fin de tiempo: más urgente cuanto menos queda
+    function sonidoAlerta(segundosRestantes) {
+        if (segundosRestantes > 3) {
+            // 5 y 4 segundos: un pitido firme
+            beep(880, 0, 0.15, "square", 0.1);
+        } else {
+            // 3, 2 y 1 segundos: sirena de dos tonos
+            beep(1100, 0, 0.12, "square", 0.13);
+            beep(1500, 0.14, 0.12, "square", 0.13);
+            beep(1100, 0.28, 0.12, "square", 0.13);
+            beep(1500, 0.42, 0.12, "square", 0.13);
+        }
+    }
 </script>

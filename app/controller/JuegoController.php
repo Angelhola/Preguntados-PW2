@@ -6,6 +6,7 @@ use Redirect;
 use Request;
 class JuegoController
 {
+    private const SEGUNDOS_LIMITE = 22;
     private $model;
     private $render;
 
@@ -41,7 +42,8 @@ class JuegoController
             $_SESSION['ultima_pregunta'] ?? null
         );
         $_SESSION['ultima_pregunta'] = $_SESSION['pregunta_actual']["texto"] ?? null;        $_SESSION['respondida'] = false;
-
+        $_SESSION['respondida'] = false;
+        $_SESSION['pregunta_inicio'] = null;
         header("Content-Type: application/json");
         echo json_encode(["categoria" => $categoria["nombre"]]);
         exit;
@@ -58,6 +60,9 @@ class JuegoController
         if ($pregunta === null || ($_SESSION['respondida'] ?? true)) {
             Redirect::to('?controller=juego&method=ruleta');
             return;
+        }
+        if (empty($_SESSION['pregunta_inicio'])) {
+            $_SESSION['pregunta_inicio'] = time();
         }
 
         $opciones = [];
@@ -85,7 +90,9 @@ class JuegoController
 
         $elegida = (int) Request::post('opcion', -1);
         $_SESSION['respondida'] = true;
-        $acerto = $elegida === $pregunta["correcta"];
+        $transcurrido = time() - ($_SESSION['pregunta_inicio'] ?? 0);
+        $fueraDeTiempo = $transcurrido > self::SEGUNDOS_LIMITE;
+        $acerto = !$fueraDeTiempo && $elegida === $pregunta["correcta"];
         $final = $_SESSION['puntos'] ?? 0;
         $_SESSION['puntos'] = $acerto ? $final + 1 : 0;
 

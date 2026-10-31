@@ -27,8 +27,11 @@
 </ul>
 
 <button id="girar" class="boton-arcade">GIRAR</button>
+<button id="sonido" class="lobby-mini" type="button">🔊 SONIDO</button>
 <p id="resultado" class="subtitulo-arcade" style="margin: 28px 0 0"></p>
 
+<!-- 1) El archivo de sonidos va ANTES del script principal -->
+<script src="public/js/sonidos.js"></script>
 <script>
     const ruleta = document.getElementById("ruleta");
     const items = document.querySelectorAll("#categorias li");
@@ -53,7 +56,6 @@
         etiqueta.className = "ruleta-etiqueta";
         etiqueta.textContent = li.dataset.nombre;
 
-        // Estilos clave en línea: no dependen de ningún CSS externo
         const giro = izquierda
                 ? "rotate(" + (centro + 90) + "deg) translate(" + -(inicio + largo) + "px, -50%)"
                 : "rotate(" + (centro - 90) + "deg) translate(" + inicio + "px, -50%)";
@@ -67,12 +69,47 @@
     });
     ruleta.style.background = "conic-gradient(" + partes.join(", ") + ")";
 
+    // 2) NUEVO: tic cada vez que un gajo pasa por el puntero
+    let frame = null;
+    let ultimoGajo = -1;
+
+    function seguirRuleta() {
+        const matriz = getComputedStyle(ruleta).transform;
+        if (matriz && matriz !== "none") {
+            const v = matriz.match(/matrix\(([^)]+)\)/)[1].split(",").map(Number);
+            const grados = (Math.atan2(v[1], v[0]) * 180 / Math.PI + 360) % 360;
+            const gajo = Math.floor(((360 - grados) % 360) / seg);
+            if (gajo !== ultimoGajo) {
+                if (ultimoGajo !== -1) {
+                    sonidoTic();
+                }
+                ultimoGajo = gajo;
+            }
+        }
+        frame = requestAnimationFrame(seguirRuleta);
+    }
+
+    function pararSeguimiento() {
+        cancelAnimationFrame(frame);
+        ultimoGajo = -1;
+    }
+
+    // NUEVO: botón silenciar
+    document.getElementById("sonido").addEventListener("click", function () {
+        sonidoActivo = !sonidoActivo;
+        this.textContent = sonidoActivo ? "🔊 SONIDO" : "🔇 SILENCIO";
+    });
+
     boton.addEventListener("click", function () {
         if (girando) {
             return;
         }
         girando = true;
         boton.disabled = true;
+
+        // 3) NUEVO: activa el audio y suena el arranque
+        activarAudio();
+        sonidoInicio();
 
         fetch("juego/girar")
                 .then(function (respuesta) {
@@ -89,6 +126,9 @@
                     ruleta.addEventListener(
                             "transitionend",
                             function () {
+                                // 4) NUEVO: al parar, corta los tics y suena el final
+                                pararSeguimiento();
+                                sonidoFin();
                                 resultado.textContent = "CATEGORIA: " + datos.categoria;
                                 setTimeout(function () {
                                     window.location.href = "juego/pregunta";
@@ -102,6 +142,9 @@
                     const base = Math.ceil(giroActual / 360) * 360 + 360 * 5;
                     giroActual = base + (360 - centro) + desvio;
                     ruleta.style.transform = "rotate(" + giroActual + "deg)";
+
+                    // 5) NUEVO: arranca el seguimiento de los gajos
+                    seguirRuleta();
                 })
                 .catch(function () {
                     resultado.textContent = "ERROR, INTENTA DE NUEVO";

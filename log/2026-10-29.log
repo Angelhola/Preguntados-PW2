@@ -1,0 +1,1 @@
+[20:16:37] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
