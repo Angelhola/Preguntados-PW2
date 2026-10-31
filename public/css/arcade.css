@@ -522,3 +522,343 @@ body {
 
 @media (max-width: 600px) { .opciones { grid-template-columns: 1fr; } }
 
+/* ==========================================
+   RESPONSIVE - MOBILE FIRST
+   ========================================== */
+
+/* CELULARES: estilos base */
+
+.lobby-barra {
+    padding: 12px 14px;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.lobby-barra .subtitulo-arcade {
+    font-size: 0.5rem;
+    margin: 0;
+}
+
+.lobby-barra > div {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.lobby-mini {
+    font-size: 9px;
+    padding: 7px;
+    margin-left: 0;
+}
+
+.lobby-mascota-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto 20px;
+}
+
+.lobby-mascota {
+    width: 105px;
+}
+
+.lobby-globo {
+    position: relative;
+    left: auto;
+    top: auto;
+    margin: 14px 0 0;
+    width: calc(100% - 24px);
+    max-width: 300px;
+    min-width: 0;
+    box-sizing: border-box;
+    white-space: normal;
+    font-size: 10px;
+}
+
+.lobby-globo::before {
+    left: 50%;
+    top: -10px;
+    transform: rotate(135deg);
+}
+
+.lobby-cuadros {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 380px;
+    gap: 18px;
+    margin: 24px auto 0;
+    box-sizing: border-box;
+}
+
+.lobby-cuadro {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 24px 12px;
+}
+
+.lobby-cuadro h2 {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.lobby-cuadro span {
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.lobby-cuadro:hover,
+.lobby-cuadro:focus {
+    transform: none;
+}
+
+/* Opciones del juego: una columna en celular */
+
+.opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-width: 900px;
+    box-sizing: border-box;
+}
+
+.opcion {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 0.75rem;
+    overflow-wrap: anywhere;
+}
+
+/* Ruleta adaptable */
+
+.ruleta-contenedor {
+    width: min(300px, calc(100vw - 48px));
+    height: auto;
+    aspect-ratio: 1;
+}
+
+.ruleta {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* TABLETS */
+
+@media (min-width: 768px) {
+
+    .lobby-barra {
+        padding: 16px 24px;
+    }
+
+    .lobby-barra .subtitulo-arcade {
+        font-size: 0.65rem;
+    }
+
+    .lobby-mini {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .lobby-mascota {
+        width: 120px;
+    }
+
+    .lobby-cuadros {
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-width: 760px;
+        justify-content: center;
+    }
+
+    .lobby-cuadro {
+        width: calc(50% - 12px);
+    }
+
+    .opciones {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .opcion {
+        font-size: 0.9rem;
+    }
+}
+
+/* COMPUTADORAS */
+
+@media (min-width: 1024px) {
+
+    .lobby-mascota-wrap {
+        width: 140px;
+    }
+
+    .lobby-mascota {
+        width: 140px;
+    }
+
+    .lobby-globo {
+        position: absolute;
+        left: 100%;
+        top: 10px;
+        margin-left: 22px;
+        width: auto;
+        min-width: 230px;
+        max-width: 300px;
+        white-space: pre;
+        font-size: 12px;
+    }
+
+    .lobby-globo::before {
+        left: -11px;
+        top: 18px;
+        transform: rotate(45deg);
+    }
+
+    .lobby-cuadros {
+        max-width: 900px;
+        flex-wrap: nowrap;
+    }
+
+    .lobby-cuadro {
+        width: 220px;
+    }
+
+    .lobby-cuadro:hover,
+    .lobby-cuadro:focus {
+        transform: scale(1.05);
+    }
+}
+/* ========================================== */
+/* CORRECCIONES FINALES PARA MOBILE           */
+/* ========================================== */
+/* ========================================== */
+/* CORRECCIÓN DEFINITIVA PARA MOBILE          */
+/* ========================================== */
+@media (max-width: 768px) {
+    /* Permitir scroll natural en el celu para que nada quede cortado ni abajo del todo */
+    body.arcade {
+        justify-content: flex-start !important;
+        align-items: stretch !important;
+        padding: 10px 12px !important;
+        min-height: 100vh;
+        height: auto;
+    }
+
+    /* Espaciado limpio para los títulos y subtítulos (evita que categoría y puntos se mezclen) */
+    .titulo-arcade {
+        font-size: 1.2rem !important;
+        margin: 8px 0 12px 0 !important;
+        line-height: 1.3 !important;
+    }
+
+    .subtitulo-arcade {
+        margin: 0 0 12px 0 !important;
+    }
+
+    .vidas {
+        margin: 4px 0 12px 0 !important;
+    }
+
+    /* Reducir márgenes internos de la tarjeta para acercar el botón de "Jugar de nuevo" */
+    .tarjeta-arcade {
+        padding: 16px !important;
+        margin-bottom: 20px !important;
+    }
+
+    /* Subir y acomodar el bloque de Game Over y el botón */
+    .game-over {
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+        padding: 8px !important;
+    }
+
+    .tarjeta-arcade .boton-arcade,
+    .boton-arcade {
+        margin-top: 12px !important;
+        margin-bottom: 10px !important;
+        padding: 12px 14px !important;
+    }
+}
+/* ========================================== */
+/* CORRECCIÓN RULETA Y SONIDO EN MOBILE       */
+/* ========================================== */
+@media (max-width: 768px) {
+    /* Ajusta el contenedor de la ruleta y da separación con lo que sigue */
+    .ruleta-contenedor {
+        margin: 16px auto 20px auto !important;
+        transform: scale(0.9); /* Opcional: la achica ligeramente si es muy grande para el celu */
+        transform-origin: center;
+    }
+
+    /* Separa la categoría de la zona del sonido o controles de abajo */
+    .ruleta-etiqueta,
+    .tarjeta-arcade span,
+    .subtitulo-arcade {
+        margin-top: 12px !important;
+        margin-bottom: 12px !important;
+        display: block;
+    }
+}
+/* ========================================== */
+/* CORRECCIÓN DE LA MASCOTA/ROBOTITO EN MOBILE */
+/* ========================================== */
+@media (max-width: 768px) {
+    /* Baja el contenedor de la mascota para que no choque con los botones de arriba */
+    .lobby-mascota-wrap {
+        margin-top: 50px !important; /* Empuja el robot hacia abajo */
+        margin-bottom: 24px !important;
+    }
+
+    /* Asegura que la barra superior (ajustes/salir) tenga su espacio y no tape nada */
+    .lobby-barra {
+        position: relative !important; /* Evita que flote encima tapando el contenido si es necesario */
+        margin-bottom: 10px;
+    }
+
+    /* Si el globo de diálogo se sale de la pantalla en el celu, lo acomodamos debajo o ajustamos su posición */
+    .lobby-globo {
+        position: relative !important;
+        left: 0 !important;
+        top: 10px !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    .lobby-globo::before {
+        display: none; /* Oculta la colita del globo si ya no apunta al costado en mobile */
+    }
+}
+/* ========================================== */
+/* CORRECCIÓN DEFINITIVA OPCIONES EN MOBILE   */
+/* ========================================== */
+@media (max-width: 768px) {
+    /* Forzar que el contenedor de opciones sea de una sola columna y 100% de ancho sin desbordes */
+    .opciones {
+        display: grid !important;
+        grid-template-columns: 1fr !important; /* Una sola columna para que entren perfecto */
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* Asegurar que cada botón de opción se adapte al ancho de la pantalla del celular (Samsung, etc.) */
+    .opcion {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: auto !important; /* Permite que crezca si el texto es largo */
+        padding: 14px 12px !important;
+        box-sizing: border-box !important;
+        font-size: 0.7rem !important; /* Tamaño de letra adaptado para que no se salga */
+        word-break: break-word !important; /* Evita que las palabras largas corten la caja */
+        white-space: normal !important;
+    }
+}
