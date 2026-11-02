@@ -1,4 +1,5 @@
 <?php
+namespace app\model;
 class RankingModel {
     private $database;
 
@@ -7,9 +8,11 @@ class RankingModel {
     }
 
     public function obtenerRanking() {
-        $sql = "SELECT usuario AS nombre, puntaje AS puntos FROM usuario ORDER BY usuario DESC";
-
-        return $this->database->query($sql);
+        $sql = "SELECT id, usuario AS nombre, COALESCE(puntaje, 0) AS puntos, foto_perfil AS avatar
+        FROM usuario
+        ORDER BY puntos DESC
+        LIMIT 10";
+        return $this->database->queryAll($sql);
     }
 
 }

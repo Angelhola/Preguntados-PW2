@@ -30,6 +30,14 @@ class MyDatabase
         return $this->conexion->exec($sql);
     }
 
+    public function executePrepared(string $sql, array $params)
+    {
+        Log::info($sql);
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->rowCount();
+    }
+
     public function lastInsertId()
     {
         return $this->conexion->lastInsertId();

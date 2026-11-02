@@ -8,6 +8,8 @@ use app\model\EventoModel;
 use app\model\LoginModel;
 use MustacheRender;
 use MyDatabase;
+use app\controller\RankingController;
+use app\model\RankingModel;
 use Router;
 use app\controller\JuegoController;
 use app\model\JuegoModel;
@@ -19,22 +21,6 @@ class Configuration
 
     public function __construct()
     {
-    }
-
-    public function getLugaresController()
-    {
-        return new LugaresController(
-            $this->getLugaresModel(),
-            $this->gerRender()
-        );
-    }
-
-    public function getReservaController()
-    {
-        return new ReservaController(
-            $this->getReservaModel(),
-            $this->gerRender()
-        );
     }
 
     public function getEventoController()
@@ -53,18 +39,10 @@ class Configuration
         );
     }
 
-    // Los privados
-    private function getReservaModel()
-    {
-        return new ReservaModel(
-            $this->getDatabase()
-        );
-    }
-
-    private function getLugaresModel()
-    {
-        return new LugaresModel(
-            $this->getDatabase()
+    public function getRankingController() {
+        return new RankingController(
+            $this->getRankingModel(),
+            $this->gerRender()
         );
     }
 
@@ -98,6 +76,12 @@ class Configuration
         );
     }
 
+    private function getRankingModel() {
+        return new RankingModel(
+            $this->getDatabase()
+        );
+    }
+
     public function getRouter()
     {
         return new Router($this, "login", "inicio");
@@ -109,6 +93,8 @@ class Configuration
     }
     public function getJuegoModel()
     {
-        return new JuegoModel();
+        return new JuegoModel(
+            $this->getDatabase()
+        );
     }
 }

@@ -96,6 +96,10 @@ class JuegoController
         $final = $_SESSION['puntos'] ?? 0;
         $_SESSION['puntos'] = $acerto ? $final + 1 : 0;
 
+        if ($acerto) {
+            $this->model->guardarMejorRacha($_SESSION['usuario'], $_SESSION['puntos']);
+        }
+
         echo json_encode([
             "acerto" => $acerto,
             "correcta" => $pregunta["correcta"],

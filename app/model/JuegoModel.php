@@ -4,6 +4,23 @@ namespace app\model;
 
 class JuegoModel
 {
+
+    private $database;
+
+    function __construct($database) {
+        $this->database = $database;
+    }
+
+    public function guardarMejorRacha(string $usuario, int $racha)
+    {
+        $sql = "UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)";
+
+        return $this->database->executePrepared($sql, [$racha, $usuario, $racha]);
+    }
+
     public function getCategorias()
     {
 
