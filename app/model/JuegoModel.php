@@ -21,17 +21,9 @@ class JuegoModel
         return $this->database->executePrepared($sql, [$racha, $usuario, $racha]);
     }
 
-    public function getCategorias()
-    {
-
-        return [
-            ["nombre" => "Historia", "color" => "#ffe600"],
-            ["nombre" => "Ciencia", "color" => "#00e5ff"],
-            ["nombre" => "Deportes", "color" => "#ff0055"],
-            ["nombre" => "Geografía", "color" => "#ffe600"],
-            ["nombre" => "Arte", "color" => "#00e5ff"],
-            ["nombre" => "Cine y TV", "color" => "#ff0055"],
-        ];
+    public function getCategorias(){
+        $sql="SELECT id,nombre,color FROM categoria";
+        return $this->database->queryAll("SELECT * FROM categoria");
     }
 
 

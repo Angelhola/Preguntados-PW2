@@ -30,7 +30,14 @@ class LoginController
 
         $_SESSION['usuario_id'] = $usuario['id'];
         $_SESSION['usuario'] = $usuario['usuario'];
-        Redirect::to('evento/home');
+        $_SESSION['rol'] = $usuario['rol'] ?? 'jugador';
+        if ($_SESSION['rol'] === 'administrador') {
+        Redirect::to('?controller=admin&method=panel');
+    } elseif ($_SESSION['rol'] === 'editor') {
+    Redirect::to('?controller=editor&method=panel');
+    } else {
+        Redirect::to('evento/home'); // O a la ruleta/lobby del jugador
+    }
     }
     public function inicio()
     {
@@ -127,6 +134,7 @@ $error = 'El dominio del email no existe o no puede recibir correos';
         public function perfil()
     {
         $nombreUsuario = $_SESSION['usuario'] ?? null;
+
         $usuarioData = $this->model->getUsuarioByUsername($nombreUsuario);
         $emailAMostrar = !empty($usuarioData['email']) ? $usuarioData['email'] : 'pendiente@mail.com';
         $data = [];

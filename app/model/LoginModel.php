@@ -13,7 +13,7 @@ class LoginModel
     public function autenticar($usuario, $password)
     {
         $passwordHash = md5($password);
-        $sql = "SELECT id, usuario FROM usuario WHERE usuario = '$usuario' AND password = '$passwordHash' AND verificado = 1";
+        $sql = "SELECT id, usuario,rol FROM usuario WHERE usuario = '$usuario' AND password = '$passwordHash' AND verificado = 1";
         return $this->database->queryOne($sql);
     }
 

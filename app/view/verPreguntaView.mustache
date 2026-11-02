@@ -1,0 +1,28 @@
+<div class="lobby-barra">
+    <span class="subtitulo-arcade" style="margin:0">EDITOR: {{usuario}}</span>
+    <a class="lobby-mini" href="editor/panel">VOLVER</a>
+</div>
+
+<p class="subtitulo-arcade">CATEGORIA: {{categoria}} &nbsp;|&nbsp; ESTADO: {{estado}}</p>
+<h1 class="pregunta-texto">{{texto}}</h1>
+
+<div class="opciones">
+    {{#opciones}}
+        <div class="opcion {{#correcta}}opcion-correcta{{/correcta}}">{{texto}}</div>
+    {{/opciones}}
+</div>
+
+<p class="subtitulo-arcade">CREADA POR: {{creador}} &nbsp;|&nbsp; {{fecha_creacion}}</p>
+
+<div style="display:flex; gap:12px; justify-content:center; margin-top:20px;">
+    <form action="editor/cambiarEstado" method="POST">
+        <input type="hidden" name="pregunta_id" value="{{id}}">
+        <input type="hidden" name="estado" value="activa">
+        <button type="submit" class="boton-arcade">APROBAR</button>
+    </form>
+    <form action="editor/cambiarEstado" method="POST">
+        <input type="hidden" name="pregunta_id" value="{{id}}">
+        <input type="hidden" name="estado" value="dada_de_baja">
+        <button type="submit" class="boton-arcade" style="background:#ff0055; color:#fff;">DAR DE BAJA</button>
+    </form>
+</div>

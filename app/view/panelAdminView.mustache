@@ -1,0 +1,33 @@
+<style>
+    @media print {
+        body * { visibility: hidden; }
+        #panel-impresion, #panel-impresion * { visibility: visible; }
+        #panel-impresion { position: absolute; left: 0; top: 0; width: 100%; }
+        .no-imprimir { display: none !important; }
+    }
+    .tabla-admin { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    .tabla-admin th, .tabla-admin td { border: 1px solid #fff; padding: 8px; color: #fff; }
+</style>
+
+<div class="no-imprimir" style="margin-bottom: 20px;">
+    <button onclick="window.print()" class="boton-arcade" style="background: #00e5ff; color: #0d0d0d;">🖨️ Imprimir Reportes</button>
+</div>
+
+<div id="panel-impresion">
+    <h1 class="titulo-arcade">Panel de Control - Administrador</h1>
+
+    <table class="tabla-admin">
+        <tr><th>Métrica</th><th>Total</th></tr>
+        <tr><td>Jugadores Registrados</td><td>{{metricas.jugadores}}</td></tr>
+        <tr><td>Partidas Jugadas</td><td>{{metricas.partidas}}</td></tr>
+        <tr><td>Preguntas Totales</td><td>{{metricas.preguntas}}</td></tr>
+    </table>
+
+    <h2 class="subtitulo-arcade" style="margin-top: 20px;">Usuarios por Grupo de Edad</h2>
+    <table class="tabla-admin">
+        <tr><th>Grupo</th><th>Cantidad</th></tr>
+        {{#por_edad}}
+            <tr><td>{{grupo}}</td><td>{{cantidad}}</td></tr>
+        {{/por_edad}}
+    </table>
+</div>

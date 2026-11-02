@@ -13,6 +13,10 @@ use app\model\RankingModel;
 use Router;
 use app\controller\JuegoController;
 use app\model\JuegoModel;
+use app\controller\AdminController;
+use app\model\AdminModel;
+use app\controller\EditorController;
+use app\model\EditorModel;
 
 require_once("helper/Autoloader.php");
 
@@ -94,6 +98,31 @@ class Configuration
     public function getJuegoModel()
     {
         return new JuegoModel(
+            $this->getDatabase()
+        );
+    }
+    public function getAdminController() {
+        return new AdminController(
+            $this->getAdminModel(),
+            $this->gerRender()
+        );
+    }
+
+    private function getAdminModel() {
+        return new AdminModel(
+            $this->getDatabase()
+        );
+    }
+
+    public function getEditorController() {
+        return new EditorController(
+            $this->getEditorModel(),
+            $this->gerRender()
+        );
+    }
+
+    private function getEditorModel() {
+        return new EditorModel(
             $this->getDatabase()
         );
     }

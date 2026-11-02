@@ -1,0 +1,68 @@
+<div class="lobby-barra">
+    <span class="subtitulo-arcade" style="margin:0">EDITOR: {{usuario}}</span>
+    <a class="lobby-mini" href="evento/lobby">VOLVER</a>
+</div>
+
+<h1 class="titulo-arcade">PANEL DE EDITOR</h1>
+
+<div style="display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+
+    <!-- 1. Formulario para Dar de Alta Preguntas -->
+    <div style="flex: 1; min-width: 300px; max-width: 500px; background: rgba(0,0,0,0.5); padding: 20px; border: 4px solid #ffe600;">
+        <h2 class="subtitulo-arcade" style="color: #ffe600; margin-top: 0;">Nueva Pregunta</h2>
+
+        <form action="editor/guardar" method="POST" style="display: flex; flex-direction: column; gap: 12px;">
+            <input type="text" name="texto" placeholder="Escribe la pregunta..." required style="padding: 10px; font-family: inherit;">
+            <input type="text" name="opcion_1" placeholder="Opción 1" required style="padding: 10px; font-family: inherit;">
+            <input type="text" name="opcion_2" placeholder="Opción 2" required style="padding: 10px; font-family: inherit;">
+            <input type="text" name="opcion_3" placeholder="Opción 3" required style="padding: 10px; font-family: inherit;">
+            <input type="text" name="opcion_correcta" placeholder="Opción Correcta exacta" required style="padding: 10px; font-family: inherit;">
+            <select name="categoria_id" required style="padding: 10px; font-family: inherit;">
+                <option value="">Elegí una categoría</option>
+                {{#categorias}}
+                    <option value="{{id}}">{{nombre}}</option>
+                {{/categorias}}
+            </select>
+            <button type="submit" class="boton-arcade" style="margin-top: 10px;">Guardar Pregunta</button>
+        </form>
+    </div>
+
+    <!-- 2. Listado / Moderación de Preguntas (Opcional pero recomendado para aprobar/dar de baja) -->
+    <div style="flex: 2; min-width: 350px; background: rgba(0,0,0,0.5); padding: 20px; border: 4px solid #00e5ff;">
+        <h2 class="subtitulo-arcade" style="color: #00e5ff; margin-top: 0;">Moderar Preguntas</h2>
+
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <thead>
+            <tr style="border-bottom: 2px solid #fff;">
+                <th style="padding: 8px; text-align: left; color: #fff;">Pregunta</th>
+                <th style="padding: 8px; text-align: center; color: #fff;">Estado</th>
+                <th style="padding: 8px; text-align: center; color: #fff;">Acción</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#preguntas}}
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+                    <td style="padding: 10px;"><a href="editor/ver?id={{id}}" style="color:#fff;">{{texto}}</a></td>
+                    <td style="padding: 10px; text-align: center; color: #ffe600;">{{estado}}</td>
+                    <td style="padding: 10px; text-align: center;">
+                        <!-- Botón para Aprobar / Activar -->
+                        <form action="editor/cambiarEstado" method="POST" style="display:inline;">
+                            <input type="hidden" name="pregunta_id" value="{{id}}">
+                            <input type="hidden" name="estado" value="activa">
+                            <button type="submit" style="background: #00ff66; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold;">Aprobar</button>
+                        </form>
+
+                        <!-- Botón para Dar de Baja -->
+                        <form action="editor/cambiarEstado" method="POST" style="display:inline; margin-left: 5px;">
+                            <input type="hidden" name="pregunta_id" value="{{id}}">
+                            <input type="hidden" name="estado" value="dada_de_baja">
+                            <button type="submit" style="background: #ff0055; border: none; color: #fff; padding: 5px 10px; cursor: pointer; font-weight: bold;">Baja</button>
+                        </form>
+                    </td>
+                </tr>
+            {{/preguntas}}
+            </tbody>
+        </table>
+    </div>
+
+</div>
