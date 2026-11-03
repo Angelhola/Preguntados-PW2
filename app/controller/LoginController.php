@@ -148,9 +148,31 @@ $error = 'El dominio del email no existe o no puede recibir correos';
         ];
         $config = parse_ini_file(__DIR__ . '/../../config/config.ini');
         $base = rtrim($config['base_url'] ?? '', '/');
-        $data["urlPerfil"] = $base . "/index.php?controller=login&method=publico&usuario=" . urlencode($nombreUsuario);
+        $data["urlPerfil"] = $base . "/login/publico?usuario=" . urlencode($nombreUsuario);
 
         $this->render->renderizaArcade("perfil", $data);
+    }
+
+    public function publico()
+    {
+        $nombre = Request::get('usuario', '');
+        $usuarioData = $nombre !== '' ? $this->model->getUsuarioByUsername($nombre) : null;
+
+        if ($usuarioData === null) {
+            Redirect::to('login/show');
+            return;
+        }
+
+        $data = [
+            "usuario" => $usuarioData['usuario'],
+            "logros"  => [
+                ["nombre" => "Primera partida", "icono" => "★", "estado" => "desbloqueado"],
+                ["nombre" => "10 aciertos seguidos", "icono" => "🔥", "estado" => "bloqueado"],
+                ["nombre" => "Ranking top 10", "icono" => "👑", "estado" => "bloqueado"],
+            ],
+        ];
+
+        $this->render->renderizaArcade("perfilPublico", $data);
     }
     public function verificarDisponibilidad()
     {

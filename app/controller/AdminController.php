@@ -1,6 +1,7 @@
 <?php
 namespace app\controller;
-
+use Redirect;
+use Request;
 class AdminController
 {
     private $model;
