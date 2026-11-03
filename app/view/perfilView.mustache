@@ -6,6 +6,10 @@
         <div>
             <h2>{{usuario}}</h2>
             <span>{{email}}</span>
+
+            {{#region}}
+                <div class="perfil-ubicacion">📍 {{region}}, {{pais}}</div>
+            {{/region}}
             {{^verificado}}
                 <button class="lobby-mini" type="submit">VERIFICAR</button>
             {{/verificado}}
@@ -13,8 +17,11 @@
     </div>
 
     <h3>ESTADISTICAS</h3>
-    <div>PARTIDAS: 0</div>
+    <div>PARTIDAS: {{partidas}}</div>
+    <br>
     <div>ACIERTOS: 0%</div>
+
+    <br>
 
     <h3>LOGROS</h3>
     <details>

@@ -146,12 +146,18 @@ $error = 'El dominio del email no existe o no puede recibir correos';
             ["nombre" => "10 aciertos seguidos", "icono" => "🔥", "estado" => "bloqueado"],
             ["nombre" => "Ranking top 10", "icono" => "👑", "estado" => "bloqueado"],
         ];
+        $data["region"] = $usuarioData['region'] ?? '';
+        $data["ciudad"] = $usuarioData['ciudad'] ?? '';
+        $data["pais"]   = $usuarioData['pais'] ?? '';
+        $data["partidas"] = $this->model->contarPartidas($_SESSION['usuario_id']);
         $config = parse_ini_file(__DIR__ . '/../../config/config.ini');
         $base = rtrim($config['base_url'] ?? '', '/');
         $data["urlPerfil"] = $base . "/login/publico?usuario=" . urlencode($nombreUsuario);
 
         $this->render->renderizaArcade("perfil", $data);
     }
+
+
 
     public function publico()
     {
@@ -171,6 +177,7 @@ $error = 'El dominio del email no existe o no puede recibir correos';
                 ["nombre" => "Ranking top 10", "icono" => "👑", "estado" => "bloqueado"],
             ],
         ];
+        $data["partidas"] = $this->model->contarPartidas($usuarioData['id']);
 
         $this->render->renderizaArcade("perfilPublico", $data);
     }

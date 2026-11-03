@@ -42,4 +42,12 @@ class LoginModel
     $sql = "SELECT * FROM usuario WHERE usuario = '$usuario'";
     return $this->database->queryOne($sql);
 }
+    public function contarPartidas($idUsuario)
+    {
+        $idUsuario = (int) $idUsuario;
+        $fila = $this->database->queryOne(
+            "SELECT COUNT(*) AS total FROM partida WHERE usuario_id = $idUsuario"
+        );
+        return (int) ($fila['total'] ?? 0);
+    }
 }
