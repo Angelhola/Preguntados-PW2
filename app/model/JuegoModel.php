@@ -64,9 +64,47 @@ class JuegoModel
 
     public function getPreguntaAleatoria($categoria, $excluirTexto = null)
     {
-        $preguntas = $this->getPreguntas();
-        $lista = $preguntas[$categoria] ?? [];
+//        $preguntas = $this->getPreguntas();
+//        $lista = $preguntas[$categoria] ?? [];
+//
+//        $disponibles = [];
+//        foreach ($lista as $pregunta) {
+//            if ($pregunta["texto"] !== $excluirTexto) {
+//                $disponibles[] = $pregunta;
+//            }
+//        }
+//        if (empty($disponibles)) {
+//            $disponibles = $lista;
+//        }
+//        if (empty($disponibles)) {
+//            return null;
+//        }
+//
+//        return $this->mezclarOpciones($disponibles[array_rand($disponibles)]);
+//    }
+        $cat = addslashes($categoria);
+        $filas = $this->database->queryAll(
+            "SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = '$cat'"
+        );
 
+        $lista = [];
+        foreach ($filas as $f){
+            $opciones_temporales = [
+                $f["opcion_1"],
+                $f["opcion_2"],
+                $f["opcion_3"],
+                $f["opcion_correcta"]
+            ];
+
+            $lista[] = [
+                "texto"    => $f["texto"],
+                "opciones" => $opciones_temporales,
+                "correcta" => 3, // Como la pusimos última en el array temporal, su índice inicial es 3
+            ];
+        }
         $disponibles = [];
         foreach ($lista as $pregunta) {
             if ($pregunta["texto"] !== $excluirTexto) {
