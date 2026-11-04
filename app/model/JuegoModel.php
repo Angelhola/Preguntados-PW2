@@ -21,6 +21,12 @@ class JuegoModel
         return $this->database->executePrepared($sql, [$racha, $usuario, $racha]);
     }
 
+    public function registrarPartida(int $idUsuario)
+    {
+        $sql = "INSERT INTO partida (usuario_id) VALUES (?)";
+        return $this->database->executePrepared($sql, [$idUsuario]);
+    }
+
     public function getCategorias(){
         $sql="SELECT id,nombre,color FROM categoria";
         return $this->database->queryAll("SELECT * FROM categoria");

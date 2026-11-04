@@ -98,6 +98,9 @@ class JuegoController
 
         if ($acerto) {
             $this->model->guardarMejorRacha($_SESSION['usuario'], $_SESSION['puntos']);
+        } else {
+            // Falló o se quedó sin tiempo: la racha termina, o sea, terminó una partida
+            $this->model->registrarPartida((int) $_SESSION['usuario_id']);
         }
 
         echo json_encode([
