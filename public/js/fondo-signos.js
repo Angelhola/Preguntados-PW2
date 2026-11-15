@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const CANTIDAD = 9;
     const COLORES = ['#00e5ff', '#ff1f6b', '#ffe600', '#8a5cff'];
 
-    // "?" en pixel art, 5 columnas x 7 filas
     const mapa = [
         '.###.',
         '#...#',

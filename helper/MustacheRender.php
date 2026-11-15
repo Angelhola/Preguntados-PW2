@@ -26,6 +26,7 @@ class MustacheRender
     {
         require_once($this->viewPath . "/headerArcade.php");
         echo $this->mustache->render($view . "View", $data);
+        echo '<script src="public/js/fondo-signos.js"></script>';
         echo "</body></html>";
     }
 }

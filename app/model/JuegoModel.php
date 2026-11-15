@@ -11,14 +11,13 @@ class JuegoModel
         $this->database = $database;
     }
 
-    public function guardarMejorRacha(string $usuario, int $racha)
+    public function sumarPuntaje(string $usuario, int $puntos)
     {
         $sql = "UPDATE usuario
-            SET puntaje = ?
-            WHERE usuario = ?
-              AND (puntaje IS NULL OR puntaje < ?)";
+            SET puntaje = COALESCE(puntaje, 0) + ?
+            WHERE usuario = ?";
 
-        return $this->database->executePrepared($sql, [$racha, $usuario, $racha]);
+        return $this->database->executePrepared($sql, [$puntos, $usuario]);
     }
 
     public function registrarPartida(int $idUsuario)
