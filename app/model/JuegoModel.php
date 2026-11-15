@@ -89,7 +89,7 @@ class JuegoModel
 //    }
         $cat = addslashes($categoria);
         $filas = $this->database->queryAll(
-            "SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+            "SELECT p.id ,p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
          FROM pregunta p
          JOIN categoria c ON c.id = p.categoria_id
          WHERE p.estado = 'activa' AND c.nombre = '$cat'"
@@ -105,6 +105,7 @@ class JuegoModel
             ];
 
             $lista[] = [
+                "id" => $f["id"],
                 "texto"    => $f["texto"],
                 "opciones" => $opciones_temporales,
                 "correcta" => 3, // Como la pusimos última en el array temporal, su índice inicial es 3
@@ -142,5 +143,59 @@ class JuegoModel
             }
         }
         return $pregunta;
+    }
+
+    public function reportarPregunta(int $preguntaId, int $usuarioId, string $motivo): bool
+    {
+        $existe = $this->database->queryOne(
+            "SELECT id FROM reporte_pregunta
+         WHERE pregunta_id = $preguntaId AND usuario_id = $usuarioId AND estado = 'pendiente'"
+        );
+        if ($existe !== null) {
+            return false;
+        }
+        $this->database->executePrepared(
+            "INSERT INTO reporte_pregunta (pregunta_id, usuario_id, motivo) VALUES (?, ?, ?)",
+            [$preguntaId, $usuarioId, mb_substr($motivo, 0, 255)]
+        );
+        return true;
+    }
+
+    public function getPreguntasReportadas(int $minimo = 1)
+    {
+        return $this->database->queryAll(
+            "SELECT p.id, p.texto, p.opcion_correcta, c.nombre AS categoria,
+                COUNT(r.id) AS reportes,
+                GROUP_CONCAT(r.motivo SEPARATOR ' | ') AS motivos
+         FROM pregunta p
+         JOIN reporte_pregunta r ON r.pregunta_id = p.id AND r.estado = 'pendiente'
+         LEFT JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa'
+         GROUP BY p.id, p.texto, p.opcion_correcta, c.nombre
+         HAVING COUNT(r.id) >= $minimo
+         ORDER BY reportes DESC"
+        );
+    }
+
+    public function darDeBajaPregunta(int $preguntaId): bool
+    {
+        $filas = $this->database->executePrepared(
+            "UPDATE pregunta SET estado = 'dada_de_baja' WHERE id = ?",
+            [$preguntaId]
+        );
+        $this->database->executePrepared(
+            "UPDATE reporte_pregunta SET estado = 'resuelta' WHERE pregunta_id = ?",
+            [$preguntaId]
+        );
+        return $filas > 0;
+    }
+
+    public function reportesRecientes(int $usuarioId): int
+    {
+        $f = $this->database->queryOne(
+            "SELECT COUNT(*) AS total FROM reporte_pregunta
+         WHERE usuario_id = $usuarioId AND fecha > NOW() - INTERVAL 1 DAY"
+        );
+        return (int) $f['total'];
     }
 }

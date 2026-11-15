@@ -12,7 +12,25 @@
 
 <div class="lobby-barra">
     <span class="subtitulo-arcade" style="margin:0">PUNTOS: <span id="puntos">{{puntos}}</span></span>
+    <button id="btnReportar" class="lobby-mini">REPORTAR</button>
     <a class="lobby-mini" href="evento/lobby">VOLVER</a>
+</div>
+<span id="msgReporte" class="subtitulo-arcade"></span>
+<div id="modalReporte" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.85); align-items:center; justify-content:center; z-index:99;">
+    <div class="tarjeta-arcade" style="max-width:380px; width:90%; text-align:center;">
+        <h2 class="subtitulo-arcade">REPORTAR PREGUNTA</h2>
+        <select id="motivoReporte" style="padding:10px; font-family:inherit; width:100%; margin:12px 0; color:#000; background:#fff;">
+            <option>Respuesta incorrecta</option>
+            <option>Pregunta mal redactada</option>
+            <option>Contenido ofensivo</option>
+            <option>Otro</option>
+        </select>
+        <textarea id="detalleReporte" maxlength="200" rows="3" placeholder="Contanos más (obligatorio si elegís Otro)" style="padding:10px; font-family:inherit; width:100%; box-sizing:border-box; color:#000; background:#fff; margin-bottom:12px;"></textarea>
+        <div class="continuar-botones">
+            <button id="enviarReporte" class="boton-arcade">ENVIAR</button>
+            <button id="cancelarReporte" class="boton-arcade">CANCELAR</button>
+        </div>
+    </div>
 </div>
 
 <p class="subtitulo-arcade">CATEGORIA: {{categoria}}</p>
@@ -69,6 +87,7 @@
     let textoFinal = "";
     let respondido = false;
 
+
     const reloj = setInterval(function () {
         restante--;
         textoTiempo.textContent = "TIEMPO: " + restante;
@@ -83,13 +102,6 @@
             responder(-1, null); // -1 = no contestó
         }
     }, 1000);
-
-    botones.forEach(function (boton) {
-        boton.addEventListener("click", function () {
-            responder(boton.dataset.indice, boton);
-        });
-    });
-
     function responder(indice, boton) {
         if (respondido) {
             return;
@@ -220,4 +232,28 @@
             beep(1500, 0.42, 0.12, "square", 0.13);
         }
     }
+
+    const modal = document.getElementById("modalReporte");
+    const btnReportar = document.getElementById("btnReportar");
+
+    btnReportar.addEventListener("click", function () { modal.style.display = "flex"; });
+    document.getElementById("cancelarReporte").addEventListener("click", function () { modal.style.display = "none"; });
+
+    document.getElementById("enviarReporte").addEventListener("click", function () {
+        const tipo = document.getElementById("motivoReporte").value;
+        const detalle = document.getElementById("detalleReporte").value.trim();
+        if (tipo === "Otro" && detalle === "") {
+            document.getElementById("msgReporte").textContent = "Escribí el motivo";
+            return;
+        }
+        const datos = new URLSearchParams();
+        datos.append("motivo", detalle ? tipo + ": " + detalle : tipo);
+        fetch("juego/reportar", { method: "POST", body: datos })
+                .then(r => r.json())
+                .then(r => {
+                    document.getElementById("msgReporte").textContent = r.mensaje;
+                    btnReportar.disabled = true;
+                    modal.style.display = "none";
+                });
+    });
 </script>

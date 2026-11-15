@@ -177,4 +177,64 @@ class JuegoController
         $_SESSION['puntos'] = 0;
         unset($_SESSION['perdida_pendiente'], $_SESSION['vida_extra_usada'], $_SESSION['vida_extra_pagada']);
     }
+
+    public function reportar()
+    {
+        header("Content-Type: application/json");
+        $pregunta = $_SESSION['pregunta_actual'] ?? null;
+        $usuarioId = $_SESSION['usuario_id'] ?? null;
+
+        if ($usuarioId === null || $pregunta === null || !isset($pregunta["id"])) {
+            http_response_code(400);
+            echo json_encode(["ok" => false, "mensaje" => "No hay pregunta para reportar"]);
+            exit;
+        }
+
+        if ($this->model->reportesRecientes((int) $usuarioId) >= 5) {
+            echo json_encode(["ok" => false, "mensaje" => "Llegaste al límite de reportes por hoy"]);
+            exit;
+        }
+
+        $nuevo = $this->model->reportarPregunta(
+            (int) $pregunta["id"],
+            (int) $usuarioId,
+            Request::post('motivo', 'Sin motivo')
+        );
+        echo json_encode([
+            "ok" => true,
+            "mensaje" => $nuevo ? "Gracias, recibimos tu reporte" : "Ya reportaste esta pregunta",
+        ]);
+        exit;
+    }
+
+    public function reportes()
+    {
+        if (!$this->esAdmin()) {
+            Redirect::to('?controller=login&method=show');
+            return;
+        }
+        $data["preguntas"] = $this->model->getPreguntasReportadas(3);
+        $data["hayPreguntas"] = !empty($data["preguntas"]);
+        $this->render->renderizaArcade("reportes", $data);
+    }
+
+    public function darDeBaja()
+    {
+        header("Content-Type: application/json");
+        if (!$this->esAdmin()) {
+            http_response_code(403);
+            echo json_encode(["ok" => false]);
+            exit;
+        }
+        $id = (int) Request::post('id', 0);
+        echo json_encode(["ok" => $id > 0 && $this->model->darDeBajaPregunta($id)]);
+        exit;
+    }
+
+    private function esAdmin()
+    {
+        return in_array($_SESSION['rol'] ?? '', ['administrador', 'editor']);
+    }
+
+
 }

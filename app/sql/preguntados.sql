@@ -11,6 +11,8 @@ CREATE TABLE usuario (
                          anio_nacimiento INT,
                          genero VARCHAR(20),
                          foto_perfil VARCHAR(255),
+
+
                          ciudad VARCHAR(100),
                          pais VARCHAR(100),
                          region VARCHAR(100),
@@ -24,22 +26,22 @@ INSERT INTO usuario (usuario, password) VALUES
 
 DESCRIBE usuario;
 ALTER TABLE usuario
-ADD COLUMN rol ENUM('jugador','editor','administrador') NOT NULL DEFAULT 'jugador';
+    ADD COLUMN rol ENUM('jugador','editor','administrador') NOT NULL DEFAULT 'jugador';
 ALTER TABLE usuario
     ADD COLUMN fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 UPDATE usuario
 SET rol = 'administrador'
 WHERE usuario = 'test';
 CREATE TABLE IF NOT EXISTS pregunta(
-id INT AUTO_INCREMENT PRIMARY KEY, texto TEXT NOT NULL,
-opcion_1 VARCHAR(255) NOT NULL,
-opcion_2 VARCHAR(255) NOT NULL,
-opcion_3 VARCHAR(255) NOT NULL,
-opcion_correcta VARCHAR(255) NOT NULL,
-estado ENUM('pendiente', 'activa', 'dada_de_baja') DEFAULT 'pendiente',
-creador_id INT,
-fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY (creador_id) REFERENCES usuario(id));
+                                       id INT AUTO_INCREMENT PRIMARY KEY, texto TEXT NOT NULL,
+                                       opcion_1 VARCHAR(255) NOT NULL,
+                                       opcion_2 VARCHAR(255) NOT NULL,
+                                       opcion_3 VARCHAR(255) NOT NULL,
+                                       opcion_correcta VARCHAR(255) NOT NULL,
+                                       estado ENUM('pendiente', 'activa', 'dada_de_baja') DEFAULT 'pendiente',
+                                       creador_id INT,
+                                       fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                       FOREIGN KEY (creador_id) REFERENCES usuario(id));
 CREATE TABLE IF NOT EXISTS reporte_pregunta (
                                                 id INT AUTO_INCREMENT PRIMARY KEY,
                                                 pregunta_id INT,
@@ -122,3 +124,7 @@ INSERT INTO pregunta (texto, opcion_1, opcion_2, opcion_3, opcion_correcta, cate
 -- Cine y TV
 ('¿Quién lleva el Anillo Único hasta Mordor?', 'Bilbo', 'Gandalf', 'Aragorn', 'Frodo', 6, 'activa'),
 ('¿De qué color es Pac-Man?', 'Rojo', 'Azul', 'Verde', 'Amarillo', 6, 'activa');
+
+
+
+
