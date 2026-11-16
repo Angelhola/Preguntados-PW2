@@ -5,6 +5,13 @@
     .grafico-ancho { max-width: 700px; }
     .sin-datos { color: #aaa; font-style: italic; margin-top: 10px; }
     .solo-impresion { display: none; }
+    .grafico-box {
+        position: relative;
+        height: 300px;
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto 20px auto;
+    }
 
     @media print {
         body * { visibility: hidden; }
@@ -17,6 +24,7 @@
         .titulo-arcade, .subtitulo-arcade { color: #000 !important; }
         .tabla-admin { page-break-inside: avoid; }
     }
+
 </style>
 
 <!-- Filtro + botón imprimir -->
@@ -113,6 +121,32 @@
 
     function grafico(id, tipo, datos, labelKey, valueKey = 'cantidad', etiqueta = 'Cantidad') {
         if (!datos.length) return; // sin datos: no dibujar
+
+        // Configuración específica para gráficos de barras
+        let options = {};
+        if (tipo === 'bar') {
+            options = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        // Si es el gráfico de correctas, limitamos el eje Y hasta 100
+                        ...(id === 'chCorrectas' ? { max: 100 } : {}),
+                        ticks: { color: '#ffffff' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    x: {
+                        ticks: { color: '#ffffff' },
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { labels: { color: '#ffffff' } }
+                }
+            };
+        }
+
         new Chart(document.getElementById(id), {
             type: tipo,
             data: {
@@ -120,10 +154,14 @@
                 datasets: [{
                     label: etiqueta,
                     data: datos.map(d => Number(d[valueKey])),
-                    backgroundColor: COLORES
+                    // Si es barra, usamos un solo color fijo (#00e5ff) o el primero; si es torta/dona, usamos todos los COLORES
+                    backgroundColor: tipo === 'bar' ? '#00e5ff' : COLORES,
+                    borderColor: tipo === 'bar' ? '#00e5ff' : '#000000',
+                    borderWidth: tipo === 'bar' ? 1 : 2,
+                    maxBarThickness: 60 // Evita que una sola barra ocupe todo el ancho
                 }]
             },
-            options: tipo === 'bar' ? { scales: { y: { beginAtZero: true } } } : {}
+            options: options
         });
     }
 
