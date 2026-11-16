@@ -1,0 +1,79 @@
+<div class="lobby-barra">
+    <span class="subtitulo-arcade">PUNTOS: {{puntos}}</span>
+    <div>
+        <a class="lobby-mini" href="{{baseUrl}}evento/lobby">LOBBY</a>
+    </div>
+</div>
+
+<section class="tienda">
+
+    <h1 class="titulo-arcade">TIENDA</h1>
+
+    <div class="lobby-mascota-wrap">
+        <button type="button" class="cartu-btn" id="cartu-btn" aria-label="Hablar con Cartu">
+            <img class="lobby-mascota" src="{{baseUrl}}public/img/cartu-tienda.svg" alt="Cartu, el vendedor">
+        </button>
+        <div class="lobby-globo" role="status" aria-live="polite">
+            <span id="cartu-dialogo">{{#dialogoCartu}}{{dialogoCartu}}{{/dialogoCartu}}{{^dialogoCartu}}¡Hola! ¿Qué te llevás?{{/dialogoCartu}}</span>
+        </div>
+    </div>
+
+    <h2 class="seccion-titulo">Personajes</h2>
+    <div class="items-grid">
+        {{#cosmeticos}}
+            <article class="item" data-frase="{{nombre}}: {{descripcion}}">
+                <img class="item-img" src="{{baseUrl}}public/img/items/{{imagen}}" alt="{{nombre}}" width="96" height="96">
+                <h3 class="item-nombre">{{nombre}}</h3>
+
+                {{#equipado}}
+                    <span class="estado-equipado">EQUIPADO</span>
+                {{/equipado}}
+
+                {{^equipado}}
+                    {{#comprado}}
+                        <form method="post" action="{{baseUrl}}tienda/equipar">
+                            <input type="hidden" name="item_id" value="{{id}}">
+                            <button type="submit" class="lobby-mini">EQUIPAR</button>
+                        </form>
+                    {{/comprado}}
+
+                    {{^comprado}}
+                        <p class="item-precio">{{precio}} PTS</p>
+                        <form method="post" action="{{baseUrl}}tienda/comprar">
+                            <input type="hidden" name="item_id" value="{{id}}">
+                            <button type="submit" class="boton-arcade" {{^alcanza}}disabled{{/alcanza}}>COMPRAR</button>
+                        </form>
+                    {{/comprado}}
+                {{/equipado}}
+            </article>
+        {{/cosmeticos}}
+        {{^cosmeticos}}
+            <p class="vacio">Todavía no hay personajes a la venta.</p>
+        {{/cosmeticos}}
+    </div>
+
+    <h2 class="seccion-titulo">Potenciadores</h2>
+    <div class="items-grid">
+        {{#potenciadores}}
+            <article class="item" data-frase="{{nombre}}: {{descripcion}}">
+                <img class="item-img" src="{{baseUrl}}public/img/items/{{imagen}}" alt="{{nombre}}" width="96" height="96">
+                <h3 class="item-nombre">{{nombre}}</h3>
+                <p class="item-desc">{{descripcion}}</p>
+                <p class="item-cantidad">TENÉS: {{cantidad}}</p>
+                <p class="item-precio">{{precio}} PTS</p>
+                <form method="post" action="{{baseUrl}}tienda/comprar">
+                    <input type="hidden" name="item_id" value="{{id}}">
+                    <button type="submit" class="boton-arcade" {{^alcanza}}disabled{{/alcanza}}>COMPRAR</button>
+                </form>
+            </article>
+        {{/potenciadores}}
+        {{^potenciadores}}
+            <p class="vacio">Todavía no hay potenciadores a la venta.</p>
+        {{/potenciadores}}
+    </div>
+
+    <p class="game-over">¿Perdiste una partida? Al terminar te ofrezco una vida extra para seguir jugando. Solo una por partida.</p>
+
+</section>
+
+<script src="{{baseUrl}}public/js/tienda.js"></script>

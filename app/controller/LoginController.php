@@ -80,9 +80,8 @@ class LoginController
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error = 'El email no es válido';
         }  elseif (!checkdnsrr($dominioEmail, "MX") && !checkdnsrr($dominioEmail, "A")) {
-    // Valida que el dominio del correo (ej: gmail.com) sea real y exista en internet
-$error = 'El dominio del email no existe o no puede recibir correos';
-    }elseif ($ciudad === '' || $pais === '') {
+            $error = 'El dominio del email no existe o no puede recibir correos';
+        }elseif ($ciudad === '' || $pais === '') {
             $error = 'Elegí tu ciudad de la lista de sugerencias';
         } elseif ($this->model->existeUsuario($usuario, $email)) {
             $error = 'El usuario o el email ya están registrados';
@@ -196,7 +195,6 @@ $error = 'El dominio del email no existe o no puede recibir correos';
 
         $existe = $this->model->getUsuarioByUsername($valor) !== null;
 
-        // Devolvemos el resultado en formato JSON
         echo json_encode(['existe' => $existe]);
         exit;
     }
@@ -212,5 +210,10 @@ $error = 'El dominio del email no existe o no puede recibir correos';
     {
         $data = [];
         $this->render->renderizaArcade("ranking", $data);
+    }
+
+    public function tienda() {
+        $data = [];
+        $this->render->renderizaArcade("tienda", $data);
     }
 }
