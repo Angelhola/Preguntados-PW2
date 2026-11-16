@@ -878,3 +878,89 @@
 [20:45:04] [INFO] SELECT COUNT(*) AS total FROM pregunta WHERE estado = 'activa'
 [20:45:04] [INFO] SELECT COUNT(*) AS total FROM pregunta WHERE creador_id IS NOT NULL
 [20:45:04] [INFO] SELECT COUNT(*) AS total FROM usuario WHERE rol = 'jugador'
+[20:46:56] [INFO] SELECT COALESCE(NULLIF(TRIM(pais), ''), 'Sin especificar') AS pais,
+                   COUNT(*) AS cantidad
+            FROM usuario
+            WHERE rol = 'jugador' 
+            GROUP BY 1
+            ORDER BY cantidad DESC
+[20:46:56] [INFO] SELECT 
+                CASE LOWER(TRIM(COALESCE(genero, '')))
+                    WHEN 'masculino'  THEN 'Masculino'
+                    WHEN 'femenino'   THEN 'Femenino'
+                    WHEN 'otro'       THEN 'Otro'
+                    WHEN 'sin_opcion' THEN 'Prefiero no decirlo'
+                    WHEN 'seleccion'  THEN 'Sin especificar'
+                    WHEN ''           THEN 'Sin especificar'
+                    ELSE genero
+                END AS genero,
+                COUNT(*) AS cantidad
+            FROM usuario
+            WHERE rol = 'jugador' 
+            GROUP BY 1
+[20:46:56] [INFO] SELECT CASE
+                       WHEN (YEAR(CURDATE()) - anio_nacimiento) < 18 THEN 'Menores'
+                       WHEN (YEAR(CURDATE()) - anio_nacimiento) BETWEEN 18 AND 64 THEN 'Medio'
+                       ELSE 'Jubilados'
+                   END AS grupo,
+                   COUNT(*) AS cantidad
+            FROM usuario
+            WHERE rol = 'jugador' AND anio_nacimiento IS NOT NULL 
+            GROUP BY 1
+[20:46:56] [INFO] SELECT u.usuario AS usuario,
+                       COUNT(*) AS respondidas,
+                       ROUND(SUM(rp.es_correcta) * 100 / COUNT(*), 1) AS porcentaje
+                FROM respuesta_partida rp
+                JOIN partida p ON p.id = rp.partida_id
+                JOIN usuario u ON u.id = p.usuario_id
+                WHERE 1=1 
+                GROUP BY u.id, u.usuario
+                ORDER BY porcentaje DESC
+[20:46:56] [INFO] SELECT COUNT(*) AS total FROM usuario WHERE rol = 'jugador'
+[20:46:56] [INFO] SELECT COUNT(*) AS total FROM partida WHERE 1=1
+[20:46:56] [INFO] SELECT COUNT(*) AS total FROM pregunta WHERE estado = 'activa'
+[20:46:56] [INFO] SELECT COUNT(*) AS total FROM pregunta WHERE creador_id IS NOT NULL
+[20:46:56] [INFO] SELECT COUNT(*) AS total FROM usuario WHERE rol = 'jugador'
+[20:49:41] [INFO] SELECT COALESCE(NULLIF(TRIM(pais), ''), 'Sin especificar') AS pais,
+                   COUNT(*) AS cantidad
+            FROM usuario
+            WHERE rol = 'jugador' 
+            GROUP BY 1
+            ORDER BY cantidad DESC
+[20:49:41] [INFO] SELECT 
+                CASE LOWER(TRIM(COALESCE(genero, '')))
+                    WHEN 'masculino'  THEN 'Masculino'
+                    WHEN 'femenino'   THEN 'Femenino'
+                    WHEN 'otro'       THEN 'Otro'
+                    WHEN 'sin_opcion' THEN 'Prefiero no decirlo'
+                    WHEN 'seleccion'  THEN 'Sin especificar'
+                    WHEN ''           THEN 'Sin especificar'
+                    ELSE genero
+                END AS genero,
+                COUNT(*) AS cantidad
+            FROM usuario
+            WHERE rol = 'jugador' 
+            GROUP BY 1
+[20:49:41] [INFO] SELECT CASE
+                       WHEN (YEAR(CURDATE()) - anio_nacimiento) < 18 THEN 'Menores'
+                       WHEN (YEAR(CURDATE()) - anio_nacimiento) BETWEEN 18 AND 64 THEN 'Medio'
+                       ELSE 'Jubilados'
+                   END AS grupo,
+                   COUNT(*) AS cantidad
+            FROM usuario
+            WHERE rol = 'jugador' AND anio_nacimiento IS NOT NULL 
+            GROUP BY 1
+[20:49:41] [INFO] SELECT u.usuario AS usuario,
+                       COUNT(*) AS respondidas,
+                       ROUND(SUM(rp.es_correcta) * 100 / COUNT(*), 1) AS porcentaje
+                FROM respuesta_partida rp
+                JOIN partida p ON p.id = rp.partida_id
+                JOIN usuario u ON u.id = p.usuario_id
+                WHERE 1=1 
+                GROUP BY u.id, u.usuario
+                ORDER BY porcentaje DESC
+[20:49:41] [INFO] SELECT COUNT(*) AS total FROM usuario WHERE rol = 'jugador'
+[20:49:41] [INFO] SELECT COUNT(*) AS total FROM partida WHERE 1=1
+[20:49:41] [INFO] SELECT COUNT(*) AS total FROM pregunta WHERE estado = 'activa'
+[20:49:41] [INFO] SELECT COUNT(*) AS total FROM pregunta WHERE creador_id IS NOT NULL
+[20:49:41] [INFO] SELECT COUNT(*) AS total FROM usuario WHERE rol = 'jugador'
