@@ -198,4 +198,28 @@ class JuegoModel
         );
         return (int) $f['total'];
     }
+    public function iniciarPartida($usuarioId)
+    {
+        $this->database->execute(
+            "INSERT INTO partida (usuario_id, puntaje_obtenido) VALUES ($usuarioId, 0)"
+        );
+        // Si tu MyDatabase tiene lastInsertId(), usalo. Si no, usá esta consulta:
+        $res = $this->database->query("SELECT LAST_INSERT_ID() AS id");
+        return (int) ($res['id'] ?? 0);
+    }
+
+    public function actualizarPuntajePartida($partidaId, $puntaje)
+    {
+        $this->database->execute(
+            "UPDATE partida SET puntaje_obtenido = $puntaje WHERE id = $partidaId"
+        );
+    }
+
+    public function registrarRespuestaPartida($partidaId, $preguntaId, $esCorrecta)
+    {
+        $this->database->execute(
+            "INSERT INTO respuesta_partida (partida_id, pregunta_id, es_correcta)
+         VALUES ($partidaId, $preguntaId, $esCorrecta)"
+        );
+    }
 }

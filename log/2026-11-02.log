@@ -1,0 +1,276 @@
+[18:24:43] [INFO] SELECT id, usuario AS nombre, COALESCE(puntaje, 0) AS puntos, foto_perfil AS avatar
+        FROM usuario
+        ORDER BY puntos DESC
+        LIMIT 10
+[18:25:00] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[18:25:10] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[18:25:19] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[18:25:29] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[18:25:32] [INFO] SELECT id, usuario AS nombre, COALESCE(puntaje, 0) AS puntos, foto_perfil AS avatar
+        FROM usuario
+        ORDER BY puntos DESC
+        LIMIT 10
+[18:47:47] [INFO] SELECT * FROM usuario WHERE usuario = 'Valen'
+[19:58:11] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'admin' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[19:58:22] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[19:58:38] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:00:04] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:00:14] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:01:04] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:02:01] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:02:12] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:02:42] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:07:26] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:10:36] [INFO] SELECT id, usuario FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:12:26] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:12:37] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:16:28] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'admin' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:18:23] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:20:35] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[20:20:35] [INFO] SELECT COUNT(*) as total FROM partida
+[20:20:35] [INFO] SELECT COUNT(*) as total FROM pregunta
+[20:20:37] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[20:20:37] [INFO] SELECT COUNT(*) as total FROM partida
+[20:20:37] [INFO] SELECT COUNT(*) as total FROM pregunta
+[20:20:46] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:20:46] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[20:20:46] [INFO] SELECT COUNT(*) as total FROM partida
+[20:20:46] [INFO] SELECT COUNT(*) as total FROM pregunta
+[20:21:09] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[20:21:09] [INFO] SELECT COUNT(*) as total FROM partida
+[20:21:09] [INFO] SELECT COUNT(*) as total FROM pregunta
+[20:21:12] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[20:21:12] [INFO] SELECT COUNT(*) as total FROM partida
+[20:21:12] [INFO] SELECT COUNT(*) as total FROM pregunta
+[20:21:29] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[20:21:29] [INFO] SELECT COUNT(*) as total FROM partida
+[20:21:29] [INFO] SELECT COUNT(*) as total FROM pregunta
+[20:21:29] [INFO] SELECT 
+                    CASE 
+                        WHEN (2026 - anio_nacimiento) < 18 THEN 'Menores'
+                        WHEN (2026 - anio_nacimiento) BETWEEN 18 AND 64 THEN 'Medio'
+                        ELSE 'Jubilados'
+                    END AS grupo,
+                    COUNT(*) AS cantidad
+                FROM usuario 
+                WHERE anio_nacimiento IS NOT NULL 
+                GROUP BY grupo
+[20:21:31] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[20:21:31] [INFO] SELECT COUNT(*) as total FROM partida
+[20:21:31] [INFO] SELECT COUNT(*) as total FROM pregunta
+[20:21:31] [INFO] SELECT 
+                    CASE 
+                        WHEN (2026 - anio_nacimiento) < 18 THEN 'Menores'
+                        WHEN (2026 - anio_nacimiento) BETWEEN 18 AND 64 THEN 'Medio'
+                        ELSE 'Jubilados'
+                    END AS grupo,
+                    COUNT(*) AS cantidad
+                FROM usuario 
+                WHERE anio_nacimiento IS NOT NULL 
+                GROUP BY grupo
+[20:23:01] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[20:23:01] [INFO] SELECT COUNT(*) as total FROM partida
+[20:23:01] [INFO] SELECT COUNT(*) as total FROM pregunta
+[20:23:01] [INFO] SELECT 
+                    CASE 
+                        WHEN (2026 - anio_nacimiento) < 18 THEN 'Menores'
+                        WHEN (2026 - anio_nacimiento) BETWEEN 18 AND 64 THEN 'Medio'
+                        ELSE 'Jubilados'
+                    END AS grupo,
+                    COUNT(*) AS cantidad
+                FROM usuario 
+                WHERE anio_nacimiento IS NOT NULL 
+                GROUP BY grupo
+[20:23:23] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:23:23] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[20:23:23] [INFO] SELECT COUNT(*) as total FROM partida
+[20:23:23] [INFO] SELECT COUNT(*) as total FROM pregunta
+[20:23:23] [INFO] SELECT 
+                    CASE 
+                        WHEN (2026 - anio_nacimiento) < 18 THEN 'Menores'
+                        WHEN (2026 - anio_nacimiento) BETWEEN 18 AND 64 THEN 'Medio'
+                        ELSE 'Jubilados'
+                    END AS grupo,
+                    COUNT(*) AS cantidad
+                FROM usuario 
+                WHERE anio_nacimiento IS NOT NULL 
+                GROUP BY grupo
+[20:23:49] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[20:23:49] [INFO] SELECT COUNT(*) as total FROM partida
+[20:23:49] [INFO] SELECT COUNT(*) as total FROM pregunta
+[20:23:49] [INFO] SELECT 
+                    CASE 
+                        WHEN (2026 - anio_nacimiento) < 18 THEN 'Menores'
+                        WHEN (2026 - anio_nacimiento) BETWEEN 18 AND 64 THEN 'Medio'
+                        ELSE 'Jubilados'
+                    END AS grupo,
+                    COUNT(*) AS cantidad
+                FROM usuario 
+                WHERE anio_nacimiento IS NOT NULL 
+                GROUP BY grupo
+[20:24:44] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
+[20:24:51] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
+[20:27:26] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'valen' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:28:33] [INFO] SELECT * FROM usuario WHERE usuario = 'valen'
+[20:28:44] [INFO] SELECT id FROM usuario WHERE usuario = 'valen' OR email = 'valentinaromanop@gmail.com'
+[20:28:44] [INFO] INSERT INTO usuario (usuario, email, password, nombre_completo, anio_nacimiento, genero, foto_perfil, ciudad, pais, region, token_verificacion)
+            VALUES ('valen', 'valentinaromanop@gmail.com', '202cb962ac59075b964b07152d234b70', 'valen ', 2005, 'femenino', '', 'Gregorio de Laferrere', 'Argentina', 'Buenos Aires', '897bf1ab14506d86781401c4990d038c')
+[20:32:02] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
+[20:32:24] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
+[20:32:29] [INFO] SELECT * FROM usuario WHERE usuario = 'valen'
+[20:32:30] [INFO] SELECT * FROM usuario WHERE usuario = 'vale'
+[20:32:41] [INFO] SELECT * FROM usuario WHERE usuario = 'valen'
+[20:34:01] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:34:01] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[20:34:01] [INFO] SELECT COUNT(*) as total FROM partida
+[20:34:01] [INFO] SELECT COUNT(*) as total FROM pregunta
+[20:34:01] [INFO] SELECT 
+                    CASE 
+                        WHEN (2026 - anio_nacimiento) < 18 THEN 'Menores'
+                        WHEN (2026 - anio_nacimiento) BETWEEN 18 AND 64 THEN 'Medio'
+                        ELSE 'Jubilados'
+                    END AS grupo,
+                    COUNT(*) AS cantidad
+                FROM usuario 
+                WHERE anio_nacimiento IS NOT NULL 
+                GROUP BY grupo
+[20:35:59] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
+[20:36:04] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'valen' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:36:10] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'valen' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:36:55] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'valen' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
+[20:37:05] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'valen' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:37:43] [INFO] SELECT * FROM categoria
+[20:37:45] [INFO] SELECT * FROM categoria
+[20:37:52] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[20:37:52] [INFO] SELECT * FROM categoria
+[20:37:54] [INFO] SELECT * FROM categoria
+[20:38:01] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[20:38:01] [INFO] SELECT * FROM categoria
+[20:38:03] [INFO] SELECT id, usuario AS nombre, COALESCE(puntaje, 0) AS puntos, foto_perfil AS avatar
+        FROM usuario
+        ORDER BY puntos DESC
+        LIMIT 10
+[20:38:58] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:38:58] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[20:38:58] [INFO] SELECT COUNT(*) as total FROM partida
+[20:38:58] [INFO] SELECT COUNT(*) as total FROM pregunta
+[20:38:58] [INFO] SELECT 
+                    CASE 
+                        WHEN (2026 - anio_nacimiento) < 18 THEN 'Menores'
+                        WHEN (2026 - anio_nacimiento) BETWEEN 18 AND 64 THEN 'Medio'
+                        ELSE 'Jubilados'
+                    END AS grupo,
+                    COUNT(*) AS cantidad
+                FROM usuario 
+                WHERE anio_nacimiento IS NOT NULL 
+                GROUP BY grupo
+[20:46:17] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[20:46:17] [INFO] SELECT COUNT(*) as total FROM partida
+[20:46:17] [INFO] SELECT COUNT(*) as total FROM pregunta
+[20:46:17] [INFO] SELECT 
+                    CASE 
+                        WHEN (2026 - anio_nacimiento) < 18 THEN 'Menores'
+                        WHEN (2026 - anio_nacimiento) BETWEEN 18 AND 64 THEN 'Medio'
+                        ELSE 'Jubilados'
+                    END AS grupo,
+                    COUNT(*) AS cantidad
+                FROM usuario 
+                WHERE anio_nacimiento IS NOT NULL 
+                GROUP BY grupo
+[20:46:31] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'editor' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:46:57] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'editor' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:48:09] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'editor' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:49:08] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'editor' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:50:03] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'editor' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:52:05] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'editor' AND password = '202cb962ac59075b964b07152d234b70' AND verificado = 1
+[20:52:12] [INFO] SELECT * FROM categoria
+[20:52:25] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'editor' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:52:25] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[20:56:48] [INFO] INSERT INTO pregunta (texto, opcion_1, opcion_2, opcion_3, opcion_correcta, estado, creador_id, categoria_id, fecha_creacion)
+            VALUES (?, ?, ?, ?, ?, 'pendiente', ?, ?, NOW())
+[20:56:50] [INFO] INSERT INTO pregunta (texto, opcion_1, opcion_2, opcion_3, opcion_correcta, estado, creador_id, categoria_id, fecha_creacion)
+            VALUES (?, ?, ?, ?, ?, 'pendiente', ?, ?, NOW())
+[20:59:22] [INFO] INSERT INTO pregunta (texto, opcion_1, opcion_2, opcion_3, opcion_correcta, estado, creador_id, categoria_id, fecha_creacion)
+            VALUES (?, ?, ?, ?, ?, 'pendiente', ?, ?, NOW())
+[20:59:22] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[20:59:22] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[21:02:15] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[21:02:15] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[21:02:17] [INFO] SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta, p.estado,
+                p.fecha_creacion, c.nombre AS categoria, u.usuario AS creador
+         FROM pregunta p
+         LEFT JOIN categoria c ON c.id = p.categoria_id
+         LEFT JOIN usuario u ON u.id = p.creador_id
+         WHERE p.id = 3
+[21:03:40] [INFO] SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta, p.estado,
+                p.fecha_creacion, c.nombre AS categoria, u.usuario AS creador
+         FROM pregunta p
+         LEFT JOIN categoria c ON c.id = p.categoria_id
+         LEFT JOIN usuario u ON u.id = p.creador_id
+         WHERE p.id = 3
+[21:03:44] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[21:03:44] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[21:03:44] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[21:03:47] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[21:03:47] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[21:03:47] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[21:03:55] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[21:03:55] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[21:03:55] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[21:03:57] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[21:03:57] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[21:03:57] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[21:03:58] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[21:03:58] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[21:03:58] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[21:04:10] [INFO] SELECT * FROM categoria
+[21:04:12] [INFO] SELECT * FROM categoria
+[21:04:19] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[21:04:20] [INFO] SELECT * FROM categoria
+[21:04:21] [INFO] SELECT * FROM categoria
+[21:04:30] [INFO] SELECT * FROM categoria
+[21:04:31] [INFO] SELECT * FROM categoria
+[21:04:50] [INFO] SELECT id, usuario AS nombre, COALESCE(puntaje, 0) AS puntos, foto_perfil AS avatar
+        FROM usuario
+        ORDER BY puntos DESC
+        LIMIT 10
+[21:05:57] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'editor' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[21:05:57] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[21:05:57] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[21:12:00] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[21:12:00] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[21:12:48] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[21:12:48] [INFO] SELECT COUNT(*) as total FROM usuario WHERE rol = 'jugador'
+[21:12:48] [INFO] SELECT COUNT(*) as total FROM partida
+[21:12:48] [INFO] SELECT COUNT(*) as total FROM pregunta
+[21:12:48] [INFO] SELECT 
+                    CASE 
+                        WHEN (2026 - anio_nacimiento) < 18 THEN 'Menores'
+                        WHEN (2026 - anio_nacimiento) BETWEEN 18 AND 64 THEN 'Medio'
+                        ELSE 'Jubilados'
+                    END AS grupo,
+                    COUNT(*) AS cantidad
+                FROM usuario 
+                WHERE anio_nacimiento IS NOT NULL 
+                GROUP BY grupo

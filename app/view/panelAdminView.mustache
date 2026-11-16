@@ -1,33 +1,135 @@
 <style>
+    .tabla-admin { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    .tabla-admin th, .tabla-admin td { border: 1px solid #fff; padding: 8px; color: #fff; text-align: left; }
+    .grafico-box { max-width: 420px; margin: 20px auto; }
+    .grafico-ancho { max-width: 700px; }
+    .sin-datos { color: #aaa; font-style: italic; margin-top: 10px; }
+    .solo-impresion { display: none; }
+
     @media print {
         body * { visibility: hidden; }
         #panel-impresion, #panel-impresion * { visibility: visible; }
         #panel-impresion { position: absolute; left: 0; top: 0; width: 100%; }
         .no-imprimir { display: none !important; }
+        .solo-impresion { display: block; color: #000; }
+
+        .tabla-admin th, .tabla-admin td { color: #000 !important; border: 1px solid #000 !important; }
+        .titulo-arcade, .subtitulo-arcade { color: #000 !important; }
+        .tabla-admin { page-break-inside: avoid; }
     }
-    .tabla-admin { width: 100%; border-collapse: collapse; margin-top: 15px; }
-    .tabla-admin th, .tabla-admin td { border: 1px solid #fff; padding: 8px; color: #fff; }
 </style>
 
+<!-- Filtro + botón imprimir -->
 <div class="no-imprimir" style="margin-bottom: 20px;">
-    <button onclick="window.print()" class="boton-arcade" style="background: #00e5ff; color: #0d0d0d;">🖨️ Imprimir Reportes</button>
+    <label for="periodo">Período:</label>
+    <select id="periodo" onchange="cambiarPeriodo(this.value)">
+        <option value="">Histórico</option>
+        <option value="dia"    {{#sel_dia}}selected{{/sel_dia}}>Hoy</option>
+        <option value="semana" {{#sel_semana}}selected{{/sel_semana}}>Esta semana</option>
+        <option value="mes"    {{#sel_mes}}selected{{/sel_mes}}>Este mes</option>
+        <option value="anio"   {{#sel_anio}}selected{{/sel_anio}}>Este año</option>
+    </select>
+    <button type="button" onclick="window.print()" class="boton-arcade"
+            style="background: #00e5ff; color: #0d0d0d;">🖨️ Imprimir Reportes</button>
 </div>
+
+<script>
+    function cambiarPeriodo(valor) {
+        const url = new URL(window.location.href);   // conserva ruta y demás parámetros
+        if (valor) {
+            url.searchParams.set('periodo', valor);
+        } else {
+            url.searchParams.delete('periodo');
+        }
+        window.location.href = url.toString();
+    }
+</script>
 
 <div id="panel-impresion">
     <h1 class="titulo-arcade">Panel de Control - Administrador</h1>
+    <p>Período: <strong>{{periodo_texto}}</strong></p>
+    <p class="solo-impresion">Emitido el {{fecha_impresion}}</p>
 
+    <!-- Métricas generales -->
     <table class="tabla-admin">
         <tr><th>Métrica</th><th>Total</th></tr>
         <tr><td>Jugadores Registrados</td><td>{{metricas.jugadores}}</td></tr>
         <tr><td>Partidas Jugadas</td><td>{{metricas.partidas}}</td></tr>
-        <tr><td>Preguntas Totales</td><td>{{metricas.preguntas}}</td></tr>
+        <tr><td>Preguntas en el Juego</td><td>{{metricas.preguntas}}</td></tr>
+        <tr><td>Preguntas Creadas</td><td>{{metricas.preguntas_creadas}}</td></tr>
+        <tr><td>Usuarios Nuevos</td><td>{{metricas.usuarios_nuevos}}</td></tr>
     </table>
 
+    <!-- Por país -->
+    <h2 class="subtitulo-arcade" style="margin-top: 20px;">Usuarios por País</h2>
+    <div class="grafico-box no-imprimir"><canvas id="chPaises"></canvas></div>
+    <table class="tabla-admin">
+        <tr><th>País</th><th>Cantidad</th></tr>
+        {{#por_pais}}
+            <tr><td>{{pais}}</td><td>{{cantidad}}</td></tr>
+        {{/por_pais}}
+    </table>
+    {{^por_pais}}<p class="sin-datos">Sin datos para este período.</p>{{/por_pais}}
+
+    <!-- Por sexo -->
+    <h2 class="subtitulo-arcade" style="margin-top: 20px;">Usuarios por Sexo</h2>
+    <div class="grafico-box no-imprimir"><canvas id="chSexos"></canvas></div>
+    <table class="tabla-admin">
+        <tr><th>Sexo</th><th>Cantidad</th></tr>
+        {{#por_sexo}}
+            <tr><td>{{sexo}}</td><td>{{cantidad}}</td></tr>
+        {{/por_sexo}}
+    </table>
+    {{^por_sexo}}<p class="sin-datos">Sin datos para este período.</p>{{/por_sexo}}
+
+    <!-- Por grupo de edad -->
     <h2 class="subtitulo-arcade" style="margin-top: 20px;">Usuarios por Grupo de Edad</h2>
+    <div class="grafico-box no-imprimir"><canvas id="chEdades"></canvas></div>
     <table class="tabla-admin">
         <tr><th>Grupo</th><th>Cantidad</th></tr>
         {{#por_edad}}
             <tr><td>{{grupo}}</td><td>{{cantidad}}</td></tr>
         {{/por_edad}}
     </table>
+    {{^por_edad}}<p class="sin-datos">Sin datos para este período.</p>{{/por_edad}}
+
+    <!-- % correctas por usuario -->
+    <h2 class="subtitulo-arcade" style="margin-top: 20px;">% de Respuestas Correctas por Usuario</h2>
+    <div class="grafico-box grafico-ancho no-imprimir"><canvas id="chCorrectas"></canvas></div>
+    <table class="tabla-admin">
+        <tr><th>Usuario</th><th>Respondidas</th><th>% Correctas</th></tr>
+        {{#correctas}}
+            <tr><td>{{usuario}}</td><td>{{respondidas}}</td><td>{{porcentaje}}%</td></tr>
+        {{/correctas}}
+    </table>
+    {{^correctas}}<p class="sin-datos">Sin datos para este período.</p>{{/correctas}}
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    Chart.defaults.color = '#fff';
+
+    const COLORES = ['#00e5ff', '#ff4081', '#ffeb3b', '#76ff03', '#b388ff', '#ff9100'];
+
+    function grafico(id, tipo, datos, labelKey, valueKey = 'cantidad', etiqueta = 'Cantidad') {
+        if (!datos.length) return; // sin datos: no dibujar
+        new Chart(document.getElementById(id), {
+            type: tipo,
+            data: {
+                labels: datos.map(d => d[labelKey]),
+                datasets: [{
+                    label: etiqueta,
+                    data: datos.map(d => Number(d[valueKey])),
+                    backgroundColor: COLORES
+                }]
+            },
+            options: tipo === 'bar' ? { scales: { y: { beginAtZero: true } } } : {}
+        });
+    }
+
+    // Triple llave: Mustache no debe escapar el JSON
+    grafico('chPaises',    'bar',      {{{json_paises}}},    'pais');
+    grafico('chSexos',     'pie',      {{{json_sexos}}},     'sexo');
+    grafico('chEdades',    'doughnut', {{{json_edades}}},    'grupo');
+    grafico('chCorrectas', 'bar',      {{{json_correctas}}}, 'usuario', 'porcentaje', '% correctas');
+</script>

@@ -1,0 +1,337 @@
+[15:30:55] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'valen' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[15:31:22] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'valen' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[15:31:27] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'editor' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[15:31:27] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:31:27] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:31:31] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[15:31:31] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:31:31] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:32:33] [INFO] INSERT INTO pregunta (texto, opcion_1, opcion_2, opcion_3, opcion_correcta, estado, creador_id, categoria_id, fecha_creacion)
+            VALUES (?, ?, ?, ?, ?, 'pendiente', ?, ?, NOW())
+[15:32:33] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:32:33] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:32:39] [INFO] SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta, p.estado,
+                p.fecha_creacion, c.nombre AS categoria, u.usuario AS creador
+         FROM pregunta p
+         LEFT JOIN categoria c ON c.id = p.categoria_id
+         LEFT JOIN usuario u ON u.id = p.creador_id
+         WHERE p.id = 3
+[15:32:41] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:32:41] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:32:45] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[15:32:45] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:32:45] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:33:02] [INFO] INSERT INTO pregunta (texto, opcion_1, opcion_2, opcion_3, opcion_correcta, estado, creador_id, categoria_id, fecha_creacion)
+            VALUES (?, ?, ?, ?, ?, 'pendiente', ?, ?, NOW())
+[15:33:02] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:33:02] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:33:07] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[15:33:07] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:33:07] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:33:08] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[15:33:08] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:33:08] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:34:28] [INFO] SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta, p.estado,
+                p.fecha_creacion, c.nombre AS categoria, u.usuario AS creador
+         FROM pregunta p
+         LEFT JOIN categoria c ON c.id = p.categoria_id
+         LEFT JOIN usuario u ON u.id = p.creador_id
+         WHERE p.id = 4
+[15:34:32] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[15:34:32] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:34:32] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:34:52] [INFO] SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta, p.estado,
+                p.fecha_creacion, c.nombre AS categoria, u.usuario AS creador
+         FROM pregunta p
+         LEFT JOIN categoria c ON c.id = p.categoria_id
+         LEFT JOIN usuario u ON u.id = p.creador_id
+         WHERE p.id = 5
+[15:34:54] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[15:34:54] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:34:54] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:35:21] [INFO] INSERT INTO pregunta (texto, opcion_1, opcion_2, opcion_3, opcion_correcta, estado, creador_id, categoria_id, fecha_creacion)
+            VALUES (?, ?, ?, ?, ?, 'pendiente', ?, ?, NOW())
+[15:35:21] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:35:21] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:35:27] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[15:35:27] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:35:27] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:36:00] [INFO] INSERT INTO pregunta (texto, opcion_1, opcion_2, opcion_3, opcion_correcta, estado, creador_id, categoria_id, fecha_creacion)
+            VALUES (?, ?, ?, ?, ?, 'pendiente', ?, ?, NOW())
+[15:36:00] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:36:00] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:36:02] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[15:36:02] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:36:02] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:37:40] [INFO] INSERT INTO pregunta (texto, opcion_1, opcion_2, opcion_3, opcion_correcta, estado, creador_id, categoria_id, fecha_creacion)
+            VALUES (?, ?, ?, ?, ?, 'pendiente', ?, ?, NOW())
+[15:37:40] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:37:40] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:37:41] [INFO] UPDATE pregunta SET estado = ? WHERE id = ?
+[15:37:41] [INFO] SELECT id, nombre FROM categoria ORDER BY nombre
+[15:37:41] [INFO] SELECT id, texto, estado FROM pregunta ORDER BY id DESC
+[15:37:52] [INFO] SELECT * FROM categoria
+[15:37:54] [INFO] SELECT * FROM categoria
+[15:37:54] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Arte'
+[15:37:59] [INFO] SELECT * FROM categoria
+[15:38:05] [INFO] SELECT * FROM categoria
+[15:38:05] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Arte'
+[15:38:10] [INFO] SELECT * FROM categoria
+[15:38:18] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'valen' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[15:38:22] [INFO] SELECT * FROM categoria
+[15:38:23] [INFO] SELECT * FROM categoria
+[15:38:23] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Ciencia'
+[15:38:29] [INFO] SELECT * FROM categoria
+[15:41:12] [INFO] SELECT * FROM categoria
+[15:41:14] [INFO] SELECT * FROM categoria
+[15:41:14] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Historia'
+[15:41:27] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:41:28] [INFO] SELECT * FROM categoria
+[15:41:29] [INFO] SELECT * FROM categoria
+[15:41:29] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Deportes'
+[15:41:39] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:41:40] [INFO] SELECT * FROM categoria
+[15:41:42] [INFO] SELECT * FROM categoria
+[15:41:42] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Geografia'
+[15:41:49] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:41:50] [INFO] SELECT * FROM categoria
+[15:41:51] [INFO] SELECT * FROM categoria
+[15:41:51] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Ciencia'
+[15:41:56] [INFO] SELECT * FROM categoria
+[15:42:01] [INFO] SELECT * FROM categoria
+[15:42:01] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Historia'
+[15:42:09] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:42:09] [INFO] SELECT * FROM categoria
+[15:42:11] [INFO] SELECT * FROM categoria
+[15:42:11] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Cine y TV'
+[15:42:18] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:42:18] [INFO] SELECT * FROM categoria
+[15:42:19] [INFO] SELECT * FROM categoria
+[15:42:19] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Ciencia'
+[15:42:24] [INFO] SELECT * FROM categoria
+[15:44:44] [INFO] SELECT * FROM categoria
+[15:44:46] [INFO] SELECT * FROM categoria
+[15:44:46] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Deportes'
+[15:44:53] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:44:54] [INFO] SELECT * FROM categoria
+[15:44:55] [INFO] SELECT * FROM categoria
+[15:44:55] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Deportes'
+[15:45:03] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:45:04] [INFO] SELECT * FROM categoria
+[15:45:05] [INFO] SELECT * FROM categoria
+[15:45:05] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Geografia'
+[15:45:11] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:45:12] [INFO] SELECT * FROM categoria
+[15:45:13] [INFO] SELECT * FROM categoria
+[15:45:13] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Cine y TV'
+[15:45:19] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:45:21] [INFO] SELECT * FROM categoria
+[15:45:22] [INFO] SELECT * FROM categoria
+[15:45:22] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Arte'
+[15:45:27] [INFO] SELECT * FROM categoria
+[15:46:01] [INFO] SELECT * FROM categoria
+[15:46:03] [INFO] SELECT * FROM categoria
+[15:46:03] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Ciencia'
+[15:46:11] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:46:12] [INFO] SELECT * FROM categoria
+[15:46:13] [INFO] SELECT * FROM categoria
+[15:46:13] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Arte'
+[15:46:20] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:46:22] [INFO] SELECT * FROM categoria
+[15:46:24] [INFO] SELECT * FROM categoria
+[15:46:24] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Geografia'
+[15:46:31] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:46:31] [INFO] SELECT * FROM categoria
+[15:46:32] [INFO] SELECT * FROM categoria
+[15:46:32] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Deportes'
+[15:46:41] [INFO] SELECT * FROM categoria
+[15:46:42] [INFO] SELECT * FROM categoria
+[15:46:42] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Cine y TV'
+[15:46:49] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:46:50] [INFO] SELECT * FROM categoria
+[15:46:51] [INFO] SELECT * FROM categoria
+[15:46:51] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Historia'
+[15:47:02] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:47:04] [INFO] SELECT * FROM categoria
+[15:47:06] [INFO] SELECT * FROM categoria
+[15:47:06] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Historia'
+[15:47:15] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[15:47:16] [INFO] SELECT * FROM categoria
+[15:47:17] [INFO] SELECT * FROM categoria
+[15:47:17] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Ciencia'
+[16:16:18] [INFO] SELECT * FROM categoria
+[16:16:19] [INFO] SELECT * FROM categoria
+[16:16:19] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Historia'
+[16:16:28] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[16:16:29] [INFO] SELECT * FROM categoria
+[16:16:29] [INFO] SELECT * FROM categoria
+[16:16:29] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Ciencia'
+[16:16:36] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[16:16:37] [INFO] SELECT * FROM categoria
+[16:16:38] [INFO] SELECT * FROM categoria
+[16:16:38] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Ciencia'
+[16:16:49] [INFO] SELECT * FROM categoria
+[16:16:49] [INFO] SELECT * FROM categoria
+[16:16:49] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Geografia'
+[16:16:58] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[16:16:58] [INFO] SELECT * FROM categoria
+[16:17:00] [INFO] SELECT * FROM categoria
+[16:17:00] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Cine y TV'
+[16:17:07] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[16:17:08] [INFO] SELECT * FROM categoria
+[16:17:11] [INFO] SELECT * FROM categoria
+[16:17:11] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Historia'
+[16:17:19] [INFO] UPDATE usuario
+            SET puntaje = ?
+            WHERE usuario = ?
+              AND (puntaje IS NULL OR puntaje < ?)
+[16:17:20] [INFO] SELECT * FROM categoria
+[16:17:21] [INFO] SELECT * FROM categoria
+[16:17:21] [INFO] SELECT p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+         FROM pregunta p
+         JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa' AND c.nombre = 'Arte'

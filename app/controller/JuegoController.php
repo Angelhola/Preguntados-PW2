@@ -4,6 +4,7 @@ namespace app\controller;
 
 use Redirect;
 use Request;
+
 class JuegoController
 {
     private const SEGUNDOS_PREGUNTA = 20;
@@ -28,6 +29,7 @@ class JuegoController
         }
 
         $this->resolverPerdidaPendiente();
+        unset($_SESSION['pregunta_actual']); // Limpia la pregunta anterior al volver a la ruleta
 
         $data["usuario"] = $_SESSION['usuario'];
         $data["categorias"] = $this->model->getCategorias();
@@ -53,6 +55,7 @@ class JuegoController
         $_SESSION['ultima_pregunta'] = $_SESSION['pregunta_actual']["texto"] ?? null;
         $_SESSION['respondida'] = false;
         $_SESSION['pregunta_inicio'] = null;
+
         header("Content-Type: application/json");
         echo json_encode(["categoria" => $categoria["nombre"]]);
         exit;
@@ -60,6 +63,11 @@ class JuegoController
 
     public function pregunta()
     {
+        // Evita que el navegador guarde la pregunta en caché
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+
         if (!isset($_SESSION['usuario'])) {
             Redirect::to('?controller=login&method=show');
             return;
@@ -72,6 +80,7 @@ class JuegoController
             Redirect::to('?controller=juego&method=ruleta');
             return;
         }
+
         if (empty($_SESSION['pregunta_inicio'])) {
             $_SESSION['pregunta_inicio'] = time();
         }
@@ -87,6 +96,7 @@ class JuegoController
         $data["puntos"] = $_SESSION['puntos'] ?? 0;
         $transcurrido = time() - $_SESSION['pregunta_inicio'];
         $data["restante"] = max(0, self::SEGUNDOS_PREGUNTA - $transcurrido);
+
         $this->render->renderizaArcade("pregunta", $data);
     }
 
@@ -147,13 +157,13 @@ class JuegoController
         }
 
         $_SESSION['vida_extra_pagada'] = self::PRECIO_VIDA_EXTRA;
-
         $_SESSION['vida_extra_usada'] = true;
         unset($_SESSION['perdida_pendiente']);
 
         echo json_encode(["ok" => true]);
         exit;
     }
+
     public function terminar()
     {
         header("Content-Type: application/json");
@@ -175,7 +185,12 @@ class JuegoController
     {
         $this->model->registrarPartida((int) $_SESSION['usuario_id']);
         $_SESSION['puntos'] = 0;
-        unset($_SESSION['perdida_pendiente'], $_SESSION['vida_extra_usada'], $_SESSION['vida_extra_pagada']);
+        unset(
+            $_SESSION['perdida_pendiente'],
+            $_SESSION['vida_extra_usada'],
+            $_SESSION['vida_extra_pagada'],
+            $_SESSION['pregunta_actual']
+        );
     }
 
     public function reportar()
@@ -235,6 +250,4 @@ class JuegoController
     {
         return in_array($_SESSION['rol'] ?? '', ['administrador', 'editor']);
     }
-
-
 }

@@ -137,6 +137,7 @@
                         boton.classList.add("opcion-incorrecta");
                         sonidoIncorrecto();
                         textoFinal = "GAME OVER - HICISTE " + resultado.final + " PUNTOS";
+
                     } else {
                         sonidoTiempoAgotado();
                         textoFinal = "SE ACABÓ EL TIEMPO - HICISTE " + resultado.final + " PUNTOS";
@@ -164,7 +165,11 @@
     if (restante <= 0) {
         responder(-1, null);
     }
-
+    botones.forEach(function (boton) {
+        boton.addEventListener("click", function () {
+            responder(Number(boton.dataset.indice), boton);
+        });
+    });
     // ----- Vida extra -----
 
     function ofrecerContinuar() {
