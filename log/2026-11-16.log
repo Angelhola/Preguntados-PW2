@@ -802,3 +802,79 @@
          WHERE p.estado = 'activa' AND c.nombre = 'Cine y TV'
 [20:23:36] [INFO] SELECT * FROM categoria
 [20:23:38] [INFO] SELECT * FROM categoria
+[20:33:50] [INFO] SELECT id, nombre, color FROM categoria
+[20:33:51] [INFO] INSERT INTO partida (usuario_id, puntaje_obtenido) VALUES (?, 0)
+[20:33:51] [INFO] SELECT LAST_INSERT_ID() AS id
+[20:33:51] [INFO] SELECT id, nombre, color FROM categoria
+[20:33:51] [INFO] SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+             FROM pregunta p
+             JOIN categoria c ON c.id = p.categoria_id
+             WHERE p.estado = 'activa' AND c.nombre = 'Cine y TV'
+[20:34:00] [INFO] INSERT INTO respuesta_partida (partida_id, pregunta_id, es_correcta) VALUES (?, ?, ?)
+[20:34:00] [INFO] UPDATE usuario
+                SET puntaje = COALESCE(puntaje, 0) + ?
+                WHERE usuario = ?
+[20:34:01] [INFO] SELECT id, nombre, color FROM categoria
+[20:34:05] [INFO] SELECT id, nombre, color FROM categoria
+[20:34:05] [INFO] SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+             FROM pregunta p
+             JOIN categoria c ON c.id = p.categoria_id
+             WHERE p.estado = 'activa' AND c.nombre = 'Arte'
+[20:34:13] [INFO] INSERT INTO respuesta_partida (partida_id, pregunta_id, es_correcta) VALUES (?, ?, ?)
+[20:34:15] [INFO] SELECT id, nombre, color FROM categoria
+[20:34:15] [INFO] SELECT id, nombre, color FROM categoria
+[20:34:15] [INFO] SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+             FROM pregunta p
+             JOIN categoria c ON c.id = p.categoria_id
+             WHERE p.estado = 'activa' AND c.nombre = 'Historia'
+[20:34:23] [INFO] INSERT INTO respuesta_partida (partida_id, pregunta_id, es_correcta) VALUES (?, ?, ?)
+[20:34:23] [INFO] UPDATE usuario
+                SET puntaje = COALESCE(puntaje, 0) + ?
+                WHERE usuario = ?
+[20:34:25] [INFO] SELECT id, nombre, color FROM categoria
+[20:34:26] [INFO] SELECT id, nombre, color FROM categoria
+[20:34:28] [INFO] SELECT id, nombre, color FROM categoria
+[20:45:04] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'test' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[20:45:04] [INFO] SELECT COALESCE(NULLIF(TRIM(pais), ''), 'Sin especificar') AS pais,
+                   COUNT(*) AS cantidad
+            FROM usuario
+            WHERE rol = 'jugador' 
+            GROUP BY 1
+            ORDER BY cantidad DESC
+[20:45:04] [INFO] SELECT 
+                CASE LOWER(TRIM(COALESCE(genero, '')))
+                    WHEN 'masculino'  THEN 'Masculino'
+                    WHEN 'femenino'   THEN 'Femenino'
+                    WHEN 'otro'       THEN 'Otro'
+                    WHEN 'sin_opcion' THEN 'Prefiero no decirlo'
+                    WHEN 'seleccion'  THEN 'Sin especificar'
+                    WHEN ''           THEN 'Sin especificar'
+                    ELSE genero
+                END AS genero,
+                COUNT(*) AS cantidad
+            FROM usuario
+            WHERE rol = 'jugador' 
+            GROUP BY 1
+[20:45:04] [INFO] SELECT CASE
+                       WHEN (YEAR(CURDATE()) - anio_nacimiento) < 18 THEN 'Menores'
+                       WHEN (YEAR(CURDATE()) - anio_nacimiento) BETWEEN 18 AND 64 THEN 'Medio'
+                       ELSE 'Jubilados'
+                   END AS grupo,
+                   COUNT(*) AS cantidad
+            FROM usuario
+            WHERE rol = 'jugador' AND anio_nacimiento IS NOT NULL 
+            GROUP BY 1
+[20:45:04] [INFO] SELECT u.usuario AS usuario,
+                       COUNT(*) AS respondidas,
+                       ROUND(SUM(rp.es_correcta) * 100 / COUNT(*), 1) AS porcentaje
+                FROM respuesta_partida rp
+                JOIN partida p ON p.id = rp.partida_id
+                JOIN usuario u ON u.id = p.usuario_id
+                WHERE 1=1 
+                GROUP BY u.id, u.usuario
+                ORDER BY porcentaje DESC
+[20:45:04] [INFO] SELECT COUNT(*) AS total FROM usuario WHERE rol = 'jugador'
+[20:45:04] [INFO] SELECT COUNT(*) AS total FROM partida WHERE 1=1
+[20:45:04] [INFO] SELECT COUNT(*) AS total FROM pregunta WHERE estado = 'activa'
+[20:45:04] [INFO] SELECT COUNT(*) AS total FROM pregunta WHERE creador_id IS NOT NULL
+[20:45:04] [INFO] SELECT COUNT(*) AS total FROM usuario WHERE rol = 'jugador'

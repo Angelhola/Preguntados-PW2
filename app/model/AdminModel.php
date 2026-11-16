@@ -77,12 +77,23 @@ class AdminModel
         return $this->database->queryAll($sql);
     }
 
-    public function getUsuariosPorSexo($periodo = null) {
-        $sql = "SELECT COALESCE(NULLIF(TRIM(genero), ''), 'Sin especificar') AS sexo,
-                   COUNT(*) AS cantidad
+    public function getUsuariosPorSexo($periodo = null)
+    {
+        $sql = "SELECT 
+                CASE LOWER(TRIM(COALESCE(genero, '')))
+                    WHEN 'masculino'  THEN 'Masculino'
+                    WHEN 'femenino'   THEN 'Femenino'
+                    WHEN 'otro'       THEN 'Otro'
+                    WHEN 'sin_opcion' THEN 'Prefiero no decirlo'
+                    WHEN 'seleccion'  THEN 'Sin especificar'
+                    WHEN ''           THEN 'Sin especificar'
+                    ELSE genero
+                END AS genero,
+                COUNT(*) AS cantidad
             FROM usuario
             WHERE rol = 'jugador' " . $this->where('fecha_registro', $periodo) . "
             GROUP BY 1";
+
         return $this->database->queryAll($sql);
     }
     public function getUsuariosPorEdad($periodo = null) {

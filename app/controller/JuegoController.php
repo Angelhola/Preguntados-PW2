@@ -29,7 +29,7 @@ class JuegoController
         }
 
         $this->resolverPerdidaPendiente();
-        unset($_SESSION['pregunta_actual']); // Limpia la pregunta anterior al volver a la ruleta
+        unset($_SESSION['pregunta_actual']);
 
         $data["usuario"] = $_SESSION['usuario'];
         $data["categorias"] = $this->model->getCategorias();
@@ -45,6 +45,9 @@ class JuegoController
         }
 
         $this->resolverPerdidaPendiente();
+        if (empty($_SESSION['partida_id'])) {
+            $_SESSION['partida_id'] = $this->model->crearPartida((int) $_SESSION['usuario_id']);
+        }
 
         $categoria = $this->model->sortearCategoria();
         $_SESSION['categoria_actual'] = $categoria["nombre"];
@@ -63,7 +66,6 @@ class JuegoController
 
     public function pregunta()
     {
-        // Evita que el navegador guarde la pregunta en caché
         header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
         header("Cache-Control: post-check=0, pre-check=0", false);
         header("Pragma: no-cache");
@@ -118,6 +120,14 @@ class JuegoController
         $acerto = !$fueraDeTiempo && $elegida === $pregunta["correcta"];
         $final = $_SESSION['puntos'] ?? 0;
         $puedeContinuar = false;
+
+        if (!empty($_SESSION['partida_id']) && isset($pregunta["id"])) {
+            $this->model->registrarRespuestaPartida(
+                (int) $_SESSION['partida_id'],
+                (int) $pregunta["id"],
+                $acerto
+            );
+        }
 
         if ($acerto) {
             $_SESSION['puntos'] = $final + 1;
@@ -183,9 +193,15 @@ class JuegoController
 
     private function finalizarPartida()
     {
-        $this->model->registrarPartida((int) $_SESSION['usuario_id']);
+        if (!empty($_SESSION['partida_id'])) {
+            $this->model->finalizarPartida(
+                (int) $_SESSION['partida_id'],
+                (int) ($_SESSION['puntos'] ?? 0)
+            );
+        }
         $_SESSION['puntos'] = 0;
         unset(
+            $_SESSION['partida_id'],
             $_SESSION['perdida_pendiente'],
             $_SESSION['vida_extra_usada'],
             $_SESSION['vida_extra_pagada'],
