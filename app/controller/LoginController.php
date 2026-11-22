@@ -182,7 +182,6 @@ class LoginController
     }
     public function verificarDisponibilidad()
     {
-        // Indicamos que la respuesta es un JSON
         header('Content-Type: application/json');
 
         $campo = $_GET['campo'] ?? '';

@@ -127,4 +127,3 @@ INSERT INTO pregunta (texto, opcion_1, opcion_2, opcion_3, opcion_correcta, cate
 
 
 
-

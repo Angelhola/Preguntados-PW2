@@ -1050,3 +1050,57 @@
 [20:59:59] [INFO] SELECT COUNT(*) AS total FROM pregunta WHERE estado = 'activa'
 [20:59:59] [INFO] SELECT COUNT(*) AS total FROM pregunta WHERE creador_id IS NOT NULL
 [20:59:59] [INFO] SELECT COUNT(*) AS total FROM usuario WHERE rol = 'jugador'
+[22:10:07] [INFO] SELECT id, usuario,rol FROM usuario WHERE usuario = 'jerardo' AND password = '81dc9bdb52d04dc20036dbd8313ed055' AND verificado = 1
+[22:10:17] [INFO] SELECT id, usuario AS nombre, COALESCE(puntaje, 0) AS puntos, foto_perfil AS avatar
+        FROM usuario
+        ORDER BY puntos DESC
+        LIMIT 10
+[22:10:23] [INFO] SELECT id, nombre, color FROM categoria
+[22:10:29] [INFO] INSERT INTO partida (usuario_id, puntaje_obtenido) VALUES (?, 0)
+[22:10:29] [INFO] SELECT LAST_INSERT_ID() AS id
+[22:10:29] [INFO] SELECT id, nombre, color FROM categoria
+[22:10:29] [INFO] SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+             FROM pregunta p
+             JOIN categoria c ON c.id = p.categoria_id
+             WHERE p.estado = 'activa' AND c.nombre = 'Arte'
+[22:10:43] [INFO] INSERT INTO respuesta_partida (partida_id, pregunta_id, es_correcta) VALUES (?, ?, ?)
+[22:10:43] [INFO] UPDATE usuario
+                SET puntaje = COALESCE(puntaje, 0) + ?
+                WHERE usuario = ?
+[22:10:44] [INFO] SELECT id, nombre, color FROM categoria
+[22:10:46] [INFO] SELECT id, nombre, color FROM categoria
+[22:10:46] [INFO] SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+             FROM pregunta p
+             JOIN categoria c ON c.id = p.categoria_id
+             WHERE p.estado = 'activa' AND c.nombre = 'Historia'
+[22:10:53] [INFO] INSERT INTO respuesta_partida (partida_id, pregunta_id, es_correcta) VALUES (?, ?, ?)
+[22:11:01] [INFO] SELECT id, nombre, color FROM categoria
+[22:11:03] [INFO] SELECT id, nombre, color FROM categoria
+[22:11:03] [INFO] SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+             FROM pregunta p
+             JOIN categoria c ON c.id = p.categoria_id
+             WHERE p.estado = 'activa' AND c.nombre = 'Geografía'
+[22:11:17] [INFO] INSERT INTO respuesta_partida (partida_id, pregunta_id, es_correcta) VALUES (?, ?, ?)
+[22:11:17] [INFO] UPDATE usuario
+                SET puntaje = COALESCE(puntaje, 0) + ?
+                WHERE usuario = ?
+[22:11:18] [INFO] SELECT id, nombre, color FROM categoria
+[22:11:19] [INFO] SELECT id, nombre, color FROM categoria
+[22:11:19] [INFO] SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+             FROM pregunta p
+             JOIN categoria c ON c.id = p.categoria_id
+             WHERE p.estado = 'activa' AND c.nombre = 'Cine y TV'
+[22:11:26] [INFO] INSERT INTO respuesta_partida (partida_id, pregunta_id, es_correcta) VALUES (?, ?, ?)
+[22:11:26] [INFO] UPDATE usuario
+                SET puntaje = COALESCE(puntaje, 0) + ?
+                WHERE usuario = ?
+[22:11:28] [INFO] SELECT id, nombre, color FROM categoria
+[22:11:30] [INFO] SELECT id, nombre, color FROM categoria
+[22:11:30] [INFO] SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta
+             FROM pregunta p
+             JOIN categoria c ON c.id = p.categoria_id
+             WHERE p.estado = 'activa' AND c.nombre = 'Arte'
+[22:11:37] [INFO] INSERT INTO respuesta_partida (partida_id, pregunta_id, es_correcta) VALUES (?, ?, ?)
+[22:11:37] [INFO] UPDATE partida SET puntaje_obtenido = ? WHERE id = ?
+[22:11:44] [INFO] SELECT * FROM usuario WHERE usuario = 'jerardo'
+[22:11:44] [INFO] SELECT COUNT(*) AS total FROM partida WHERE usuario_id = 3
