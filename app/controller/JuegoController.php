@@ -24,7 +24,7 @@ class JuegoController
     public function ruleta()
     {
         if (!isset($_SESSION['usuario'])) {
-            Redirect::to('?controller=login&method=show');
+            Redirect::to('login/show');
             return;
         }
 
@@ -71,7 +71,7 @@ class JuegoController
         header("Pragma: no-cache");
 
         if (!isset($_SESSION['usuario'])) {
-            Redirect::to('?controller=login&method=show');
+            Redirect::to('login/show');
             return;
         }
 
@@ -79,7 +79,7 @@ class JuegoController
 
         $pregunta = $_SESSION['pregunta_actual'] ?? null;
         if ($pregunta === null || ($_SESSION['respondida'] ?? true)) {
-            Redirect::to('?controller=juego&method=ruleta');
+            Redirect::to('juego/ruleta');
             return;
         }
 
@@ -241,7 +241,7 @@ class JuegoController
     public function reportes()
     {
         if (!$this->esAdmin()) {
-            Redirect::to('?controller=login&method=show');
+            Redirect::to('login/show');
             return;
         }
         $data["preguntas"] = $this->model->getPreguntasReportadas(3);

@@ -25,18 +25,18 @@ class LoginController
         $usuario = $this->model->autenticar(Request::post('usuario'), Request::post('password'));
 
         if ($usuario === null) {
-            Redirect::to('login/show&login_error=1');
+            Redirect::to('login/show?login_error=1');
         }
 
         $_SESSION['usuario_id'] = $usuario['id'];
         $_SESSION['usuario'] = $usuario['usuario'];
         $_SESSION['rol'] = $usuario['rol'] ?? 'jugador';
         if ($_SESSION['rol'] === 'administrador') {
-        Redirect::to('?controller=admin&method=panel');
+        Redirect::to('admin/panel');
     } elseif ($_SESSION['rol'] === 'editor') {
-    Redirect::to('?controller=editor&method=panel');
+    Redirect::to('editor/panel');
     } else {
-        Redirect::to('evento/home'); // O a la ruleta/lobby del jugador
+        Redirect::to('evento/home');
     }
     }
     public function inicio()
@@ -88,7 +88,7 @@ class LoginController
         }
 
         if ($error !== null) {
-            Redirect::to('login/register&error=' . urlencode($error));
+            Redirect::to('login/register?error=' . urlencode($error));
         }
 
         $foto = null;
@@ -103,7 +103,7 @@ class LoginController
 
         $this->model->registrar($usuario, $email, $password, $nombreCompleto,$anio, $genero,  $foto, $ciudad,$pais, $region,$token);
         Mailer::enviarVerificacion($email, $nombreCompleto, $token);
-        Redirect::to('login/show&registrado=1');
+        Redirect::to('login/show?registrado=1');
     }
     public function verificar()
     {

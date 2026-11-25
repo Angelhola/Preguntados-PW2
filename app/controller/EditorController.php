@@ -23,7 +23,7 @@ return;
     }
     public function guardar() {
         if (!isset($_SESSION['rol']) || ($_SESSION['rol'] !== 'editor' && $_SESSION['rol'] !== 'administrador')) {
-            Redirect::to('?controller=login&method=show');
+            Redirect::to('login/show');
             return;
         }
 
@@ -36,12 +36,12 @@ return;
         $categoria_id = (int) Request::post('categoria_id')?: null;
         $this->model->guardarPregunta($texto, $opcion_1, $opcion_2, $opcion_3, $opcion_correcta, $creador_id, $categoria_id);
 
-        Redirect::to('?controller=editor&method=panel');
+        Redirect::to('editor/panel');
     }
 
     public function cambiarEstado() {
         if (!isset($_SESSION['rol']) || ($_SESSION['rol'] !== 'editor' && $_SESSION['rol'] !== 'administrador')) {
-            Redirect::to('?controller=login&method=show');
+            Redirect::to('login/show');
             return;
         }
 
@@ -50,7 +50,7 @@ return;
 
         $this->model->cambiarEstadoPregunta($preguntaId, $nuevoEstado);
 
-        Redirect::to('?controller=editor&method=panel');
+        Redirect::to('editor/panel');
     }
 
     public function ver() {
