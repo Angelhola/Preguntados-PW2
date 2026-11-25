@@ -116,4 +116,60 @@ return;
         exit;
     }
 
+    public function editar()
+    {
+        if (!$this->esModerador()) { Redirect::to('login/show'); return; }
+
+        $pregunta = $this->model->getPregunta(Request::get('id', 0));
+        if ($pregunta === null) { Redirect::to('editor/panel'); return; }
+
+        $categorias = $this->model->getCategorias();
+        foreach ($categorias as &$cat) {
+            $cat['seleccionada'] = ($cat['id'] == $pregunta['categoria_id']);
+        }
+        unset($cat);
+
+        $data = $pregunta;
+        $data["categorias"] = $categorias;
+        $data["usuario"] = $_SESSION['usuario'];
+        $data["error"] = Request::get('error');
+        $this->render->renderizaArcade("editarPregunta", $data);
+    }
+
+    public function actualizar()
+    {
+        if (!$this->esModerador()) { Redirect::to('login/show'); return; }
+
+        $id       = (int) Request::post('id', 0);
+        $texto    = trim((string) Request::post('texto', ''));
+        $op1      = trim((string) Request::post('opcion_1', ''));
+        $op2      = trim((string) Request::post('opcion_2', ''));
+        $op3      = trim((string) Request::post('opcion_3', ''));
+        $correcta = trim((string) Request::post('opcion_correcta', ''));
+        $categoriaId = (int) Request::post('categoria_id', 0) ?: null;
+
+        $actual = $this->model->getPregunta($id);
+        if ($actual === null) { Redirect::to('editor/panel'); return; }
+
+        // Si la nueva correcta coincide con otra opción, se intercambian
+        $otras = [$op1, $op2, $op3];
+        foreach ($otras as $i => $opcion) {
+            if ($correcta !== '' && mb_strtolower($opcion) === mb_strtolower($correcta)) {
+                $otras[$i] = $actual['opcion_correcta'];
+                break;
+            }
+        }
+        [$op1, $op2, $op3] = $otras;
+
+        $todas = [$op1, $op2, $op3, $correcta];
+        $hayRepetidas = count(array_unique(array_map('mb_strtolower', $todas))) < 4;
+
+        if ($texto === '' || in_array('', $todas, true) || $hayRepetidas) {
+            Redirect::to('editor/editar?id=' . $id . '&error=1');
+            return;
+        }
+
+        $this->model->actualizarPregunta($id, $texto, $op1, $op2, $op3, $correcta, $categoriaId);
+        Redirect::to('editor/panel');
+    }
 }

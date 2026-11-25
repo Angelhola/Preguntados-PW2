@@ -48,19 +48,25 @@
                     <td style="padding: 10px;"><a href="editor/ver?id={{id}}" style="color:#fff;">{{texto}}</a></td>
                     <td style="padding: 10px; text-align: center; color: #ffe600;">{{estado}}</td>
                     <td style="padding: 10px; text-align: center;">
-                        <!-- Botón para Aprobar / Activar -->
-                        <form action="editor/cambiarEstado" method="POST" style="display:inline;">
-                            <input type="hidden" name="pregunta_id" value="{{id}}">
-                            <input type="hidden" name="estado" value="activa">
-                            <button type="submit" style="background: #00ff66; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold;">Aprobar</button>
-                        </form>
+                        <!-- Fila 1: Editar -->
+                        <div style="margin-bottom: 6px;">
+                            <a href="editor/editar?id={{id}}" style="background:#ffe600; color:#000; padding:5px 10px; font-weight:bold; font-size:13px; font-family:Arial, sans-serif; text-decoration:none;">Editar</a>
+                        </div>
 
-                        <!-- Botón para Dar de Baja -->
-                        <form action="editor/cambiarEstado" method="POST" style="display:inline; margin-left: 5px;">
-                            <input type="hidden" name="pregunta_id" value="{{id}}">
-                            <input type="hidden" name="estado" value="dada_de_baja">
-                            <button type="submit" style="background: #ff0055; border: none; color: #fff; padding: 5px 10px; cursor: pointer; font-weight: bold;">Baja</button>
-                        </form>
+                        <!-- Fila 2: Aprobar y Baja juntos -->
+                        <div style="white-space: nowrap;">
+                            <form action="editor/cambiarEstado" method="POST" style="display:inline;">
+                                <input type="hidden" name="pregunta_id" value="{{id}}">
+                                <input type="hidden" name="estado" value="activa">
+                                <button type="submit" style="background: #00ff66; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold;">Aprobar</button>
+                            </form>
+
+                            <form action="editor/cambiarEstado" method="POST" style="display:inline; margin-left: 5px;">
+                                <input type="hidden" name="pregunta_id" value="{{id}}">
+                                <input type="hidden" name="estado" value="dada_de_baja">
+                                <button type="submit" style="background: #ff0055; border: none; color: #fff; padding: 5px 10px; cursor: pointer; font-weight: bold;">Baja</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             {{/preguntas}}

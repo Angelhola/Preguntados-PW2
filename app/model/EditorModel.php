@@ -30,7 +30,7 @@ class EditorModel {
         $id = (int) $id;
         return $this->database->queryOne(
             "SELECT p.id, p.texto, p.opcion_1, p.opcion_2, p.opcion_3, p.opcion_correcta, p.estado,
-                p.fecha_creacion, c.nombre AS categoria, u.usuario AS creador
+        p.fecha_creacion, p.categoria_id, c.nombre AS categoria, u.usuario AS creador
          FROM pregunta p
          LEFT JOIN categoria c ON c.id = p.categoria_id
          LEFT JOIN usuario u ON u.id = p.creador_id
@@ -63,5 +63,14 @@ class EditorModel {
             "UPDATE reporte_pregunta SET estado = 'resuelta'
          WHERE pregunta_id = ? AND estado = 'pendiente'", [$preguntaId]);
         return $filas > 0;
+    }
+    public function actualizarPregunta(int $id, string $texto, string $op1, string $op2, string $op3, string $correcta, ?int $categoriaId): void
+    {
+        $this->database->executePrepared(
+            "UPDATE pregunta
+         SET texto = ?, opcion_1 = ?, opcion_2 = ?, opcion_3 = ?, opcion_correcta = ?, categoria_id = ?
+         WHERE id = ?",
+            [$texto, $op1, $op2, $op3, $correcta, $categoriaId, $id]
+        );
     }
 }

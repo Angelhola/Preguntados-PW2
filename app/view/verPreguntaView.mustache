@@ -15,6 +15,7 @@
 <p class="subtitulo-arcade">CREADA POR: {{creador}} &nbsp;|&nbsp; {{fecha_creacion}}</p>
 
 <div style="display:flex; gap:12px; justify-content:center; margin-top:20px;">
+    <a href="editor/editar?id={{id}}" class="boton-arcade" style="text-decoration:none;">EDITAR</a>
     <form action="editor/cambiarEstado" method="POST">
         <input type="hidden" name="pregunta_id" value="{{id}}">
         <input type="hidden" name="estado" value="activa">

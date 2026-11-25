@@ -1,0 +1,45 @@
+<div class="lobby-barra">
+    <span class="subtitulo-arcade" style="margin:0">EDITOR: {{usuario}}</span>
+    <a class="lobby-mini" href="editor/panel">VOLVER</a>
+</div>
+
+<h1 class="titulo-arcade">EDITAR PREGUNTA</h1>
+
+<div style="max-width: 500px; margin: 0 auto; background: rgba(0,0,0,0.5); padding: 20px; border: 4px solid #ffe600;">
+
+    {{#error}}
+        <p class="subtitulo-arcade" style="color:#ff0055">REVISÁ LOS CAMPOS: NO PUEDEN ESTAR VACÍOS NI REPETIDOS</p>
+    {{/error}}
+
+    <form id="formEditar" action="editor/actualizar" method="POST" style="display: flex; flex-direction: column; gap: 12px;">
+        <input type="hidden" name="id" value="{{id}}">
+        <input type="text" name="texto" value="{{texto}}" required style="padding: 10px; font-family: inherit;">
+        <input type="text" name="opcion_1" class="campo-opcion" value="{{opcion_1}}" required style="padding: 10px; font-family: inherit;">
+        <input type="text" name="opcion_2" class="campo-opcion" value="{{opcion_2}}" required style="padding: 10px; font-family: inherit;">
+        <input type="text" name="opcion_3" class="campo-opcion" value="{{opcion_3}}" required style="padding: 10px; font-family: inherit;">
+        <input type="text" name="opcion_correcta" id="campoCorrecta" data-original="{{opcion_correcta}}" value="{{opcion_correcta}}" required style="padding: 10px; font-family: inherit; border: 3px solid #00ff66;">
+        <select name="categoria_id" required style="padding: 10px; font-family: inherit; color: #000; background: #fff;">
+            {{#categorias}}
+                <option value="{{id}}" {{#seleccionada}}selected{{/seleccionada}}>{{nombre}}</option>
+            {{/categorias}}
+        </select>
+        <button type="submit" class="boton-arcade">GUARDAR CAMBIOS</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("formEditar").addEventListener("submit", function (e) {
+        const correcta = document.getElementById("campoCorrecta");
+        const nueva = correcta.value.trim().toLowerCase();
+        const original = correcta.dataset.original.trim().toLowerCase();
+        const otras = Array.from(document.querySelectorAll(".campo-opcion"))
+                .map(function (i) { return i.value.trim().toLowerCase(); });
+
+        // Cambió y no coincide con ninguna opción existente: es un texto nuevo
+        if (nueva !== original && !otras.includes(nueva)) {
+            if (!confirm("La opción correcta ahora es: \"" + correcta.value + "\". ¿Es correcto?")) {
+                e.preventDefault();
+            }
+        }
+    });
+</script>
