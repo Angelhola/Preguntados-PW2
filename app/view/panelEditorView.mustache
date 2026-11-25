@@ -1,6 +1,9 @@
 <div class="lobby-barra">
     <span class="subtitulo-arcade" style="margin:0">EDITOR: {{usuario}}</span>
-    <a class="lobby-mini" href="evento/lobby">VOLVER</a>
+    <div>
+        <a class="lobby-mini" href="editor/reportes">REPORTES <b id="badgeReportes" hidden></b></a>
+        <a class="lobby-mini" href="evento/lobby">VOLVER</a>
+    </div>
 </div>
 
 <h1 class="titulo-arcade">PANEL DE EDITOR</h1>
@@ -64,5 +67,18 @@
             </tbody>
         </table>
     </div>
+    <script>
+        function chequearReportes() {
+            fetch("editor/cantidadReportes")
+                    .then(r => r.json())
+                    .then(function (j) {
+                        const b = document.getElementById("badgeReportes");
+                        b.textContent = "(" + j.cantidad + ")";
+                        b.hidden = j.cantidad === 0;
+                    });
+        }
+        chequearReportes();                    // al cargar
+        setInterval(chequearReportes, 15000);  // y cada 15 s
+    </script>
 
 </div>

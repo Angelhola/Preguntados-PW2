@@ -1,6 +1,6 @@
 <div class="lobby-barra">
-    <span class="subtitulo-arcade" style="margin:0">ADMIN</span>
-    <a class="lobby-mini" href="evento/lobby">VOLVER</a>
+    <span class="subtitulo-arcade" style="margin:0">EDITOR: {{usuario}}</span>
+    <a class="lobby-mini" href="editor/panel">VOLVER</a>
 </div>
 
 <h1 class="titulo-arcade">PREGUNTAS REPORTADAS</h1>
@@ -14,27 +14,38 @@
         <p>{{texto}}</p>
         <span>{{categoria}} - {{reportes}} reportes - Correcta: {{opcion_correcta}}</span>
         <p style="font-size:12px">Motivos: {{motivos}}</p>
-        <button class="boton-arcade btn-baja" data-id="{{id}}">DAR DE BAJA</button>
+        <button class="boton-arcade btn-resolver" data-id="{{id}}" data-accion="bloquear">BLOQUEAR</button>
+        <button class="boton-arcade btn-resolver" data-id="{{id}}" data-accion="descartar">DESCARTAR</button>
     </div>
 {{/preguntas}}
 
 <script>
-    document.querySelectorAll(".btn-baja").forEach(function (boton) {
+    let total = Number("{{total}}");
+
+    document.querySelectorAll(".btn-resolver").forEach(function (boton) {
         boton.addEventListener("click", function () {
-            if (!confirm("¿Dar de baja esta pregunta?")) {
+            const bloquear = boton.dataset.accion === "bloquear";
+            if (!confirm(bloquear ? "¿Bloquear esta pregunta?" : "¿Descartar los reportes y mantenerla?")) {
                 return;
             }
             const datos = new URLSearchParams();
             datos.append("id", boton.dataset.id);
-            fetch("juego/darDeBaja", { method: "POST", body: datos })
-                    .then(function (respuesta) {
-                        return respuesta.json();
-                    })
-                    .then(function (resultado) {
-                        if (resultado.ok) {
-                            document.getElementById("pregunta-" + boton.dataset.id).remove();
-                        }
+            datos.append("accion", boton.dataset.accion);
+            fetch("editor/resolverReporte", { method: "POST", body: datos })
+                    .then(r => r.json())
+                    .then(function (res) {
+                        if (!res.ok) return;
+                        document.getElementById("pregunta-" + boton.dataset.id).remove();
+                        total--;
+                        if (total === 0) location.reload(); // para mostrar el mensaje "no hay preguntas"
                     });
         });
     });
+
+    // Cada 15 s pregunta cuántas hay; si cambió, recarga para mostrar las nuevas
+    setInterval(function () {
+        fetch("editor/cantidadReportes")
+                .then(r => r.json())
+                .then(function (j) { if (j.cantidad !== total) location.reload(); });
+    }, 15000);
 </script>

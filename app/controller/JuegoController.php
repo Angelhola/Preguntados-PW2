@@ -237,33 +237,4 @@ class JuegoController
         ]);
         exit;
     }
-
-    public function reportes()
-    {
-        if (!$this->esAdmin()) {
-            Redirect::to('login/show');
-            return;
-        }
-        $data["preguntas"] = $this->model->getPreguntasReportadas(3);
-        $data["hayPreguntas"] = !empty($data["preguntas"]);
-        $this->render->renderizaArcade("reportes", $data);
-    }
-
-    public function darDeBaja()
-    {
-        header("Content-Type: application/json");
-        if (!$this->esAdmin()) {
-            http_response_code(403);
-            echo json_encode(["ok" => false]);
-            exit;
-        }
-        $id = (int) Request::post('id', 0);
-        echo json_encode(["ok" => $id > 0 && $this->model->darDeBajaPregunta($id)]);
-        exit;
-    }
-
-    private function esAdmin()
-    {
-        return in_array($_SESSION['rol'] ?? '', ['administrador', 'editor']);
-    }
 }

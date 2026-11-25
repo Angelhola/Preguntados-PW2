@@ -37,4 +37,31 @@ class EditorModel {
          WHERE p.id = $id"
         );
     }
+    public function getPreguntasReportadas(int $minimo)
+    {
+        return $this->database->queryAll(
+            "SELECT p.id, p.texto, p.opcion_correcta, c.nombre AS categoria,
+                COUNT(r.id) AS reportes,
+                GROUP_CONCAT(r.motivo SEPARATOR ' | ') AS motivos
+         FROM pregunta p
+         JOIN reporte_pregunta r ON r.pregunta_id = p.id AND r.estado = 'pendiente'
+         LEFT JOIN categoria c ON c.id = p.categoria_id
+         WHERE p.estado = 'activa'
+         GROUP BY p.id, p.texto, p.opcion_correcta, c.nombre
+         HAVING COUNT(r.id) >= $minimo
+         ORDER BY reportes DESC"
+        );
+    }
+
+    public function resolverReportes(int $preguntaId, bool $bloquear): bool
+    {
+        if ($bloquear) {
+            $this->database->executePrepared(
+                "UPDATE pregunta SET estado = 'dada_de_baja' WHERE id = ?", [$preguntaId]);
+        }
+        $filas = $this->database->executePrepared(
+            "UPDATE reporte_pregunta SET estado = 'resuelta'
+         WHERE pregunta_id = ? AND estado = 'pendiente'", [$preguntaId]);
+        return $filas > 0;
+    }
 }

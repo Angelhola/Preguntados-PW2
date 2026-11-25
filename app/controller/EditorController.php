@@ -77,6 +77,43 @@ return;
         $this->render->renderizaArcade("verPregunta", $data);
     }
 
+    private const MINIMO_REPORTES = 1;
 
+    private function esModerador(): bool
+    {
+        return in_array($_SESSION['rol'] ?? '', ['administrador', 'editor']);
+    }
+
+    public function reportes()
+    {
+        if (!$this->esModerador()) { Redirect::to('login/show'); return; }
+        $data["usuario"] = $_SESSION['usuario'];
+        $data["preguntas"] = $this->model->getPreguntasReportadas(self::MINIMO_REPORTES);
+        $data["total"] = count($data["preguntas"]);
+        $data["hayPreguntas"] = $data["total"] > 0;
+        $this->render->renderizaArcade("reportes", $data);
+    }
+
+    public function cantidadReportes()
+    {
+        header("Content-Type: application/json");
+        if (!$this->esModerador()) { http_response_code(403); echo json_encode(["cantidad" => 0]); exit; }
+        echo json_encode(["cantidad" => count($this->model->getPreguntasReportadas(self::MINIMO_REPORTES))]);
+        exit;
+    }
+
+    public function resolverReporte()
+    {
+        header("Content-Type: application/json");
+        if (!$this->esModerador()) { http_response_code(403); echo json_encode(["ok" => false]); exit; }
+
+        $id = (int) Request::post('id', 0);
+        $accion = Request::post('accion', '');
+        if ($id <= 0 || !in_array($accion, ['bloquear', 'descartar'], true)) {
+            http_response_code(400); echo json_encode(["ok" => false]); exit;
+        }
+        echo json_encode(["ok" => $this->model->resolverReportes($id, $accion === 'bloquear')]);
+        exit;
+    }
 
 }
