@@ -1065,3 +1065,37 @@ body {
         padding-top: 8px;
     }
 }
+
+.paginacion {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.pag-btn {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 8px 12px;
+    background: #000;
+    color: #00e5ff;
+    border: 2px solid #00e5ff;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 #ff2e7e;
+}
+.pag-btn:hover {
+    background: #00e5ff;
+    color: #000;
+}
+.pag-activa {
+    background: #ffe600;
+    color: #000;
+    border-color: #ffe600;
+    pointer-events: none;
+}
+.pag-info {
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    margin: 10px 0 0;
+}

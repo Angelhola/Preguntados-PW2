@@ -73,4 +73,15 @@ class EditorModel {
             [$texto, $op1, $op2, $op3, $correcta, $categoriaId, $id]
         );
     }
+
+    public function getPreguntasPaginadas(int $limite, int $offset) {
+        return $this->database->queryAll(
+            "SELECT id, texto, estado FROM pregunta ORDER BY id DESC LIMIT $limite OFFSET $offset"
+        );
+    }
+
+    public function contarPreguntas(): int {
+        $fila = $this->database->queryOne("SELECT COUNT(*) AS total FROM pregunta");
+        return (int) $fila['total'];
+    }
 }

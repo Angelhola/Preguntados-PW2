@@ -11,14 +11,39 @@ class EditorController{
         $this->render= $render;
     }
 
+    private const PREGUNTAS_POR_PAGINA = 9;
+
     public function panel() {
         if(!isset($_SESSION['rol'])||($_SESSION['rol']!="administrador")&&($_SESSION['rol']!="editor")){
             \Redirect::to('login/show');
-return;
+            return;
         }
+
+        $total = $this->model->contarPreguntas();
+        $totalPaginas = max(1, (int) ceil($total / self::PREGUNTAS_POR_PAGINA));
+        $pagina = max(1, min((int) Request::get('pagina', 1), $totalPaginas));
+        $offset = ($pagina - 1) * self::PREGUNTAS_POR_PAGINA;
+
+        // Ventana de páginas: la actual ±2
+        $paginas = [];
+        for ($i = max(1, $pagina - 2); $i <= min($totalPaginas, $pagina + 2); $i++) {
+            $paginas[] = ['numero' => $i, 'activa' => $i === $pagina];
+        }
+
         $data["usuario"] = $_SESSION['usuario'];
         $data["categorias"] = $this->model->getCategorias();
-        $data["preguntas"] = $this->model->getTodasLasPreguntas();
+        $data["preguntas"] = $this->model->getPreguntasPaginadas(self::PREGUNTAS_POR_PAGINA, $offset);
+
+        $data["pagina"] = $pagina;
+        $data["paginas"] = $paginas;
+        $data["hayPaginacion"] = $totalPaginas > 1;
+        $data["hayAnterior"] = $pagina > 1;
+        $data["haySiguiente"] = $pagina < $totalPaginas;
+        $data["paginaAnterior"] = $pagina - 1;
+        $data["paginaSiguiente"] = $pagina + 1;
+        $data["ultimaPagina"] = $totalPaginas;
+        $data["textoPagina"] = "Página $pagina de $totalPaginas";
+
         $this->render->renderizaArcade("panelEditor", $data);
     }
     public function guardar() {
@@ -47,10 +72,11 @@ return;
 
         $preguntaId = Request::post('pregunta_id');
         $nuevoEstado = Request::post('estado'); // 'activa', 'dada_de_baja'
+        $pagina = max(1, (int) Request::post('pagina', 1));
 
         $this->model->cambiarEstadoPregunta($preguntaId, $nuevoEstado);
 
-        Redirect::to('editor/panel');
+        Redirect::to('editor/panel?pagina=' . $pagina);
     }
 
     public function ver() {
