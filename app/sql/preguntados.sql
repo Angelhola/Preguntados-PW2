@@ -73,6 +73,17 @@ CREATE TABLE IF NOT EXISTS categoria (
                                          nombre VARCHAR(50) NOT NULL UNIQUE,
                                          color VARCHAR(20) DEFAULT '#ffffff'
 );
+
+CREATE TABLE pregunta_respondida (
+                                     usuario_id  INT NOT NULL,
+                                     pregunta_id INT NOT NULL,
+                                     fecha       DATETIME DEFAULT CURRENT_TIMESTAMP,
+                                     PRIMARY KEY (usuario_id, pregunta_id),
+                                     FOREIGN KEY (usuario_id)  REFERENCES usuario(id),
+                                     FOREIGN KEY (pregunta_id) REFERENCES pregunta(id)
+);
+
+SELECT * FROM pregunta_respondida;
 ALTER TABLE pregunta
     ADD COLUMN categoria_id INT,
     ADD FOREIGN KEY (categoria_id) REFERENCES categoria(id);

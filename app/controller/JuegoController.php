@@ -49,13 +49,21 @@ class JuegoController
             $_SESSION['partida_id'] = $this->model->crearPartida((int) $_SESSION['usuario_id']);
         }
 
+        $usuarioId = (int) $_SESSION['usuario_id'];
+
         $categoria = $this->model->sortearCategoria();
         $_SESSION['categoria_actual'] = $categoria["nombre"];
         $_SESSION['pregunta_actual'] = $this->model->getPreguntaAleatoria(
             $categoria["nombre"],
+            $usuarioId,
             $_SESSION['ultima_pregunta'] ?? null
         );
         $_SESSION['ultima_pregunta'] = $_SESSION['pregunta_actual']["texto"] ?? null;
+
+        if (!empty($_SESSION['pregunta_actual']["id"])) {
+            $this->model->marcarComoVista($usuarioId, (int) $_SESSION['pregunta_actual']["id"]);
+        }
+
         $_SESSION['respondida'] = false;
         $_SESSION['pregunta_inicio'] = null;
 
